@@ -3,11 +3,16 @@ import { useNavigate } from "react-router-dom";
 import AuthForm from "../AuthForm";
 import { SignupContainer, AsideContainer, FormContainer } from "./styles";
 
+import { loginSchema } from "../../schemas/authSchemas";
+
 const LoginPage = () => {
-    const state = useState(null)
+    const state = useState({})
     const navigate = useNavigate()
 
     const onSubmit = () => {
+        const validation = loginSchema.validate(state[0])
+        if(validation.error)
+            return alert(validation.error.message)
         console.log(state[0])
         navigate('/timeline')
     }

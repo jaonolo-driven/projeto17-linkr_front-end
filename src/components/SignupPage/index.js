@@ -20,7 +20,8 @@ const SignupPage = () => {
             navigate('/')
         } catch (error) {
             const {response} = error
-            if(response.status === 409) alert(`ERRO: ${response.data.constraint.split('_')[1]} já está em uso`)
+            const fieldNotFilled = response.data.constraint.split('_')[1]
+            if(response.status === 409) alert(`ERRO: ${fieldNotFilled} já está em uso`)
             else alert(error)
         }
     }

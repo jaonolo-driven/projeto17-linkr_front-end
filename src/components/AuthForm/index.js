@@ -20,11 +20,14 @@ const AuthForm = ({state, options, onSubmit}) => {
     })
 
     return <StyledForm onSubmit={submitHandler}>
-        {options.inputs.map(e => <input key={`${e.key}-input`}
-            type='text'
-            onChange={changeHandler(e.key)}
-            placeholder={e.text}
-        />)}
+        {options.inputs.map(e => 
+            <input key={`${e.key}-input`}
+                type={e.key === 'password' ? 'password' : 'text'}
+                onChange={changeHandler(e.key)}
+                placeholder={e.text}
+                required
+            />
+        )}
         <button disabled={disabled} type="submit">
             {options.submitButtonText}
         </button>

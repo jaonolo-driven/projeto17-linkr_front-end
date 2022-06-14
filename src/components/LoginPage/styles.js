@@ -18,13 +18,13 @@ export const AsideContainer = styled.aside`
     flex-grow: 1;
     justify-content: center;
 
-    font-family: var(--custom-font);
+    font-family: var(--subtitle-font);
     font-weight: 700;
     font-size: 43px;
     color: white;
 
     h1 {
-        font-family: var(--accent-font);
+        font-family: var(--title-font);
         font-size: 106px;
     }
 

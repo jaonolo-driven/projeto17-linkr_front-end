@@ -5,8 +5,8 @@ const AppContainer = styled.main`
 
   --darker-grey: #151515;
   --lighter-grey: #333333;
-  --accent-font: 'Passion One', cursive;
-  --custom-font: 'Oswald', sans-serif;
+  --title-font: 'Passion One', cursive;
+  --subtitle-font: 'Oswald', sans-serif;
 
   background-color: var(--lighter-grey);
   height: 100vh;

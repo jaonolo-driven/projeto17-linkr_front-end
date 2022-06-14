@@ -18,12 +18,14 @@ const LoginPage = () => {
             return alert(validation.error.message)
         
         try {
-            const response = await axios.post(process.env.REACT_APP_API_URL, state[0])
-            setUser(response.data.token)
-            localStorage.setItem('user', JSON.stringify(response.data.token))
+            const response = await axios.post(process.env.REACT_APP_API_URL + '/login', state[0])
+            localStorage.setItem('user', JSON.stringify(response.data))
+            setUser(response.data)
             navigate('/timeline')
         } catch (error) {
-            alert(error)
+            const {response} = error
+            if(response.status === 401) alert(`ERRO: email não cadastrado ou senha incorreta`)
+            else alert(error)
         }
     }
 

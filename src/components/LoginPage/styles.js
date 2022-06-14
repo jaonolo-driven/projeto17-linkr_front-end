@@ -5,6 +5,10 @@ export const SignupContainer = styled.div`
     height: 100%;
     justify-content: center;
     align-items: center;
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+    }
 `
 
 export const AsideContainer = styled.aside`
@@ -30,7 +34,23 @@ export const AsideContainer = styled.aside`
     }
 
     background-color: var(--darker-grey);
-    padding: 0 144px
+    padding: 0 144px;
+
+    @media screen and (max-width: 1000px) {
+        align-items: center;
+        flex-grow: 0;
+        width: 100%;
+        height: 175px;
+        font-size: 23px;
+
+        h1 {
+            font-size: 76px;
+        }
+
+        p {
+            max-width: 450px;
+        }
+    }
 `
 
 export const FormContainer = styled.div`
@@ -39,4 +59,8 @@ export const FormContainer = styled.div`
     padding: 0 50px;
     display: flex;
     align-items: center;
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+    }
 `

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../AuthForm";
@@ -9,12 +10,19 @@ const SignupPage = () => {
     const state = useState({})
     const navigate = useNavigate()
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         const validation = signupSchema.validate(state[0])
         if(validation.error)
             return alert(validation.error.message)
-        console.log(state[0])
-        navigate('/')
+        
+        try {
+            await axios.post(process.env.REACT_APP_API_URL + '/signup', state[0])
+            navigate('/')
+        } catch (error) {
+            const {response} = error
+            if(response.status === 409) alert(`ERRO: ${response.data.constraint.split('_')[1]} já está em uso`)
+            else alert(error)
+        }
     }
 
     const inputs = [

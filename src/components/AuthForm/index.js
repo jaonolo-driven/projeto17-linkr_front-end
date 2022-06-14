@@ -1,12 +1,16 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { StyledForm } from "./styles"
 
 const AuthForm = ({state, options, onSubmit}) => {
     const [data, setData] = state
+    const [disabled, setDisabled] = useState(false)
 
     const submitHandler = event => {
         event.preventDefault()
+        setDisabled(true)
         onSubmit()
+        setDisabled(false)
     }
 
     const changeHandler = key => (({target}) => {
@@ -21,7 +25,7 @@ const AuthForm = ({state, options, onSubmit}) => {
             onChange={changeHandler(e.key)}
             placeholder={e.text}
         />)}
-        <button type="submit">
+        <button disabled={disabled} type="submit">
             {options.submitButtonText}
         </button>
         <Link to={options.auxPageLink}>

@@ -1,17 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthForm from "../AuthForm";
 import { SignupContainer, AsideContainer, FormContainer } from "./styles";
 
 const SignupPage = () => {
     const state = useState(null)
+    const navigate = useNavigate()
 
     const onSubmit = () => {
         console.log(state[0])
+        navigate('/')
     }
 
     const inputs = [
-        {key: 'oi', text: 'oi'},
-        {key: 'oi2', text: 'oi'}
+        {key: 'email', text: 'e-mail'},
+        {key: 'password', text: 'password'},
+        {key: 'username', text: 'username'},
+        {key: 'pictureUrl', text: 'picture url'}
     ]
 
     return <SignupContainer>
@@ -24,9 +29,9 @@ const SignupPage = () => {
                 state={state}
                 options={{
                     inputs: inputs,
-                    submitButtonText: 'oi',
-                    auxPageLink: '/oi',
-                    auxPageLinkText: 'tchau'
+                    submitButtonText: 'Sign Up',
+                    auxPageLink: '/',
+                    auxPageLinkText: 'Switch back to log in'
                 }}
                 onSubmit={onSubmit}
             />

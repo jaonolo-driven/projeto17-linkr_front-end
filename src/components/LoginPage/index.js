@@ -1,5 +1,7 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 import AuthForm from "../AuthForm";
 import { SignupContainer, AsideContainer, FormContainer } from "./styles";
 
@@ -7,14 +9,22 @@ import { loginSchema } from "../../schemas/authSchemas";
 
 const LoginPage = () => {
     const state = useState({})
+    const [user, setUser] = useContext(UserContext)
     const navigate = useNavigate()
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         const validation = loginSchema.validate(state[0])
         if(validation.error)
             return alert(validation.error.message)
-        console.log(state[0])
-        navigate('/timeline')
+        
+        try {
+            const response = await axios.post(process.env.REACT_APP_API_URL, state[0])
+            setUser(response.data.token)
+            localStorage.setItem('user', JSON.stringify(response.data.token))
+            navigate('/timeline')
+        } catch (error) {
+            alert(error)
+        }
     }
 
     const inputs = [

@@ -9,15 +9,15 @@ export default function TimeLine(props){
     const [animacao, setAnimacao] = React.useState(false)
     const {userState} = React.useContext(UserContext)
 
-    // React.useEffect( () => {
-    //     const config = {headers: { authorization: `Bearer ${userState.token}`}}
-    //     const URL = process.env.REACT_APP_API_URL
-    //     setAnimacao(true)
-    //     const promise = axios.get(URL, config)
-    //     promise.then( (response) => {   setPostsList(...postsList, response.data)
-    //                                     setAnimacao(false) } )
-    //     promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
-    // ,[])
+    React.useEffect( () => {
+        const config = {headers: { authorization: `Bearer ${userState.token}`}}
+        const URL = process.env.REACT_APP_API_URL+'/timeline'
+        setAnimacao(true)
+        const promise = axios.get(URL, config)
+        promise.then( (response) => {   setPostsList(...postsList, response.data)
+                                        setAnimacao(false) } )
+        promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
+    ,[])
 
     function CreateMyPost(){
         return(

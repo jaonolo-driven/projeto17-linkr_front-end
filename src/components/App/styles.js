@@ -5,6 +5,7 @@ const AppContainer = styled.main`
 
   --darker-grey: #151515;
   --lighter-grey: #333333;
+  --line-grey: #484848;
   --title-font: 'Passion One', cursive;
   --subtitle-font: 'Oswald', sans-serif;
 

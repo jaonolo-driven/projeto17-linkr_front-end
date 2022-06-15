@@ -1,11 +1,24 @@
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 
 export default function PostForm(){
     const token = JSON.parse(localStorage.getItem('user'))
     const [link, setLink] = useState('')
     const [message, setMessage] = useState('')
+    const [avatar, setAvatar] = useState('')
+
+    useEffect(() => {
+        const promise = axios.get(`${process.env.REACT_APP_API_URL}/user`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        promise.then(response => {
+            setAvatar(response.data.profilePicture)
+        }).catch(e => console.log(e.data))
+    },[])
 
     function publish(e){
         e.preventDefault()
@@ -28,7 +41,7 @@ export default function PostForm(){
 
     return(
         <Section>
-            <Photo src="https://sempreinter.com/wp-content/uploads/2020/07/griezmann-7-scaled-e1593770577946.jpg" />
+            <Photo src={avatar} />
             <Form onSubmit={publish}>
                 <Title>What are you going to share toady?</Title>
                 <Input  type='text'

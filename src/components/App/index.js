@@ -6,7 +6,6 @@ import LoginPage from '../LoginPage';
 import UserContext from '../../contexts/UserContext.js';
 import { useState } from 'react';
 import AuthRoutesController from '../AuthRoutesController/index.js';
-import Timeline from '../Timeline/index.jsx';
 
 function App() {
   const userState = useState(JSON.parse(localStorage.getItem("user")))
@@ -21,7 +20,6 @@ function App() {
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
-            <Route path='/timeline' element={<Timeline/>}/>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
           </Route>
         </Routes>

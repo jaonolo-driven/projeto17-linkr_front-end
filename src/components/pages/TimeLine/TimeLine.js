@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import UserContext from "../../../contexts/UserContext";
+import PostForm from "../../PostForm";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
@@ -19,11 +20,6 @@ export default function TimeLine(props){
         promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
     ,[])
 
-    function CreateMyPost(){
-        return(
-            <CreatePost> CREAR POST</CreatePost>
-        )
-    }
     function CreateSideBar(){
         return(
             <SideBar> SIDE BAR </SideBar>
@@ -59,7 +55,7 @@ export default function TimeLine(props){
                 <Title> {titleTimeLine} </Title>
                 <MainContent> 
                     <Center>
-                        {myPost ? <CreateMyPost/> : <></>}
+                        {myPost ? <PostForm/> : <></>}
                         {postsList.map( (post) => <Post> AQUI E UM POST </Post> )}
                     </Center>
                     { sideBar ? <CreateSideBar/> : <></>}

@@ -2,11 +2,14 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
+import ListPosts from "../ListPosts";
+
 export default function PostForm(){
     const token = JSON.parse(localStorage.getItem('user'))
     const [link, setLink] = useState('')
     const [message, setMessage] = useState('')
     const [avatar, setAvatar] = useState('')
+    const [disable, setDisable] = useState(false)
 
     useEffect(() => {
         const promise = axios.get(`${process.env.REACT_APP_API_URL}/user`,
@@ -22,6 +25,7 @@ export default function PostForm(){
 
     function publish(e){
         e.preventDefault()
+        setDisable(true)
         const promise = axios.post(`${process.env.REACT_APP_API_URL}/newpost`,{
             link: link,
             message: message
@@ -34,32 +38,39 @@ export default function PostForm(){
         promise.then(response => {
             setLink('')
             setMessage('')
+            setDisable(false)
             console.log(response.data)
         })
-        promise.catch(e => console.log(e.data))
+        promise.catch(e => {
+            setDisable(false)
+            alert(e.response.data.message)
+        })
     }
 
     return(
-        <Section>
-            <Photo src={avatar} />
-            <Form onSubmit={publish}>
-                <Title>What are you going to share toady?</Title>
-                <Input  type='text'
-                        placeholder="http://..."
-                        value={link}
-                        onChange={e => setLink(e.target.value)}
-                        required/>
+        <>
+            <Section>
+                <Photo src={avatar} />
+                <Form onSubmit={publish}>
+                    <Title>What are you going to share toady?</Title>
+                    <Input  type='text'
+                            placeholder="http://..."
+                            value={link}
+                            onChange={e => setLink(e.target.value)}
+                            disabled={disable}
+                            required/>
 
-                <Input  type='text'
-                        placeholder="Descrição"
-                        value={message}
-                        onChange={e => setMessage(e.target.value)}
-                        required
-                        height={"50px"}/>
+                    <Input  type='text'
+                            placeholder="Descrição"
+                            value={message}
+                            onChange={e => setMessage(e.target.value)}
+                            disabled={disable}
+                            height={"50px"}/>
 
-                <Button type="submit">Publish</Button>
-            </Form>
-        </Section>
+                    <Button type="submit" disabled={disable}>{disable ? 'Publishing...' : 'Publish'}</Button>
+                </Form>
+            </Section>
+        </>
     )
 }
 
@@ -103,7 +114,6 @@ const Input = styled.input`
 const Button = styled.button`
    display: flex;
    justify-content: center;
-   //margin-left: 68%;
    width: 70px; 
    color: #FFFFFF;
    background: #006eff;

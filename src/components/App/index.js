@@ -18,9 +18,9 @@ function App() {
           <Route element={<AuthRoutesController needsUser={false}/>}>
             <Route path='/sign-up' element={<SignupPage/>}/>
             <Route path='/' element={<LoginPage/>}/>
-            <Route path='/timeline' element={ <TimeLine myPost = {`existo`}
+            <Route path='/timeline' element={ <TimeLine myPost = {'crear compomente'}
                                                         sideBar = {`existe`} 
-                                                        titleTimeLine = {`TIMELINE`} /> }/>
+                                                        titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>

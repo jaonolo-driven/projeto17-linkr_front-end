@@ -2,28 +2,25 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import UserContext from "../../../contexts/UserContext";
+import PostForm from "../../PostForm";
+import Header from "../../Header";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
-    const [postsList, setPostsList] = React.useState([])
+    const [postsList, setPostsList] = React.useState([1,2,3,4,5,6])
     const [animacao, setAnimacao] = React.useState(false)
     const {userState} = React.useContext(UserContext)
 
-    React.useEffect( () => {
-        const config = {headers: { authorization: `Bearer ${userState.token}`}}
-        const URL = process.env.REACT_APP_API_URL+'/timeline'
-        setAnimacao(true)
-        const promise = axios.get(URL, config)
-        promise.then( (response) => {   setPostsList(...postsList, response.data)
-                                        setAnimacao(false) } )
-        promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
-    ,[])
+    // React.useEffect( () => {
+    //     const config = {headers: { authorization: `Bearer ${userState.token}`}}
+    //     const URL = process.env.REACT_APP_API_URL+'/timeline'
+    //     setAnimacao(true)
+    //     const promise = axios.get(URL, config)
+    //     promise.then( (response) => {   setPostsList(...postsList, response.data)
+    //                                     setAnimacao(false) } )
+    //     promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
+    // ,[])
 
-    function CreateMyPost(){
-        return(
-            <CreatePost> CREAR POST</CreatePost>
-        )
-    }
     function CreateSideBar(){
         return(
             <SideBar> SIDE BAR </SideBar>
@@ -41,7 +38,7 @@ export default function TimeLine(props){
         if(animacao){
             return(
                 <>
-                <header> Header </header>
+                <Header/>
                 <Title> {titleTimeLine} </Title>
                 <MainContent> 
                     <Center>
@@ -51,28 +48,32 @@ export default function TimeLine(props){
             </>)
         }
 
-        
         else{
             return(
-            <>
-                <header> Header </header>
+            <TimelineHTML>
+                <Header/>
                 <Title> {titleTimeLine} </Title>
                 <MainContent> 
                     <Center>
-                        {myPost ? <CreateMyPost/> : <></>}
+                        {myPost ? <PostForm/> : <></>}
                         {postsList.map( (post) => <Post> AQUI E UM POST </Post> )}
                     </Center>
                     { sideBar ? <CreateSideBar/> : <></>}
                 </MainContent>
-            </>
+            </TimelineHTML>
             );
         }
     }
 }
 
+const TimelineHTML = styled.div`
+    height: 100%;
+    overflow: scroll;
+`;
+
 const Title = styled.h1`
     display: flex;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 50px;
     margin-left: 3%;
     color: #fff;

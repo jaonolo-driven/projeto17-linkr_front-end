@@ -2,8 +2,6 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-import ListPosts from "../ListPosts";
-
 export default function PostForm(){
     const token = JSON.parse(localStorage.getItem('user'))
     const [link, setLink] = useState('')

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../../contexts/UserContext";
-import AuthForm from "../AuthForm";
+import UserContext from "../../../contexts/UserContext";
+import AuthForm from "../../AuthForm";
 import { SignupContainer, AsideContainer, FormContainer } from "./styles";
 
-import { loginSchema } from "../../schemas/authSchemas";
+import { loginSchema } from "../../../schemas/authSchemas";
 
 const LoginPage = () => {
     const state = useState({})

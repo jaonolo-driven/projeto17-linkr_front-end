@@ -70,8 +70,6 @@ export default function PostForm(){
                     <Button type="submit" disabled={disable}>{disable ? 'Publishing...' : 'Publish'}</Button>
                 </Form>
             </Section>
-
-            <ListPosts updateList={disable}/>
         </>
     )
 }

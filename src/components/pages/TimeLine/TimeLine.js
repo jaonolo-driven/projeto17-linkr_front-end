@@ -5,7 +5,7 @@ import UserContext from "../../../contexts/UserContext";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
-    const [postsList, setPostsList] = React.useState([1,2,3,4,5,6,7])
+    const [postsList, setPostsList] = React.useState([])
     const [animacao, setAnimacao] = React.useState(false)
     const {userState} = React.useContext(UserContext)
 
@@ -50,6 +50,8 @@ export default function TimeLine(props){
                 </MainContent>
             </>)
         }
+
+        
         else{
             return(
             <>

@@ -19,11 +19,11 @@ function App() {
           <Route element={<AuthRoutesController needsUser={false}/>}>
             <Route path='/sign-up' element={<SignupPage/>}/>
             <Route path='/' element={<LoginPage/>}/>
-            <Route path='/user/1' element={ <PostsByUser myPost = {`existo`} sideBar = {`existe`}/> }/>
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
+          <Route path='/user/:id' element={ <PostsByUser myPost = {`existo`} sideBar = {`existe`}/> }/>
           </Route>
         </Routes>
       </BrowserRouter>

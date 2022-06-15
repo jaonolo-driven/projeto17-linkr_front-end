@@ -1,11 +1,20 @@
 import styled from 'styled-components';
 
+export const Container = styled.main`
+    hight: 100%;
+    overflow: scroll;
+    background-color: var(--lighter-grey);
+`
+
 export const Title = styled.h1`
     display: flex;
-    margin-top: 100px;
-    margin-bottom: 50px;
+    margin-top: 5%;
+    margin-bottom: 5%;
     margin-left: 3%;
     color: #fff;
+    font-family: var(--subtitle-font);
+    font-weight: 700;
+    font-size: 43px;
     `;
 
 export const MainContent = styled.main`
@@ -43,7 +52,7 @@ export const Post = styled.div`
     margin-bottom: 30px;
     border-radius: 16px;
     display: flex;
-    font-family: var(--subtitle-font);
+    font-family: var(--default-font);
     color: #FFFFFF;
 `;
 
@@ -59,7 +68,7 @@ export const SideBar = styled.aside`
     border-radius: 16px;
 
     flex-direction: column;
-    font-family: var(--subtitle-font);
+    font-family: var(--default-font);
     color: #FFFFFF;
 
     h3 {
@@ -82,16 +91,41 @@ export const Photo = styled.img`
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-rigth: 10px;
 `
 
 export const SubHeaderContainer = styled.div`
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: flex-start;
+    margin-left: 14.5%;
+
 `
 
 export const PostAside = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
+    padding: 3%;
+`
+
+export const SubPostAside = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30%;
+
+    ion-icon {
+        font-size: 17px;
+        color: #FFFFFF;
+    }
+`
+
+export const PostContent = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    span {
+        color: tomato;
+    }
 `

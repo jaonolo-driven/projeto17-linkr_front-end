@@ -1,49 +1,56 @@
 import { useEffect, useState, useContext } from "react";
-import styled from "styled-components";
 import axios from "axios";
-import UserContext from "../../contexts/UserContext.js";
+import ReactHashtag from "react-hashtag";
 
 import { Title, MainContent, Center, CreatePost, Post, SideBar, Photo, SubHeaderContainer,
-        PostAside, SideBarLine } from "./styles";
+        PostAside, SideBarLine, SubPostAside, PostContent, Container } from "./styles";
 
 export default function PostsByUser(props){
     const { myPost, sideBar } = props
     const [postsList, setPostsList] = useState([])
     const [animacao, setAnimacao] = useState(false)
-    const {userState} = useContext(UserContext)
-/*     useEffect( () => {
-        const config = {headers: { authorization: `Bearer ${userState.token}`}}
-        const URL = process.env.REACT_APP_API_URL+'/timeline'
+    const token = JSON.parse(localStorage.getItem('user'))
+    // Só para testar a URL
+    let id = 2;
+    
+    useEffect( () => {
+        const config = {headers: { authorization: `Bearer ${token}`}}
+        const URL = process.env.REACT_APP_API_URL+'/user/'+id;
         setAnimacao(true)
         const promise = axios.get(URL, config)
         promise.then( (response) => {   setPostsList(...postsList, response.data)
                                         setAnimacao(false) } )
-        promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
-    ,[]) */
+        promise.catch( (error) => console.log('Error Get PostsByUser: ', error))   } 
+    ,[]) 
 
-    useEffect( () => {
+/*     useEffect( () => {
         //const config = {headers: { authorization: `Bearer ${userState.token}`}}
         const URL = "http://localhost:5000/user/1"
         setAnimacao(true)
         const promise = axios.get(URL)
-        promise.then( (response) => { setPostsList(response.data)
+        promise.then( (response) => { setPostsList(...postsList, response.data)
                                         setAnimacao(false) } )
         promise.catch( (error) => console.log('Error Get PostsByUser: ', error))   } 
     ,[])
 
-console.log(postsList)
+console.log(postsList) */
 
     function CreateMyPost(){
         return(
             <CreatePost> 
                 {postsList.postsInfo.map( (post) => 
                 <Post> 
-                    <PostAside><Photo src={postsList.profilePicture} />
+                    <PostAside>
+                    <Photo src={postsList.profilePicture} />
+                    <SubPostAside>
                         <ion-icon name="heart-outline"></ion-icon>
                         {post.likes} likes 
+                    </SubPostAside>
                     </PostAside>
-                        {postsList.userName} 
-                        {post.message}
+                    <PostContent>
+                        <h3>{postsList.userName}</h3> 
+                        <p><ReactHashtag>{post.message}</ReactHashtag></p>
+                    </PostContent>
                         </Post> )}
             </CreatePost>
         )
@@ -54,7 +61,7 @@ console.log(postsList)
                 <h3>trending</h3>
                 <SideBarLine/>
                 {postsList.allHashtagsInfo.map( (hashtag) => 
-                <p>{hashtag.tag}</p>)}
+                <p># {hashtag.tag.split("#")[1]}</p>)}
             </SideBar>
         )
     }
@@ -69,20 +76,23 @@ console.log(postsList)
     else{
         if(animacao){
             return(
-                <>
+                <Container>
                 <header> Header </header>
+                <SubHeaderContainer>
                 <Photo src={postsList.profilePicture} />
                 <Title> {`${postsList.userName}'s posts`} </Title>
+                </SubHeaderContainer>
                 <MainContent> 
                     <Center>
                     <p>Carregando...</p>
                     </Center>
                 </MainContent>
-            </>)
+
+            </Container>)
         }
         else{
             return(
-            <>
+                <Container>
                 <header> Header </header>
                 <SubHeaderContainer>
                 <Photo src={postsList.profilePicture} />
@@ -94,7 +104,7 @@ console.log(postsList)
                     </Center>
                     { sideBar ? <CreateSideBar/> : <></>}
                 </MainContent>
-            </>
+            </Container>
             );
         }
     }

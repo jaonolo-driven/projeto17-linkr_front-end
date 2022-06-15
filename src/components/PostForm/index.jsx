@@ -2,6 +2,8 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
+import ListPosts from "../ListPosts";
+
 export default function PostForm(){
     const token = JSON.parse(localStorage.getItem('user'))
     const [link, setLink] = useState('')
@@ -46,27 +48,31 @@ export default function PostForm(){
     }
 
     return(
-        <Section>
-            <Photo src={avatar} />
-            <Form onSubmit={publish}>
-                <Title>What are you going to share toady?</Title>
-                <Input  type='text'
-                        placeholder="http://..."
-                        value={link}
-                        onChange={e => setLink(e.target.value)}
-                        disabled={disable}
-                        required/>
+        <>
+            <Section>
+                <Photo src={avatar} />
+                <Form onSubmit={publish}>
+                    <Title>What are you going to share toady?</Title>
+                    <Input  type='text'
+                            placeholder="http://..."
+                            value={link}
+                            onChange={e => setLink(e.target.value)}
+                            disabled={disable}
+                            required/>
 
-                <Input  type='text'
-                        placeholder="Descrição"
-                        value={message}
-                        onChange={e => setMessage(e.target.value)}
-                        disabled={disable}
-                        height={"50px"}/>
+                    <Input  type='text'
+                            placeholder="Descrição"
+                            value={message}
+                            onChange={e => setMessage(e.target.value)}
+                            disabled={disable}
+                            height={"50px"}/>
 
-                <Button type="submit" disabled={disable}>{disable ? 'Publishing...' : 'Publish'}</Button>
-            </Form>
-        </Section>
+                    <Button type="submit" disabled={disable}>{disable ? 'Publishing...' : 'Publish'}</Button>
+                </Form>
+            </Section>
+
+            <ListPosts updateList={disable}/>
+        </>
     )
 }
 

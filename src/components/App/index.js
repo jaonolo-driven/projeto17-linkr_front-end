@@ -6,6 +6,7 @@ import SignupPage from '../pages/SignupPage/index.js';
 import UserContext from '../../contexts/UserContext.js';
 import { useState } from 'react';
 import AuthRoutesController from '../AuthRoutesController/index.js';
+import Timeline from '../Timeline/Timeline.jsx';
 import TimeLine from '../pages/TimeLine/TimeLine.js';
 
 function App() {

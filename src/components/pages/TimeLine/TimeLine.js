@@ -6,19 +6,19 @@ import PostForm from "../../PostForm";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
-    const [postsList, setPostsList] = React.useState([])
+    const [postsList, setPostsList] = React.useState([1,2,3,4,5,6])
     const [animacao, setAnimacao] = React.useState(false)
     const {userState} = React.useContext(UserContext)
 
-    React.useEffect( () => {
-        const config = {headers: { authorization: `Bearer ${userState.token}`}}
-        const URL = process.env.REACT_APP_API_URL+'/timeline'
-        setAnimacao(true)
-        const promise = axios.get(URL, config)
-        promise.then( (response) => {   setPostsList(...postsList, response.data)
-                                        setAnimacao(false) } )
-        promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
-    ,[])
+    // React.useEffect( () => {
+    //     const config = {headers: { authorization: `Bearer ${userState.token}`}}
+    //     const URL = process.env.REACT_APP_API_URL+'/timeline'
+    //     setAnimacao(true)
+    //     const promise = axios.get(URL, config)
+    //     promise.then( (response) => {   setPostsList(...postsList, response.data)
+    //                                     setAnimacao(false) } )
+    //     promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
+    // ,[])
 
     function CreateSideBar(){
         return(
@@ -47,7 +47,6 @@ export default function TimeLine(props){
             </>)
         }
 
-        
         else{
             return(
             <>

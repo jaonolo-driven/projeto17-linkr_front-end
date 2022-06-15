@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthForm from "../AuthForm";
+import AuthForm from "../../AuthForm";
 import { SignupContainer, AsideContainer, FormContainer } from "./styles";
 
-import { signupSchema } from "../../schemas/authSchemas";
-
+import { signupSchema } from "../../../schemas/authSchemas";
 const SignupPage = () => {
     const state = useState({})
     const navigate = useNavigate()

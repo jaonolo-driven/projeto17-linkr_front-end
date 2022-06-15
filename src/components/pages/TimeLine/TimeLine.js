@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import UserContext from "../../../contexts/UserContext";
 import PostForm from "../../PostForm";
+import Header from "../../Header";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
@@ -37,7 +38,7 @@ export default function TimeLine(props){
         if(animacao){
             return(
                 <>
-                <header> Header </header>
+                <Header/>
                 <Title> {titleTimeLine} </Title>
                 <MainContent> 
                     <Center>
@@ -49,8 +50,8 @@ export default function TimeLine(props){
 
         else{
             return(
-            <>
-                <header> Header </header>
+            <TimelineHTML>
+                <Header/>
                 <Title> {titleTimeLine} </Title>
                 <MainContent> 
                     <Center>
@@ -59,15 +60,20 @@ export default function TimeLine(props){
                     </Center>
                     { sideBar ? <CreateSideBar/> : <></>}
                 </MainContent>
-            </>
+            </TimelineHTML>
             );
         }
     }
 }
 
+const TimelineHTML = styled.div`
+    height: 100%;
+    overflow: scroll;
+`;
+
 const Title = styled.h1`
     display: flex;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 50px;
     margin-left: 3%;
     color: #fff;

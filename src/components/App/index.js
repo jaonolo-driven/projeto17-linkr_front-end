@@ -19,7 +19,7 @@ function App() {
             <Route path='/sign-up' element={<SignupPage/>}/>
             <Route path='/' element={<LoginPage/>}/>
             <Route path='/timeline' element={ <TimeLine myPost = {'crear compomente'}
-                                                        sideBar = {``} 
+                                                        sideBar = {`existe`} 
                                                         titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
           </Route>

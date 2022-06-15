@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
+import styled from "styled-components"
 
 export default function PostForm(){
     const token = JSON.parse(localStorage.getItem('user'))
@@ -26,22 +27,76 @@ export default function PostForm(){
     }
 
     return(
-        <section>
-            <form onSubmit={publish}>
-                <input  type='text'
+        <Section>
+            <Photo src="https://sempreinter.com/wp-content/uploads/2020/07/griezmann-7-scaled-e1593770577946.jpg" />
+            <Form onSubmit={publish}>
+                <Title>What are you going to share toady?</Title>
+                <Input  type='text'
                         placeholder="http://..."
                         value={link}
                         onChange={e => setLink(e.target.value)}
                         required/>
 
-                <input  type='text'
+                <Input  type='text'
                         placeholder="Descrição"
                         value={message}
                         onChange={e => setMessage(e.target.value)}
-                        required/>
+                        required
+                        height={"50px"}/>
 
-                <button type="submit">Publish</button>
-            </form>
-        </section>
+                <Button type="submit">Publish</Button>
+            </Form>
+        </Section>
     )
 }
+
+const Section = styled.section`
+    display: flex;
+    justify-content: left;
+    background: #FFFFFF;
+    width: 400px;
+    border-radius: 10px;
+    padding: 10px;
+`
+const Photo = styled.img`
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+`
+const Title = styled.h2`
+    font-family: 'Dosis';
+    font-size: 14px;
+    color: #8a8989;
+    margin: 3px;
+`
+const Form = styled.form`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+`
+const Input = styled.input`
+    margin: 3px;
+    padding: 3px;
+    background: #f0eded;
+    border: none;
+    border-radius: 3px;
+    font-size: 11px;
+    height: ${props => props.height};
+    position: relative;
+`
+const Button = styled.button`
+   display: flex;
+   justify-content: center;
+   //margin-left: 68%;
+   width: 70px; 
+   color: #FFFFFF;
+   background: #006eff;
+   border-radius: 5px;
+   border: none;
+   padding: 5px;
+   margin-top: 3px;
+   font-size: 10px;
+`

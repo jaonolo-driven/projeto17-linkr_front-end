@@ -28,7 +28,8 @@ export default function TimeLine(props){
         )
     }
 
-    if(postsList.length === 0) return(<h1> NAO EXISTE POST </h1>)
+    if(postsList.length === 0) return(<h1> There are no posts yet
+    </h1>)
     return(
         <TimelineHTML>
             <Header/>
@@ -36,7 +37,7 @@ export default function TimeLine(props){
             <MainContent> 
                 <Center>
                     {myPost ? <></> : <></>}
-                    {animacao ? <p>Carregando</p> : postsList.map( (post) => <Post> {post.message} </Post> ) }
+                    {animacao ? <p>Loading</p> : postsList.map( (post) => <Post> {post.message} </Post> ) }
                 </Center>
                 { sideBar ? <CreateSideBar/> : <></>}
             </MainContent>

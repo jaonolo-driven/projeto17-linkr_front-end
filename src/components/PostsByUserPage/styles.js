@@ -126,6 +126,6 @@ export const PostContent = styled.div`
     flex-direction: column;
 
     span {
-        color: tomato;
+        font-weight: 700;
     }
 `

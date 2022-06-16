@@ -3,29 +3,33 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import ReactHashtag from "react-hashtag";
 import { FaRegHeart } from "react-icons/fa";
+import { ThreeCircles } from "react-loader-spinner";
 
 import { Title, MainContent, Center, CreatePost, Post, SideBar, Photo, SubHeaderContainer,
         PostAside, SideBarLine, SubPostAside, PostContent, Container, UrlPost,
-        UrlPostText} from "./styles";
+        UrlPostText, IconStyle} from "./styles";
 import Header from '.././Header/index.js'
+import UserContext from "../../contexts/UserContext";
 
 export default function PostsByUser(props){
     const { myPost, sideBar } = props
     const [postsList, setPostsList] = useState([])
     const [animacao, setAnimacao] = useState(false)
-    const token = JSON.parse(localStorage.getItem('user'))
+    const [likes, setLikes] = useState([])
+    const [user, setUser] = useContext(UserContext)
     // Só para testar a URL
     const { id } = useParams();
+    
 
     useEffect( () => {
-        const config = {headers: { authorization: `Bearer ${token}`}}
+        const config = {headers: { authorization: `Bearer ${user}`}}
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
         setAnimacao(true)
         const promise = axios.get(URL, config)
         promise.then( (response) => {   setPostsList(response.data)
                                         setAnimacao(false) } )
         promise.catch( (error) => console.log('Error Get PostsByUser: ', error))   } 
-    ,[]) 
+    , []) 
 
 /*     useEffect( () => {
         //const config = {headers: { authorization: `Bearer ${userState.token}`}}
@@ -42,7 +46,13 @@ console.log(postsList) */
     console.log(elemento.url)
 }) */
 
-console.log(postsList)
+/* function likePost(postId){
+        const config = {headers: { authorization: `Bearer ${user}`}}
+        const URL = process.env.REACT_APP_API_URL+'/like/'+postId;
+        const promise = axios.post(URL, {}, config)
+        promise.then( (response) => { setLikes(response.data[0].likes) })
+        promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
+} */
 
     function CreateMyPost(){
         return(
@@ -52,7 +62,7 @@ console.log(postsList)
                     <PostAside >
                     <Photo src={postsList.profilePicture} />
                     <SubPostAside >
-                        <FaRegHeart/>
+                        <FaRegHeart />
                         <span> {post.likes} likes</span> 
                     </SubPostAside>
                     </PostAside>
@@ -85,9 +95,14 @@ console.log(postsList)
 
     if(postsList.length === 0){
         return(
-            <>
-                <h1> NAO EXISTE NADA </h1>
-            </>
+            <IconStyle>
+                <ThreeCircles
+                    color="red"
+                    outerCircleColor= "#B6A7B5"
+                    middleCircleColor="#504350"
+                    innerCircleColor="#BCA79C"
+                />
+            </IconStyle>
         )
     }
     else{
@@ -100,9 +115,14 @@ console.log(postsList)
                 <Title> {`${postsList.userName}'s posts`} </Title>
                 </SubHeaderContainer>
                 <MainContent> 
-                    <Center>
-                    <p>Carregando...</p>
-                    </Center>
+                    <IconStyle>
+                            <ThreeCircles
+                                color="red"
+                                outerCircleColor= "#B6A7B5"
+                                middleCircleColor="#504350"
+                                innerCircleColor="#BCA79C"
+                            />
+                    </IconStyle>
                 </MainContent>
 
             </Container>)
@@ -119,7 +139,7 @@ console.log(postsList)
                     <Center>
                         {myPost ? <CreateMyPost/> : <></>}
                     </Center>
-                    { sideBar ? <CreateSideBar/> : <></>}
+                        { sideBar ? <CreateSideBar/> : <></>}
                 </MainContent>
             </Container>
             );

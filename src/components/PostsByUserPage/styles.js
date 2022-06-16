@@ -60,7 +60,7 @@ export const SideBar = styled.aside`
     display: flex;
     position: sticky;
     width: 25%;
-    height: 100vh;
+    height: 60vh;
     margin-left: 1%;
     background: #171717;
     border-radius: 16px;
@@ -119,6 +119,7 @@ export const SubPostAside = styled.div`
         font-size: 17px;
         color: #FFFFFF;
         margin-bottom: 10%;
+        cursor: pointer;
     }
 `
 
@@ -178,3 +179,11 @@ export const UrlPostText = styled.div`
         font-size: 11px;
     }
 `
+
+export const IconStyle = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+`;

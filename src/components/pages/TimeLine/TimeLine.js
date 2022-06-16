@@ -7,19 +7,20 @@ import Header from "../../Header";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
-    const [postsList, setPostsList] = React.useState([1,2,3,4,5,6])
+    const [postsList, setPostsList] = React.useState([1])
     const [animacao, setAnimacao] = React.useState(false)
-    const {userState} = React.useContext(UserContext)
 
-    // React.useEffect( () => {
-    //     const config = {headers: { authorization: `Bearer ${userState.token}`}}
-    //     const URL = process.env.REACT_APP_API_URL+'/timeline'
-    //     setAnimacao(true)
-    //     const promise = axios.get(URL, config)
-    //     promise.then( (response) => {   setPostsList(...postsList, response.data)
-    //                                     setAnimacao(false) } )
-    //     promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
-    // ,[])
+    const [userState, setUserState] = React.useContext(UserContext)
+
+    React.useEffect( () => {
+        const config = {headers: { authorization: `Bearer ${userState}`}}
+        const URL = process.env.REACT_APP_API_URL+'/timeline'
+        setAnimacao(true)
+        const promise = axios.get(URL, config)
+        promise.then( (response) => {   setPostsList(response.data)
+                                        setAnimacao(false)})
+        promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
+    ,[])
 
     function CreateSideBar(){
         return(
@@ -27,43 +28,20 @@ export default function TimeLine(props){
         )
     }
 
-    if(postsList.length === 0){
-        return(
-            <>
-                <h1> NAO EXISTE NADA </h1>
-            </>
-        )
-    }
-    else{
-        if(animacao){
-            return(
-                <>
-                <Header/>
-                <Title> {titleTimeLine} </Title>
-                <MainContent> 
-                    <Center>
-                    <p>Carregando</p>
-                    </Center>
-                </MainContent>
-            </>)
-        }
-
-        else{
-            return(
-            <TimelineHTML>
-                <Header/>
-                <Title> {titleTimeLine} </Title>
-                <MainContent> 
-                    <Center>
-                        {myPost ? <PostForm/> : <></>}
-                        {postsList.map( (post) => <Post> AQUI E UM POST </Post> )}
-                    </Center>
-                    { sideBar ? <CreateSideBar/> : <></>}
-                </MainContent>
-            </TimelineHTML>
-            );
-        }
-    }
+    if(postsList.length === 0) return(<h1> NAO EXISTE POST </h1>)
+    return(
+        <TimelineHTML>
+            <Header/>
+            <Title> {titleTimeLine} </Title>
+            <MainContent> 
+                <Center>
+                    {myPost ? <></> : <></>}
+                    {animacao ? <p>Carregando</p> : postsList.map( (post) => <Post> {post.message} </Post> ) }
+                </Center>
+                { sideBar ? <CreateSideBar/> : <></>}
+            </MainContent>
+        </TimelineHTML>
+        );
 }
 
 const TimelineHTML = styled.div`

@@ -43,7 +43,7 @@ export const CreatePost = styled.div`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
-export const Post = styled.div`
+export const PostHTML = styled.div`
     width: 100%;
     height: 50vh;
     left: 50%;

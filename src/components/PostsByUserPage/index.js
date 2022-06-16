@@ -5,7 +5,7 @@ import ReactHashtag from "react-hashtag";
 import { FaRegHeart } from "react-icons/fa";
 import { ThreeCircles } from "react-loader-spinner";
 
-import { Title, MainContent, Center, CreatePost, Post, SideBar, Photo, SubHeaderContainer,
+import { Title, MainContent, Center, CreatePost, PostHTML, SideBar, Photo, SubHeaderContainer,
         PostAside, SideBarLine, SubPostAside, PostContent, Container, UrlPost,
         UrlPostText, IconStyle} from "./styles";
 import Header from '.././Header/index.js'
@@ -58,7 +58,7 @@ console.log(postsList) */
         return(
             <CreatePost> 
                 {postsList.postsInfo?.map( (post, index) => 
-                <Post > 
+                <PostHTML > 
                     <PostAside >
                     <Photo src={postsList.profilePicture} />
                     <SubPostAside >
@@ -78,7 +78,7 @@ console.log(postsList) */
                             <img src={postsList[index].url.image}/>
                         </UrlPost>
                     </PostContent>
-                        </Post> )}
+                        </PostHTML> )}
             </CreatePost>
         )
     }

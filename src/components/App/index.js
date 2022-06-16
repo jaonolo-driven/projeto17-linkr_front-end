@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import AppContainer from './styles.js';
+
 import LoginPage from '../pages/LoginPage/index.js';
 import SignupPage from '../pages/SignupPage/index.js';
 import PostsByUser from '../PostsByUserPage/index.js';
+
 import UserContext from '../../contexts/UserContext.js';
 import { useState } from 'react';
 import AuthRoutesController from '../AuthRoutesController/index.js';

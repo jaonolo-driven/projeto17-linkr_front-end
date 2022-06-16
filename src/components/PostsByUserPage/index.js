@@ -2,9 +2,11 @@ import { useEffect, useState, useContext } from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import ReactHashtag from "react-hashtag";
+import { FaRegHeart } from "react-icons/fa";
 
 import { Title, MainContent, Center, CreatePost, Post, SideBar, Photo, SubHeaderContainer,
-        PostAside, SideBarLine, SubPostAside, PostContent, Container } from "./styles";
+        PostAside, SideBarLine, SubPostAside, PostContent, Container, UrlPost,
+        UrlPostText} from "./styles";
 import Header from '.././Header/index.js'
 
 export default function PostsByUser(props){
@@ -20,7 +22,7 @@ export default function PostsByUser(props){
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
         setAnimacao(true)
         const promise = axios.get(URL, config)
-        promise.then( (response) => {   setPostsList(...postsList, response.data)
+        promise.then( (response) => {   setPostsList(response.data)
                                         setAnimacao(false) } )
         promise.catch( (error) => console.log('Error Get PostsByUser: ', error))   } 
     ,[]) 
@@ -36,23 +38,35 @@ export default function PostsByUser(props){
     ,[])
 
 console.log(postsList) */
+/* postsList.urlsInfo?.map(elemento => {
+    console.log(elemento.url)
+}) */
+
 console.log(postsList)
 
     function CreateMyPost(){
         return(
             <CreatePost> 
-                {postsList.postsInfo?.map( (post) => 
-                <Post> 
-                    <PostAside>
+                {postsList.postsInfo?.map( (post, index) => 
+                <Post > 
+                    <PostAside >
                     <Photo src={postsList.profilePicture} />
-                    <SubPostAside>
-                        <ion-icon name="heart-outline"></ion-icon>
-                        {post.likes} likes 
+                    <SubPostAside >
+                        <FaRegHeart/>
+                        <span> {post.likes} likes</span> 
                     </SubPostAside>
                     </PostAside>
-                    <PostContent>
+                    <PostContent >
                         <h3>{postsList.userName}</h3> 
                         <p><ReactHashtag>{post.message}</ReactHashtag></p>
+                        <UrlPost>
+                            <UrlPostText>
+                                <h4>{postsList[index].url.title}</h4>
+                                <p>{postsList[index].url.description}</p>
+                                <a href={postsList[index].url.link}>{postsList[index].url.link}</a>
+                            </UrlPostText>
+                            <img src={postsList[index].url.image}/>
+                        </UrlPost>
                     </PostContent>
                         </Post> )}
             </CreatePost>
@@ -64,7 +78,7 @@ console.log(postsList)
                 <h3>trending</h3>
                 <SideBarLine/>
                 {postsList.allHashtagsInfo?.map( (hashtag) => 
-                <p># {hashtag.tag.split("#")[1]}</p>)}
+                {return <p># {hashtag.tag.split("#")[1]}</p>})}
             </SideBar>
         )
     }

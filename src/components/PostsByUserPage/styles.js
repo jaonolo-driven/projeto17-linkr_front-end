@@ -33,23 +33,23 @@ export const Center = styled.section`
 `;
 
 export const CreatePost = styled.div`
-    width: 611px;
-    height: 209px;
-    left: 241px;
-    top: 232px;
-    margin-bottom: 30px;
+    width: 85%;
+    height: 50vh;
+    left: 50%;
+    top: 50%;
+    margin-bottom: 10%;
     border-radius: 16px;
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export const Post = styled.div`
-    width: 611px;
-    height: 276px;
-    left: 415px;
-    top: 495px;
+    width: 100%;
+    height: 50vh;
+    left: 50%;
+    top: 50%;
     background: #171717;
-    margin-bottom: 30px;
+    margin-bottom: 5%;
     border-radius: 16px;
     display: flex;
     font-family: var(--default-font);
@@ -59,11 +59,9 @@ export const Post = styled.div`
 export const SideBar = styled.aside`
     display: flex;
     position: sticky;
-    width: 301px;
-    height: 406px;
-    left: 10%;
-    top: 232px;
-    margin-left: 30px;
+    width: 25%;
+    height: 100vh;
+    margin-left: 1%;
     background: #171717;
     border-radius: 16px;
 
@@ -84,6 +82,7 @@ export const SideBarLine = styled.div`
     width: 100%;
     height: 1px;
     background-color: var(--line-grey);
+    margin-bottom: 5%;
 `
 
 
@@ -107,6 +106,7 @@ export const PostAside = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 3%;
+    width: 20%;
 `
 
 export const SubPostAside = styled.div`
@@ -115,17 +115,66 @@ export const SubPostAside = styled.div`
     align-items: center;
     margin-top: 30%;
 
-    ion-icon {
+    svg {
         font-size: 17px;
         color: #FFFFFF;
+        margin-bottom: 10%;
     }
 `
 
 export const PostContent = styled.div`
     display: flex;
     flex-direction: column;
+    word-break: break-all;
 
     span {
         font-weight: 700;
+    }
+`
+
+export const UrlPost = styled.div`
+    width: 96%;
+    height: 60%;
+    border: 1px solid #4D4D4D;
+    border-radius: 11px;
+    display: flex;
+    margin-top: 2%;
+
+    img {
+        width: 30%;
+        height: 100%;
+        border-radius: 11px;
+    }
+`
+
+export const UrlPostText = styled.div`
+    display: flex;
+    flex-direction: column;
+    word-break: break-all;
+    justify-content: space-around;
+    padding: 2%;
+    margin-top: -5%;
+    
+    h4 {
+        font-family:var(--default-font);
+        font-weight: 400;
+        font-size: 16px;
+        color: #CECECE;
+        margin-bottom: -3%;
+    }
+    
+    p {
+        font-family:var(--default-font);
+        font-weight: 400;
+        font-size: 11px;
+        color: #9B9595;
+    }
+
+    a {
+        text-decoration: none;
+        color: #CECECE;
+        font-family:var(--default-font);
+        font-weight: 400;
+        font-size: 11px;
     }
 `

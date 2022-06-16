@@ -4,10 +4,11 @@ import axios from "axios";
 import UserContext from "../../../contexts/UserContext";
 import PostForm from "../../PostForm";
 import Header from "../../Header";
+import Post from "../../Post/Post";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
-    const [postsList, setPostsList] = React.useState([1])
+    const [postsList, setPostsList] = React.useState([])
     const [animacao, setAnimacao] = React.useState(false)
 
     const [userState, setUserState] = React.useContext(UserContext)
@@ -22,14 +23,8 @@ export default function TimeLine(props){
         promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
     ,[])
 
-    function CreateSideBar(){
-        return(
-            <SideBar> SIDE BAR </SideBar>
-        )
-    }
-
-    if(postsList.length === 0) return(<h1> There are no posts yet
-    </h1>)
+    if(postsList.length === 0) return(<h1> There are no posts yet</h1>)
+    
     return(
         <TimelineHTML>
             <Header/>
@@ -37,13 +32,19 @@ export default function TimeLine(props){
             <MainContent> 
                 <Center>
                     {myPost ? <></> : <></>}
-                    {animacao ? <p>Loading</p> : postsList.map( (post) => <Post> {post.message} </Post> ) }
+                    {animacao ? <p>Loading</p> : postsList.map( (post) => <Post postsList = {postsList} /> ) }
                 </Center>
                 { sideBar ? <CreateSideBar/> : <></>}
             </MainContent>
         </TimelineHTML>
         );
-}
+
+        function CreateSideBar(){
+            return(
+                <SideBar> SIDE BAR </SideBar>
+            )
+        }
+    }
 
 const TimelineHTML = styled.div`
     height: 100%;
@@ -71,27 +72,6 @@ const Center = styled.section`
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-`;
-
-const CreatePost = styled.div`
-    width: 611px;
-    height: 209px;
-    left: 241px;
-    top: 232px;
-    margin-bottom: 30px;
-    border-radius: 16px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`;
-
-const Post = styled.div`
-    width: 611px;
-    height: 276px;
-    left: 415px;
-    top: 495px;
-    background: #171717;
-    margin-bottom: 30px;
-    border-radius: 16px;
 `;
 
 const SideBar = styled.aside`

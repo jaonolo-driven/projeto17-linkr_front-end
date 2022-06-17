@@ -7,14 +7,12 @@ import SignupPage from '../pages/SignupPage/index.js';
 import PostsByUser from '../PostsByUserPage/index.js';
 
 import UserContext from '../../contexts/UserContext.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuthRoutesController from '../AuthRoutesController/index.js';
 import TimeLine from '../pages/TimeLine/TimeLine.js';
 
-
 function App() {
   const userState = useState(JSON.parse(localStorage.getItem("user")))
-
   return (
     <UserContext.Provider value={userState}><AppContainer>
       <BrowserRouter>
@@ -22,12 +20,12 @@ function App() {
           <Route element={<AuthRoutesController needsUser={false}/>}>
             <Route path='/sign-up' element={<SignupPage/>}/>
             <Route path='/' element={<LoginPage/>}/>
-            <Route path='/timeline' element={ <TimeLine myPost = {'crear compomente'}
-                                                        sideBar = {`existe`} 
-                                                        titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
+            <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
+                                                        sideBar = {`bar`}
+                                                        titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
             <Route path='/user/:id' element={ <PostsByUser myPost = {`existo`} sideBar = {`existe`}/> }/>
           </Route>

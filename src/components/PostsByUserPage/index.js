@@ -3,6 +3,7 @@ import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
 import ReactHashtag from "react-hashtag";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import {useParams} from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
 
 import { Title, MainContent, Center, CreatePost, PostHTML, SideBar, Photo, SubHeaderContainer,
@@ -170,6 +171,3 @@ function insertLikes(postId, responselikes){
         }
     }
 }
-
-
-

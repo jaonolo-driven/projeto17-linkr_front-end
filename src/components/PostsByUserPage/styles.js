@@ -111,16 +111,10 @@ export const SubPostAside = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 30%;
-<<<<<<< HEAD
 
     svg {
         font-size: 17px;
         color: #fff;
-=======
-    svg {
-        font-size: 17px;
-        color: #FFFFFF;
->>>>>>> 17854ccddfd390629c6db5244245707039e2d3c8
         margin-bottom: 10%;
         cursor: pointer;
     }
@@ -130,10 +124,6 @@ export const PostContent = styled.div`
     display: flex;
     flex-direction: column;
     word-break: break-all;
-<<<<<<< HEAD
-
-=======
->>>>>>> 17854ccddfd390629c6db5244245707039e2d3c8
     span {
         font-weight: 700;
     }
@@ -146,10 +136,6 @@ export const UrlPost = styled.div`
     border-radius: 11px;
     display: flex;
     margin-top: 2%;
-<<<<<<< HEAD
-
-=======
->>>>>>> 17854ccddfd390629c6db5244245707039e2d3c8
     img {
         width: 30%;
         height: 100%;
@@ -179,10 +165,6 @@ export const UrlPostText = styled.div`
         font-size: 11px;
         color: #9B9595;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 17854ccddfd390629c6db5244245707039e2d3c8
     a {
         text-decoration: none;
         color: #CECECE;
@@ -198,7 +180,6 @@ export const IconStyle = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-<<<<<<< HEAD
 `;
 
 export const MainNoPosts = styled.main`
@@ -212,7 +193,4 @@ export const MainNoPosts = styled.main`
     font-family: var(--subtitle-font);
     font-weight: 700;
     font-size: 30px; 
-`
-=======
 `;
->>>>>>> 17854ccddfd390629c6db5244245707039e2d3c8

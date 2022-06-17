@@ -24,9 +24,17 @@ export default function TimeLine(props){
         promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
     ,[])
 
-    if(postsList.length === 0) return(<h1> There are no posts yet</h1>)
-    // console.log('postsList : ',postsList, typeof postsList ) 
+
+    if(postsList.length === 1){
+        return(<h1> There are no posts yet</h1>)
+    }    
     
+    function CreateSideBar(){
+        return(
+            <SideBar> SIDE BAR </SideBar>
+        )
+    }
+
     function Loading(){
         return(
                 <ThreeCircles   color="red"
@@ -39,21 +47,16 @@ export default function TimeLine(props){
             <Header/>
             <Title> {titleTimeLine} </Title>
             <MainContent> 
-                <Center>
-                    {myPost ? <></> : <></>}
-                    {console.log('pre Post : ',postsList)}
-                    {animacao ? <Loading/> : postsList.map( (post) => <Post postsList={postsList}/> ) }
-                </Center>
+            <CenterHTML>
+                {myPost ? <></> : <></>}
+                {console.log('postList TIMELINE : ',postsList)}
+                {animacao ? <Loading/> : <Post postsList={postsList}/> }
+            </CenterHTML>
                 { sideBar ? <CreateSideBar/> : <></>}
             </MainContent>
         </TimelineHTML>
         );
 
-        function CreateSideBar(){
-            return(
-                <SideBar> SIDE BAR </SideBar>
-            )
-        }
     }
 
 const TimelineHTML = styled.div`
@@ -77,7 +80,7 @@ const MainContent = styled.main`
     margin-left: 3%;
 `;
 
-const Center = styled.section`
+const CenterHTML = styled.section`
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;

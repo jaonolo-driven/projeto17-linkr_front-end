@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 import AuthRoutesController from '../AuthRoutesController/index.js';
 import TimeLine from '../pages/TimeLine/TimeLine.js';
 
-
 function App() {
   const userState = useState(JSON.parse(localStorage.getItem("user")))
   return (
@@ -24,7 +23,8 @@ function App() {
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
-            <Route path='/timeline' element={ <TimeLine myPost = {'crear compomente'}
+            <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
+                                                        sideBar = {`bar`}
                                                         titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
             <Route path='/user/:id' element={ <PostsByUser myPost = {`existo`} sideBar = {`existe`}/> }/>

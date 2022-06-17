@@ -117,7 +117,7 @@ export const SubPostAside = styled.div`
 
     svg {
         font-size: 17px;
-        color: #FFFFFF;
+        color: #fff;
         margin-bottom: 10%;
         cursor: pointer;
     }
@@ -187,3 +187,16 @@ export const IconStyle = styled.div`
     width: 100%;
     height: 100%;
 `;
+
+export const MainNoPosts = styled.main`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-right: 10%;
+    align-items: flex-start;
+    justify-content: center;
+    color: #fff;
+    font-family: var(--subtitle-font);
+    font-weight: 700;
+    font-size: 30px; 
+`

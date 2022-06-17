@@ -5,7 +5,7 @@ import UserContext from "../../contexts/UserContext"
 import axios from "axios"
 import HeaderDropdownIcon from "../HeaderDropdownIcon"
 
-export default () => { 
+const Header = () => { 
     const [dropDownState, setDropDownState] = useState(false)
     const [user, setUser] = useContext(UserContext)
     const [avatar, setAvatar] = useState('')
@@ -39,6 +39,8 @@ export default () => {
         <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
     </>
 }
+
+export default Header
 
 const Container = styled.div`
     background-color: var(--darker-grey);

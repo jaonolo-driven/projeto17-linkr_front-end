@@ -5,10 +5,11 @@ import UserContext from "../../../contexts/UserContext";
 import PostForm from "../../PostForm";
 import Header from "../../Header";
 import Post from "../../Post/Post";
+import { ThreeCircles } from "react-loader-spinner";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
-    const [postsList, setPostsList] = React.useState([])
+    const [postsList, setPostsList] = React.useState([``])
     const [animacao, setAnimacao] = React.useState(false)
 
     const [userState, setUserState] = React.useContext(UserContext)
@@ -24,6 +25,14 @@ export default function TimeLine(props){
     ,[])
 
     if(postsList.length === 0) return(<h1> There are no posts yet</h1>)
+    // console.log('postsList : ',postsList, typeof postsList ) 
+    
+    function Loading(){
+        return(
+                <ThreeCircles   color="red"
+                                outerCircleColor= "#B6A7B5"
+                                middleCircleColor="#504350"
+                                innerCircleColor="#BCA79C"/>)}
     
     return(
         <TimelineHTML>
@@ -32,7 +41,8 @@ export default function TimeLine(props){
             <MainContent> 
                 <Center>
                     {myPost ? <></> : <></>}
-                    {animacao ? <p>Loading</p> : postsList.map( (post) => <Post postsList = {postsList} /> ) }
+                    {console.log('pre Post : ',postsList)}
+                    {animacao ? <Loading/> : postsList.map( (post) => <Post postsList={postsList}/> ) }
                 </Center>
                 { sideBar ? <CreateSideBar/> : <></>}
             </MainContent>

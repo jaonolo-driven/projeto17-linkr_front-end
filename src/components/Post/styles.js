@@ -88,7 +88,7 @@ export const Photo = styled.img`
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    margin-rigth: 10px;
+    margin-right: 10px;
 `
 
 export const SubHeaderContainer = styled.div`

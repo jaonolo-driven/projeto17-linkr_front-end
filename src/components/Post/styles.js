@@ -78,7 +78,6 @@ export const SideBarLine = styled.div`
     margin-bottom: 5%;
 `
 
-
 export const Photo = styled.img`
     width: 35px;
     height: 35px;

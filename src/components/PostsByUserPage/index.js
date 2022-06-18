@@ -9,7 +9,7 @@ import { Title, MainContent, Center, CreatePost, PostHTML, SideBar, Photo, SubHe
         PostAside, SideBarLine, SubPostAside, PostContent, Container, UrlPost,
         UrlPostText, IconStyle} from "./styles";
 
-        import Header from '.././Header/index.js'
+import Header from '.././Header/index.js'
 import UserContext from "../../contexts/UserContext";
 
 export default function PostsByUser(props){

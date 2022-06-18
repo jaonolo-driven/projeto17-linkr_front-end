@@ -9,7 +9,7 @@ import { ThreeCircles } from "react-loader-spinner";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
-    const [postsList, setPostsList] = React.useState([``])
+    const [postsList, setPostsList] = React.useState([])
     const [animacao, setAnimacao] = React.useState(false)
 
     const [userState, setUserState] = React.useContext(UserContext)
@@ -24,8 +24,7 @@ export default function TimeLine(props){
         promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
     ,[])
 
-
-    if(postsList.length === 1){
+    if(!postsList){
         return(<h1> There are no posts yet</h1>)
     }    
     
@@ -45,14 +44,12 @@ export default function TimeLine(props){
     return(
         <TimelineHTML>
             <Header/>
-            <Title> {titleTimeLine} </Title>
             <MainContent> 
-            <CenterHTML>
-                {myPost ? <></> : <></>}
-                {console.log('postList TIMELINE : ',postsList)}
-                {animacao ? <Loading/> : <Post postsList={postsList}/> }
-            </CenterHTML>
-                { sideBar ? <CreateSideBar/> : <></>}
+                <CenterHTML>
+                    <Title> {titleTimeLine} </Title>
+                    {myPost ? <PostForm/> : <></>}
+                    {animacao ? <Loading/> : <Post postsList={postsList}/> }
+                </CenterHTML>
             </MainContent>
         </TimelineHTML>
         );
@@ -66,6 +63,8 @@ const TimelineHTML = styled.div`
 
 const Title = styled.h1`
     display: flex;
+    width: 100%;
+    text-align: left;
     margin-top: 50px;
     margin-bottom: 50px;
     margin-left: 3%;
@@ -77,6 +76,7 @@ const MainContent = styled.main`
     flex-wrap: wrap;
     justify-content: center;
     width: 90%;
+    height: 100%;
     margin-left: 3%;
 `;
 
@@ -85,6 +85,8 @@ const CenterHTML = styled.section`
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    /* background-color: blue; */
 `;
 
 const SideBar = styled.aside`

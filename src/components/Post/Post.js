@@ -7,9 +7,8 @@ export default function Post(props){
     const { postsList } = props
     console.log('PostsList NO POST:', postsList)
     
-    function Teste(props){
+    function Card(props){
         const {postINFO} = props
-        console.log('post dentro do teste : ', postINFO)
         return(
             <PostHTML>
                 <PostAside >
@@ -35,10 +34,10 @@ export default function Post(props){
         )
     }
     if(postsList){
-        console.log(`POSTLIST NO MAP TESTE`, postsList)
         return(
-            <CreatePost> 
-                {postsList?.map( post => <Teste postINFO={post}/> )}
-            </CreatePost>)
+            <CreatePost>
+                {postsList?.map( post => <Card postINFO={post}/> )}
+            </CreatePost>
+            )
         }
     }

@@ -33,19 +33,14 @@ export const Center = styled.section`
 `;
 
 export const CreatePost = styled.div`
-    width: 85%;
-    height: 50vh;
-    left: 50%;
-    top: 50%;
-    margin-bottom: 10%;
-    border-radius: 16px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
 `;
 
 export const PostHTML = styled.div`
-    width: 100%;
-    height: 50vh;
+    width: 600px;
+    height: 280px;
     left: 50%;
     top: 50%;
     background: #171717;

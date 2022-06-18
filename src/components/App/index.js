@@ -18,16 +18,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AuthRoutesController needsUser={false}/>}>
+            {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
             <Route path='/sign-up' element={<SignupPage/>}/>
             <Route path='/' element={<LoginPage/>}/>
-            {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
-            <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
-                                                        sideBar = {`bar`}
-                                                        titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
-            <Route path='/user/:id' element={ <PostsByUser myPost = {`existo`} sideBar = {`existe`}/> }/>
+            <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
+                                                        titleTimeLine = {`TimeLine`} /> }  />
+            <Route path='/user/:id' element={ <PostsByUser myPost = {`existo`} sideBar = {`existe`}/> } />
           </Route>
         </Routes>
       </BrowserRouter>

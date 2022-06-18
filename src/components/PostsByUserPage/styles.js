@@ -54,6 +54,7 @@ export const PostHTML = styled.div`
     display: flex;
     font-family: var(--default-font);
     color: #FFFFFF;
+    overflow: hidden;
 `;
 
 export const SideBar = styled.aside`

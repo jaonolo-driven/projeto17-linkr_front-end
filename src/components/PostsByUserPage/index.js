@@ -1,8 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components"
 import ReactHashtag from "react-hashtag";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { RiEdit2Line } from "react-icons/ri";
+import { AiFillDelete } from "react-icons/ai";
 import { ThreeCircles } from "react-loader-spinner";
 
 import { Title, MainContent, Center, CreatePost, PostHTML, SideBar, Photo, SubHeaderContainer,
@@ -37,23 +40,23 @@ export default function PostsByUser(props){
                                     navigate("/timeline")})   } 
     , []) 
 
-function togglelikePost(postId){
-        const config = {headers: { authorization: `Bearer ${user}`}}
-        const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
-        const promise = axios.patch(URL, {}, config)
-        promise.then( (response) => { setLikes(response.data[0].likes)
-                                        insertLikes(postId, response.data[0].likes)
-                                        setTypeLikes(response.data[1].typeLike)
-                                        setIdPost(response.data[2].postIdInfo)})
-        promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
-} 
-console.log(postsList)
-function insertLikes(postId, responselikes){
-    postsList.postsInfo?.map((post) => {
-            (post.id == postId)?(post.likes = responselikes):(<></>)
-    })
-    CreateMyPost();
-}
+    function togglelikePost(postId){
+            const config = {headers: { authorization: `Bearer ${user}`}}
+            const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
+            const promise = axios.patch(URL, {}, config)
+            promise.then( (response) => { setLikes(response.data[0].likes)
+                                            insertLikes(postId, response.data[0].likes)
+                                            setTypeLikes(response.data[1].typeLike)
+                                            setIdPost(response.data[2].postIdInfo)})
+            promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
+    } 
+    console.log(postsList)
+    function insertLikes(postId, responselikes){
+        postsList.postsInfo?.map((post) => {
+                (post.id == postId)?(post.likes = responselikes):(<></>)
+        })
+        CreateMyPost();
+    }
 
     function CreateMyPost(){
         if(postsList.postsInfo.length === 0){
@@ -92,7 +95,13 @@ function insertLikes(postId, responselikes){
                     </SubPostAside>
                     </PostAside>
                     <PostContent >
-                        <h3>{postsList.userName}</h3> 
+                        <NameAndButtons>
+                            <h3>{postsList.userName}</h3>
+                            <EditAndDel>
+                                <RiEdit2Line color="white"/>
+                                <AiFillDelete margin={10}/>
+                            </EditAndDel>
+                        </NameAndButtons> 
                         <p><ReactHashtag>{post.message}</ReactHashtag></p>
                         <UrlPost>
                             <UrlPostText>
@@ -171,3 +180,16 @@ function insertLikes(postId, responselikes){
         }
     }
 }
+
+const NameAndButtons = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+const EditAndDel = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-right: 40px;
+    color: #FFFFFF;
+    width: 50px;
+    padding-top: 20px;
+`

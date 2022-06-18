@@ -48,7 +48,7 @@ export default function TimeLine(props){
             <Title> {titleTimeLine} </Title>
             <MainContent> 
             <CenterHTML>
-                {myPost ? <></> : <></>}
+                {myPost ? <PostForm/> : <></>}
                 {console.log('postList TIMELINE : ',postsList)}
                 {animacao ? <Loading/> : <Post postsList={postsList}/> }
             </CenterHTML>

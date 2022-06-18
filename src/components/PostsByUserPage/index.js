@@ -20,6 +20,7 @@ export default function PostsByUser(props){
     const [likes, setLikes] = useState()
     const [user, setUser] = useContext(UserContext)
     const [typeLikes, setTypeLikes] = useState('')
+    const [isLiked, setIsLiked] = useState(false)
     const [idPost, setIdPost] = useState();
     const navigate = useNavigate()
     
@@ -41,18 +42,31 @@ function togglelikePost(postId){
         const config = {headers: { authorization: `Bearer ${user}`}}
         const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
         const promise = axios.patch(URL, {}, config)
-        promise.then( (response) => { setLikes(response.data[0].likes)
+        setIsLiked(false);
+        promise.then( (response) => {  setLikes(response.data[0].likes)
                                         insertLikes(postId, response.data[0].likes)
                                         setTypeLikes(response.data[1].typeLike)
-                                        setIdPost(response.data[2].postIdInfo)})
+                                        setIdPost(response.data[2].postIdInfo)
+                                        setIsLiked(true)})
         promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
 } 
 console.log(postsList)
+console.log(idPost)
 function insertLikes(postId, responselikes){
     postsList.postsInfo?.map((post) => {
             (post.id == postId)?(post.likes = responselikes):(<></>)
     })
     CreateMyPost();
+}
+
+function clickToggleLike(postId){
+    return (
+    (postId == idPost)?(
+        (typeLikes == 'like')?(
+            <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(postId)}/>):(
+            <FaRegHeart onClick={() => togglelikePost(postId)}/>
+        )):(<FaRegHeart onClick={() => togglelikePost(postId)}/>)
+    )
 }
 
     function CreateMyPost(){
@@ -71,22 +85,7 @@ function insertLikes(postId, responselikes){
                     <Photo src={postsList.profilePicture} />
                     <SubPostAside >
                         {
-//                            (postsList.LikesInfo.length == 0)?(<FaRegHeart onClick={() => togglelikePost(post.id)}/>):(
- //                           (post.id == idPost)?(
- //                               (typeLikes == 'like')?(
-//                                    <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(post.id)}/>):(
- //                                   <FaRegHeart onClick={() => togglelikePost(post.id)}/>
- //                           )):((postsList.LikesInfo?.map((postLikedInfo) => {
-  //                              (postLikedInfo.postLiked == post.id)?(
-  //                                  <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(post.id)}/>):(<></>)
-  //                          })))?(<></>):(<FaRegHeart onClick={() => togglelikePost(post.id)}/>)
-  //                          )
-
-                                (post.id == idPost)?(
-                                        (typeLikes == 'like')?(
-                                            <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(post.id)}/>):(
-                                            <FaRegHeart onClick={() => togglelikePost(post.id)}/>
-                                )):(<FaRegHeart onClick={() => togglelikePost(post.id)}/>)
+                            clickToggleLike(post.id)
                         }
                         <span> {post.likes} likes</span> 
                     </SubPostAside>

@@ -51,7 +51,7 @@ function togglelikePost(postId){
         promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
 } 
 console.log(postsList)
-console.log(idPost)
+
 function insertLikes(postId, responselikes){
     postsList.postsInfo?.map((post) => {
             (post.id == postId)?(post.likes = responselikes):(<></>)

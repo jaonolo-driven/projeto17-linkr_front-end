@@ -25,8 +25,10 @@ function App() {
           <Route element={<AuthRoutesController needsUser={true}/>}>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
             <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
+                                                        sideBar = {'vai ter side'}
                                                         titleTimeLine = {`TimeLine`} /> }  />
-            <Route path='/user/:id' element={ <PostsByUser myPost = {`existo`} sideBar = {`existe`}/> } />
+            <Route path='/user/:id' element={ <PostsByUser  myPost = {`existo`} 
+                                                            sideBar = {``}/> } />
           </Route>
         </Routes>
       </BrowserRouter>

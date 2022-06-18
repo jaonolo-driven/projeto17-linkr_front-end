@@ -1,11 +1,10 @@
 import ReactHashtag from "react-hashtag"; import { FaRegHeart } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 import { CreatePost, PostHTML, Photo, PostAside, SubPostAside, PostContent, UrlPost, UrlPostText} from "./styles";
 
 export default function Post(props){
     
     const { postsList } = props
-    console.log('PostsList NO POST:', postsList)
     
     function Card(props){
         const {postINFO} = props
@@ -19,7 +18,9 @@ export default function Post(props){
                     </SubPostAside>
                 </PostAside>
                 <PostContent >
-                    <h3>{postINFO.userName}</h3> 
+                    <Link to={`/user/${postINFO.userId}`}>
+                        <h3>{postINFO.userName}</h3>
+                    </Link> 
                     <p><ReactHashtag>{postINFO.message}</ReactHashtag></p>
                     <UrlPost>
                         <UrlPostText>

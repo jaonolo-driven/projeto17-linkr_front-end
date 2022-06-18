@@ -35,7 +35,7 @@ export const Center = styled.section`
 export const CreatePost = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
 `;
 
 export const PostHTML = styled.div`
@@ -133,6 +133,7 @@ export const UrlPost = styled.div`
         width: 30%;
         height: 100%;
         border-radius: 11px;
+        object-fit: cover;
     }
 `
 

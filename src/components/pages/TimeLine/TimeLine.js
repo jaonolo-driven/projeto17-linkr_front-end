@@ -14,6 +14,8 @@ export default function TimeLine(props){
     const [userState, setUserState] = React.useContext(UserContext)
     let isListEmpyt, empyt
 
+    console.log(userState)
+
     React.useEffect( () => {
         const config = {headers: { authorization: `Bearer ${userState}`}}
         const URL = process.env.REACT_APP_API_URL+'/timeline'
@@ -55,6 +57,7 @@ export default function TimeLine(props){
                         {myPost ? <PostForm/> : <></>}
                         <IsListEmpyt/>
                     </CenterHTML>
+                    <CreateSideBar/>
                 </MainContent>
             </TimelineHTML>)}
 

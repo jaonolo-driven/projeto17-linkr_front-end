@@ -51,6 +51,7 @@ export default function PostForm(){
                 <Photo src={avatar} />
                 <Form onSubmit={publish}>
                     <Title>What are you going to share toady?</Title>
+                    
                     <Input  type='text'
                             placeholder="http://..."
                             value={link}

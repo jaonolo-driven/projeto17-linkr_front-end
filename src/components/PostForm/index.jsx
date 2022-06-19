@@ -46,30 +46,27 @@ export default function PostForm(){
     }
 
     return(
-        <>
-            <Section>
-                <Photo src={avatar} />
-                <Form onSubmit={publish}>
-                    <Title>What are you going to share toady?</Title>
-                    
-                    <Input  type='text'
-                            placeholder="http://..."
-                            value={link}
-                            onChange={e => setLink(e.target.value)}
-                            disabled={disable}
-                            required/>
+        <Section>
+            <Photo src={avatar} />
+            <Form onSubmit={publish}>
+                <Title>What are you going to share toady?</Title>
+                <Input  type='text'
+                        placeholder="http://..."
+                        value={link}
+                        onChange={e => setLink(e.target.value)}
+                        disabled={disable}
+                        required/>
 
-                    <Input  type='text'
-                            placeholder="Descrição"
-                            value={message}
-                            onChange={e => setMessage(e.target.value)}
-                            disabled={disable}
-                            height={"50px"}/>
+                <Input  type='text'
+                        placeholder="Descrição"
+                        value={message}
+                        onChange={e => setMessage(e.target.value)}
+                        disabled={disable}
+                        height={"50px"}/>
 
-                    <Button type="submit" disabled={disable}>{disable ? 'Publishing...' : 'Publish'}</Button>
-                </Form>
-            </Section>
-        </>
+                <Button type="submit" disabled={disable}>{disable ? 'Publishing...' : 'Publish'}</Button>
+            </Form>
+        </Section>
     )
 }
 
@@ -77,9 +74,11 @@ const Section = styled.section`
     display: flex;
     justify-content: left;
     background: #FFFFFF;
-    width: 400px;
+    width: 600px;
+    height: 200px;
     border-radius: 10px;
     padding: 10px;
+    margin-bottom: 30px;
 `
 const Photo = styled.img`
     width: 35px;

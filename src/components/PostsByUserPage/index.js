@@ -13,6 +13,8 @@ import { Title, MainContent, Center, CreatePost, PostHTML, SideBar, Photo, SubHe
 import UserContext from "../../contexts/UserContext";
 
 export default function PostsByUser(props){
+
+    //TODO: Falar com o João para enviar o user.id tbm no post para poder usar com o infoLikes
     
     const { myPost, sideBar } = props
     const [postsList, setPostsList] = useState([])
@@ -20,12 +22,15 @@ export default function PostsByUser(props){
     const [likes, setLikes] = useState()
     const [user, setUser] = useContext(UserContext)
     const [typeLikes, setTypeLikes] = useState('')
-    const [isLiked, setIsLiked] = useState(false)
+    const [firstacess, setFirstacess] = useState(true)
     const [idPost, setIdPost] = useState();
+    const [likesPostInfos, setLikesPostInfos] = useState([])
     const navigate = useNavigate()
     
     const { id } = useParams();
-    
+
+    // Colocando um user id fixo para testar, mas objetivo é pegar pelo useContext
+    const userIdTest = 3;
 
     useEffect( () => {
         const config = {headers: { authorization: `Bearer ${user}`}}
@@ -42,15 +47,16 @@ function togglelikePost(postId){
         const config = {headers: { authorization: `Bearer ${user}`}}
         const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
         const promise = axios.patch(URL, {}, config)
-        setIsLiked(false);
+        
         promise.then( (response) => {  setLikes(response.data[0].likes)
                                         insertLikes(postId, response.data[0].likes)
                                         setTypeLikes(response.data[1].typeLike)
                                         setIdPost(response.data[2].postIdInfo)
-                                        setIsLiked(true)})
+                                        setLikesPostInfos(response.data[3])
+                                        setFirstacess(false)})
         promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
 } 
-console.log(postsList)
+//console.log(likesPostInfos)
 
 function insertLikes(postId, responselikes){
     postsList.postsInfo?.map((post) => {
@@ -59,7 +65,9 @@ function insertLikes(postId, responselikes){
     CreateMyPost();
 }
 
-function clickToggleLike(postId){
+//console.log(postsList)
+
+/* function clickToggleLike(postId){
     return (
     (postId == idPost)?(
         (typeLikes == 'like')?(
@@ -67,9 +75,25 @@ function clickToggleLike(postId){
             <FaRegHeart onClick={() => togglelikePost(postId)}/>
         )):(<FaRegHeart onClick={() => togglelikePost(postId)}/>)
     )
+} */
+
+function whoLiked(postsList, userIdTest){
+    return (
+        (firstacess)?(
+            postsList.postsLikesInfo?.map((infoLike) =>{
+                (infoLike.userLiked === userIdTest)?
+                (<FaHeart fill={'#AC0000'} onClick={() => togglelikePost(infoLike.idPostLiked)}/>):
+                (<FaRegHeart onClick={() => togglelikePost(infoLike.idPostLiked)}/>)
+            })
+        ):(likesPostInfos?.map((likePostInfo) => {
+            (likePostInfo.userLiked === userIdTest)?
+            (<FaHeart fill={'#AC0000'} onClick={() => togglelikePost(likePostInfo.idPostLiked)}/>):
+            (<FaRegHeart onClick={() => togglelikePost(likePostInfo.idPostLiked)}/>)
+        }))
+    )
 }
 
-    function CreateMyPost(){
+function CreateMyPost(){
         if(postsList.postsInfo.length === 0){
             return( 
             
@@ -85,7 +109,19 @@ function clickToggleLike(postId){
                     <Photo src={postsList.profilePicture} />
                     <SubPostAside >
                         {
-                            clickToggleLike(post.id)
+                            (firstacess)?(
+                                postsList.postsLikesInfo?.map((infoLike) =>{
+                                    (infoLike.idPostLiked == post.id)?
+                                    (infoLike.UserLiked == userIdTest)?(
+                                    (<FaHeart fill={'#AC0000'} onClick={() => togglelikePost(infoLike.idPostLiked)}/>)):
+                                    (<FaRegHeart onClick={() => togglelikePost(infoLike.idPostLiked)}/>):
+                                    (<FaRegHeart onClick={() => togglelikePost(infoLike.idPostLiked)}/>)
+                                })
+                            ):(likesPostInfos?.map((likePostInfo) => {
+                                (likePostInfo.UserLiked === userIdTest && likePostInfo.idPostLiked == post.id)?
+                                (<FaHeart fill={'#AC0000'} onClick={() => togglelikePost(likePostInfo.idPostLiked)}/>):
+                                (<></>)
+                            }))
                         }
                         <span> {post.likes} likes</span> 
                     </SubPostAside>

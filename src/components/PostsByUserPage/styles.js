@@ -54,6 +54,7 @@ export const PostHTML = styled.div`
     display: flex;
     font-family: var(--default-font);
     color: #FFFFFF;
+    overflow: hidden;
 `;
 
 export const SideBar = styled.aside`
@@ -111,9 +112,10 @@ export const SubPostAside = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 30%;
+
     svg {
         font-size: 17px;
-        color: #FFFFFF;
+        color: #fff;
         margin-bottom: 10%;
         cursor: pointer;
     }
@@ -179,4 +181,17 @@ export const IconStyle = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
+`;
+
+export const MainNoPosts = styled.main`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-right: 10%;
+    align-items: flex-start;
+    justify-content: center;
+    color: #fff;
+    font-family: var(--subtitle-font);
+    font-weight: 700;
+    font-size: 30px; 
 `;

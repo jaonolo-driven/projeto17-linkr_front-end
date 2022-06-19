@@ -1,27 +1,32 @@
 import { useEffect, useState, useContext } from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components"
 import ReactHashtag from "react-hashtag";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { ThreeCircles } from "react-loader-spinner";
 
 import { Title, MainContent, Center, CreatePost, PostHTML, SideBar, Photo, SubHeaderContainer,
         PostAside, SideBarLine, SubPostAside, PostContent, Container, UrlPost,
-        UrlPostText, IconStyle} from "./styles";
+        UrlPostText, IconStyle, MainNoPosts} from "./styles";
 
 import Header from '.././Header/index.js'
 import UserContext from "../../contexts/UserContext";
+import PostContentComponent from "../PostContent";
 
 export default function PostsByUser(props){
+    
     const { myPost, sideBar } = props
     const [postsList, setPostsList] = useState([])
     const [animacao, setAnimacao] = useState(false)
-    const [likes, setLikes] = useState([])
+    const [likes, setLikes] = useState()
     const [user, setUser] = useContext(UserContext)
-    // Só para testar a URL
+    const [typeLikes, setTypeLikes] = useState('')
+    const [idPost, setIdPost] = useState();
+    const navigate = useNavigate()
+    
     const { id } = useParams();
     
-
     useEffect( () => {
         const config = {headers: { authorization: `Bearer ${user}`}}
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
@@ -29,32 +34,36 @@ export default function PostsByUser(props){
         const promise = axios.get(URL, config)
         promise.then( (response) => {   setPostsList(response.data)
                                         setAnimacao(false) } )
-        promise.catch( (error) => console.log('Error Get PostsByUser: ', error))   } 
+        promise.catch( (error) => {console.log('Error Get PostsByUser: ', error)
+                                    navigate("/timeline")})   } 
     , []) 
-
-/*     useEffect( () => {
-        //const config = {headers: { authorization: `Bearer ${userState.token}`}}
-        const URL = "http://localhost:5000/user/1"
-        setAnimacao(true)
-        const promise = axios.get(URL)
-        promise.then( (response) => { setPostsList(...postsList, response.data)
-                                        setAnimacao(false) } )
-        promise.catch( (error) => console.log('Error Get PostsByUser: ', error))   } 
-    ,[])
-console.log(postsList) */
-/* postsList.urlsInfo?.map(elemento => {
-    console.log(elemento.url)
-}) */
-
-/* function likePost(postId){
-        const config = {headers: { authorization: `Bearer ${user}`}}
-        const URL = process.env.REACT_APP_API_URL+'/like/'+postId;
-        const promise = axios.post(URL, {}, config)
-        promise.then( (response) => { setLikes(response.data[0].likes) })
-        promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
-} */
+    
+    function togglelikePost(postId){
+            const config = {headers: { authorization: `Bearer ${user}`}}
+            const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
+            const promise = axios.patch(URL, {}, config)
+            promise.then( (response) => { setLikes(response.data[0].likes)
+                                            insertLikes(postId, response.data[0].likes)
+                                            setTypeLikes(response.data[1].typeLike)
+                                            setIdPost(response.data[2].postIdInfo)})
+            promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
+    } 
+    console.log(postsList)
+    function insertLikes(postId, responselikes){
+        postsList.postsInfo?.map((post) => {
+                (post.id == postId)?(post.likes = responselikes):(<></>)
+        })
+        CreateMyPost();
+    }
 
     function CreateMyPost(){
+        if(postsList.postsInfo.length === 0){
+            return( 
+            
+                    <MainNoPosts>
+                        <h3>No posts published yet!</h3>
+                    </MainNoPosts>
+            )}
         return(
             <CreatePost> 
                 {postsList.postsInfo?.map( (post, index) => 
@@ -62,23 +71,31 @@ console.log(postsList) */
                     <PostAside >
                     <Photo src={postsList.profilePicture} />
                     <SubPostAside >
-                        <FaRegHeart />
+                        {
+//                            (postsList.LikesInfo.length == 0)?(<FaRegHeart onClick={() => togglelikePost(post.id)}/>):(
+ //                           (post.id == idPost)?(
+ //                               (typeLikes == 'like')?(
+//                                    <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(post.id)}/>):(
+ //                                   <FaRegHeart onClick={() => togglelikePost(post.id)}/>
+ //                           )):((postsList.LikesInfo?.map((postLikedInfo) => {
+  //                              (postLikedInfo.postLiked == post.id)?(
+  //                                  <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(post.id)}/>):(<></>)
+  //                          })))?(<></>):(<FaRegHeart onClick={() => togglelikePost(post.id)}/>)
+  //                          )
+
+                                (post.id == idPost)?(
+                                        (typeLikes == 'like')?(
+                                            <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(post.id)}/>):(
+                                            <FaRegHeart onClick={() => togglelikePost(post.id)}/>
+                                )):(<FaRegHeart onClick={() => togglelikePost(post.id)}/>)
+                        }
                         <span> {post.likes} likes</span> 
                     </SubPostAside>
                     </PostAside>
-                    <PostContent >
-                        <h3>{postsList.userName}</h3> 
-                        <p><ReactHashtag>{post.message}</ReactHashtag></p>
-                        <UrlPost>
-                            <UrlPostText>
-                                <h4>{postsList[index].url.title}</h4>
-                                <p>{postsList[index].url.description}</p>
-                                <a href={postsList[index].url.link}>{postsList[index].url.link}</a>
-                            </UrlPostText>
-                            <img src={postsList[index].url.image}/>
-                        </UrlPost>
-                    </PostContent>
-                        </PostHTML> )}
+                    <PostContentComponent   postsList={postsList}
+                                            post={post}
+                                            index={index}/>
+                </PostHTML> )}
             </CreatePost>
         )
     }

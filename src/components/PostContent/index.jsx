@@ -6,6 +6,7 @@ import { PostContent, UrlPost, UrlPostText } from "../PostsByUserPage/styles";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export default function PostContentComponent(props){
     const {postsList, post, index} = props
@@ -14,6 +15,9 @@ export default function PostContentComponent(props){
     const [editPost, setEditPost] = useState(false)
     const [postValue, setPostValue] = useState(post.message)
     const [resetValue, setResetValue] = useState('')
+    const [disable, setDisable] = useState(false)
+
+    const {id} = useParams()
 
     useEffect(()=>{
         if(editPost){
@@ -33,8 +37,10 @@ export default function PostContentComponent(props){
 
     function editPostSubmit(e){
         e.preventDefault()
+        setDisable(true)
         const promise = axios.put(`${process.env.REACT_APP_API_URL}/editpost`,{
             id: post.id,
+            userId: id,
             message: postValue
         },
         {
@@ -44,8 +50,11 @@ export default function PostContentComponent(props){
         })
         promise.then(response => {
             setEditPost(false)
+            setDisable(false)
         }).catch(e => {
             alert(e.response.data.message)
+            setDisable(false)
+            inputRef.current.focus()
         })
     }
     return(
@@ -62,6 +71,7 @@ export default function PostContentComponent(props){
                                             type='text'
                                              value={postValue}
                                              onChange={e => setPostValue(e.target.value)}
+                                             disabled={disable}
                                              />
                                     </form>
                                     : <ReactHashtag>{postValue}</ReactHashtag>}

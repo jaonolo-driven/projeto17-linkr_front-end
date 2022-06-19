@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components"
 import ReactHashtag from "react-hashtag";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { ThreeCircles } from "react-loader-spinner";
@@ -11,6 +12,7 @@ import { Title, MainContent, Center, CreatePost, PostHTML, SideBar, Photo, SubHe
 
         import Header from '.././Header/index.js'
 import UserContext from "../../contexts/UserContext";
+import PostContentComponent from "../PostContent";
 
 export default function PostsByUser(props){
     
@@ -25,7 +27,6 @@ export default function PostsByUser(props){
     
     const { id } = useParams();
     
-
     useEffect( () => {
         const config = {headers: { authorization: `Bearer ${user}`}}
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
@@ -36,24 +37,24 @@ export default function PostsByUser(props){
         promise.catch( (error) => {console.log('Error Get PostsByUser: ', error)
                                     navigate("/timeline")})   } 
     , []) 
-
-function togglelikePost(postId){
-        const config = {headers: { authorization: `Bearer ${user}`}}
-        const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
-        const promise = axios.patch(URL, {}, config)
-        promise.then( (response) => { setLikes(response.data[0].likes)
-                                        insertLikes(postId, response.data[0].likes)
-                                        setTypeLikes(response.data[1].typeLike)
-                                        setIdPost(response.data[2].postIdInfo)})
-        promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
-} 
-console.log(postsList)
-function insertLikes(postId, responselikes){
-    postsList.postsInfo?.map((post) => {
-            (post.id == postId)?(post.likes = responselikes):(<></>)
-    })
-    CreateMyPost();
-}
+    
+    function togglelikePost(postId){
+            const config = {headers: { authorization: `Bearer ${user}`}}
+            const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
+            const promise = axios.patch(URL, {}, config)
+            promise.then( (response) => { setLikes(response.data[0].likes)
+                                            insertLikes(postId, response.data[0].likes)
+                                            setTypeLikes(response.data[1].typeLike)
+                                            setIdPost(response.data[2].postIdInfo)})
+            promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
+    } 
+    console.log(postsList)
+    function insertLikes(postId, responselikes){
+        postsList.postsInfo?.map((post) => {
+                (post.id == postId)?(post.likes = responselikes):(<></>)
+        })
+        CreateMyPost();
+    }
 
     function CreateMyPost(){
         if(postsList.postsInfo.length === 0){
@@ -91,19 +92,10 @@ function insertLikes(postId, responselikes){
                         <span> {post.likes} likes</span> 
                     </SubPostAside>
                     </PostAside>
-                    <PostContent >
-                        <h3>{postsList.userName}</h3> 
-                        <p><ReactHashtag>{post.message}</ReactHashtag></p>
-                        <UrlPost>
-                            <UrlPostText>
-                                <h4>{postsList[index].url.title}</h4>
-                                <p>{postsList[index].url.description}</p>
-                                <a href={postsList[index].url.link}>{postsList[index].url.link}</a>
-                            </UrlPostText>
-                            <img src={postsList[index].url.image}/>
-                        </UrlPost>
-                    </PostContent>
-                        </PostHTML> )}
+                    <PostContentComponent   postsList={postsList}
+                                            post={post}
+                                            index={index}/>
+                </PostHTML> )}
             </CreatePost>
         )
     }

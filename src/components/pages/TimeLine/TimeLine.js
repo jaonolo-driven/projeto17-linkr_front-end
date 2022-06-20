@@ -68,7 +68,7 @@ export default function TimeLine(props){
 
 const TimelineHTML = styled.div`
     height: 100%;
-    overflow: scroll;
+    overflow: auto;
 `;
 
 const Title = styled.h1`

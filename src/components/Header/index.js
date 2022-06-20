@@ -4,6 +4,8 @@ import styled from "styled-components"
 import UserContext from "../../contexts/UserContext"
 import axios from "axios"
 import HeaderDropdownIcon from "../HeaderDropdownIcon"
+import HeaderSearchBar from "../HeaderSearchBar"
+import { ProfilePic } from "../../styles/ProfilePic"
 
 const Header = () => { 
     const [dropDownState, setDropDownState] = useState(false)
@@ -31,12 +33,13 @@ const Header = () => {
     return <>
         <Container>
             <h1>linkr</h1>
+            <HeaderSearchBar/>
             <div onClick={() => setDropDownState(!dropDownState)}  >
                 <HeaderDropdownIcon dropDownState={dropDownState}/>
-                <ProfilePic alt='profile-picture' src={avatar} />
+                <ProfilePic alt='profile-picture' src={avatar} radius={53} />
             </div>
+            <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
         </Container>
-        <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
     </>
 }
 
@@ -46,7 +49,6 @@ const Container = styled.div`
     background-color: var(--darker-grey);
     position: sticky;
     top: 0;
-    z-index: 1;
     height: 72px;
     padding: 0 17px;
     display: flex;
@@ -65,20 +67,16 @@ const Container = styled.div`
         gap: 16px;
         justify-content: flex-end;
         width: 150px;
+        background-color: var(--darker-grey);
     }
-`
-
-const ProfilePic = styled.img`
-    height: 53px;
-    border-radius: 50%;
 `
 
 const DropdownLogout = styled.div`
     position: absolute;
-    z-index: 0;
     background-color: var(--darker-grey);
     right: 0;
     top: 72px;
+    z-index: -1;
     transform: translateY(${props => props.state ? '0%' : '-100%'});
     transition: transform 250ms;
     width: 150px;

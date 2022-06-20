@@ -13,21 +13,23 @@ import TimeLine from '../pages/TimeLine/TimeLine.js';
 
 
 function App() {
-  const userState = useState(JSON.parse(localStorage.getItem("user")))
+  const tokenStorageString = localStorage.getItem("user")
+  const tokenStorage = JSON.parse(tokenStorageString)
+  const [token, setToken] = useState(tokenStorage)
 
   return (
-    <UserContext.Provider value={userState}><AppContainer>
+    <UserContext.Provider value={[token, setToken]}><AppContainer>
       <BrowserRouter>
         <Routes>
           <Route element={<AuthRoutesController needsUser={false}/>}>
             <Route path='/sign-up' element={<SignupPage/>}/>
             <Route path='/' element={<LoginPage/>}/>
-            <Route path='/timeline' element={ <TimeLine myPost = {'crear compomente'}
-                                                        sideBar = {`existe`} 
-                                                        titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
+            <Route path='/timeline' element={ <TimeLine myPost = {'crear compomente'}
+                                                        sideBar = {`existe`} 
+                                                        titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
             <Route path='/user/:id' element={ <PostsByUser myPost = {`existo`} sideBar = {`existe`}/> }/>
           </Route>

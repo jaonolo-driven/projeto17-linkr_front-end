@@ -9,12 +9,12 @@ export default function PostsByUser(props){
     const { myPost, sideBar } = props
     const [postsList, setPostsList] = useState([])
     const [animacao, setAnimacao] = useState(false)
-    const token = JSON.parse(localStorage.getItem('user'))
+    const user = JSON.parse(localStorage.getItem('user'))
     // Só para testar a URL
     let id = 2;
     
     useEffect( () => {
-        const config = {headers: { authorization: `Bearer ${token}`}}
+        const config = {headers: { authorization: `Bearer ${user.token}`}}
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
         setAnimacao(true)
         const promise = axios.get(URL, config)

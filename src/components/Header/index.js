@@ -17,7 +17,7 @@ const Header = () => {
         axios.get(`${process.env.REACT_APP_API_URL}/user`,
         {
             headers: {
-                Authorization: `Bearer ${user}`
+                Authorization: `Bearer ${user.token}`
             }
         }).then(response => {
             setAvatar(response.data.profilePicture)
@@ -54,6 +54,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1;
 
     h1 {
         color: white;

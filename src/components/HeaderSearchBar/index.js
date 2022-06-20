@@ -6,15 +6,16 @@ import debounce from '../../utils/debounce'
 import axios from 'axios'
 import UserContext from '../../contexts/UserContext'
 import { ProfilePic } from '../../styles/ProfilePic'
+import { useNavigate } from 'react-router-dom'
 
 const HeaderSearchBar = () => {
     const [searchResults, setSearchResults] = useState(null)
     const [token, setToken] = useContext(UserContext)
+    const navigate = useNavigate()
 
     const onSubmit = async value => {
         const config = {headers: { authorization: `Bearer ${token}`}}
         const results = await axios.post(process.env.REACT_APP_API_URL + '/users', { searchString: value }, config)
-        console.log(results)
         setSearchResults(results.data.rows)
     }
 
@@ -25,7 +26,7 @@ const HeaderSearchBar = () => {
     
     const onChange = ({target}) => {
         if(target.value.length < 3) return setSearchResults(null)
-        if(searchResults !== 'loading') setSearchResults('loading')
+        //if(searchResults !== 'loading') setSearchResults('loading')
         onSubmit(target.value)
     }
 
@@ -36,10 +37,11 @@ const HeaderSearchBar = () => {
             return <Loading/>
         
         if(resultsList.length === 0)
-            return 'Usuário não encontrado :('
+            return 'Nenhum usuário encontrado :('
 
-        else return resultsList.map(({profilePicture}) => <SearchBarButtonResult>
+        return resultsList.map(({profilePicture, userName, id}) => <SearchBarButtonResult onClick={() => navigate(`/user/${id}`)}>
                 <ProfilePic alt='profile-picture' src={profilePicture} radius={39} />
+                <span>{userName}</span>
             </SearchBarButtonResult>    
         )    
     }
@@ -103,12 +105,13 @@ const SearchBarButton = styled.button`
 
 const SearchBarDropdown = styled.div`
     width: 100%;
-    background-color: aqua;
+    background-color: #E7E7E7;
     position: absolute;
     top: 8px;
     transform: translateY(${props => props.state ? '29px' : '0'});
     z-index: -1;
     padding-top: 8px;
+    border-radius: 0 0 8px 8px;
 `
 
 const Loading = styled.span`
@@ -147,7 +150,15 @@ const SearchBarButtonResult = styled(Button)`
     padding: 8px 17px;
     width: 100%;
     display: flex;
-    gap: 12px
+    gap: 12px;
+    font-size: 19px;
+    color: #515151;
+    align-items: center;
+    span {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: normal;
+    }
 `
 
 export default HeaderSearchBar

@@ -21,16 +21,16 @@ export default function PostsByUser(props){
     const [postsList, setPostsList] = useState([])
     const [postsList2, setPostsList2] = useState([])
     const [animacao, setAnimacao] = useState(false)
-    const [user, setUser] = useContext(UserContext)
+    const [token, setToken] = useContext(UserContext)
     const navigate = useNavigate()
-    
-    const { id } = useParams();
 
+    const { id } = useParams();
+    console.log(id)
     //TODO:pegar o user.id pelo context
-    const userIdTest = 2;
+    const userIdTest = 3;
 
     useEffect( () => {
-        const config = {headers: { authorization: `Bearer ${user.token}`}}
+        const config = {headers: { authorization: `Bearer ${token}`}}
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
         setAnimacao(true)
         const promise = axios.get(URL, config)
@@ -48,6 +48,10 @@ export default function PostsByUser(props){
                                     navigate("/timeline")})   } 
     , []) 
 
+    function goToHashtagPage(tag) {
+        navigate("/hashtag/" + tag.split("#")[1]);
+        window.location.reload();
+    }
 
 function CreateMyPost(){
         if(postsList2.postsInfo.length === 0){
@@ -84,7 +88,7 @@ function CreateMyPost(){
                 <h3>trending</h3>
                 <SideBarLine/>
                 {postsList.allHashtagsInfo?.map( (hashtag) => 
-                {return <p># {hashtag.tag.split("#")[1]}</p>})}
+                {return <p onClick={goToHashtagPage(hashtag.tag)}># {hashtag.tag.split("#")[1]}</p>})}
             </SideBar>
         )
     }

@@ -120,21 +120,10 @@ export const SubPostAside = styled.div`
         cursor: pointer;
     }
 
-    .label-popup {
-        display: none;
-        position: absolute;
-    }
-
-    svg:hover~.label-popup {
-        display: block;
-        word-break: break-all;
-        width: 30%;
-        border: 1px solid #4D4D4D;
-        border-radius: 11px;
-        margin-top: 6%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .fontTooltip {
+        font-family:var(--default-font);
+        font-weight: 400;
+        font-size: 11px;
     }
 `
 

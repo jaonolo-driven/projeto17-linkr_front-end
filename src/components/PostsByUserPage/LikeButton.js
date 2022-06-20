@@ -8,11 +8,11 @@ import UserContext from "../../contexts/UserContext";
 
 export default function LikeButton(props){
 
-    const [infos, setInfos] = useState([]);
     const [liked, setLiked] = useState(props.liked);
     const [countLikes, setCountLikes] = useState(props.postLikes)
     const [user, setUser] = useContext(UserContext)
-    const {postId} = props;
+    const {postId, likeList} = props;
+    console.log(likeList)
 
 
     function togglelikePost(postId){
@@ -20,29 +20,73 @@ export default function LikeButton(props){
         const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
         const promise = axios.patch(URL, {}, config)
         
-        promise.then( (response) => {  setInfos(response.data)
-                                        setCountLikes(response.data[0])
+        promise.then( (response) => {  setCountLikes(response.data[0])
                                         setLiked(!liked)})
         promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
     }
 
+    function popUpLikeButton(){
+        return (
+                (liked)?(
+                    (likeList.length == 0)?(
+                        <div>
+                            Você curtiu esse post
+                        </div>
+                    ):((likeList.length == 1)?(   
+                        <div>
+                            Você e {likeList[0].whoLiked} curtiram esse post
+                        </div>):
+                        (<div >
+                                Você, {likeList[0].whoLiked} e mais {likeList.length-1} curtiram esse post
+                            </div>))
+                ):((likeList.length == 1)?(
+                    <div>
+                        {likeList[0].whoLiked} curtiu esse post
+                    </div>
+                    ):((likeList.length == 2)?(   
+                        <div >
+                            {likeList[0].whoLiked}, {likeList[1].whoLiked} curtiram esse post
+                        </div>):
+                        (<div>
+                            {likeList[0].whoLiked}, {likeList[1].whoLiked} e mais {likeList.length-1} curtiram esse post
+                        </div>))
+        )
+        )
+    }
     
     return (
         <>
         {
             (liked)?(
                 <>
-                <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(postId)}/>
-                <div className="label-popup">
-                        Você, fulano e mais muitas pessoas
+                <div data-tip data-for="showLikes1">
+                    <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(postId)}/>
                 </div>
+                    <ReactTooltip id="showLikes1" 
+                                    place="bottom" 
+                                    delayHide={500}
+                                    textColor='#505050' 
+                                    backgroundColor='rgba(255, 255, 255, 0.9)'
+                                    effect="solid"
+                                    className='fontTooltip'>
+                            {popUpLikeButton()}
+                    </ReactTooltip>
+                    
                 </>
             ):(<>
-                <FaRegHeart onClick={() => togglelikePost(postId)} data-for="showLikes2"/>
-                <div className="label-popup">
-                        fulano e ciclano e mais pessoas
+                <div data-tip data-for="showLikes2">
+                    <FaRegHeart onClick={() => togglelikePost(postId)}/>
                 </div>
-                </>)
+                    <ReactTooltip id="showLikes2"
+                                    delayHide={500}
+                                    textColor='#505050' 
+                                    backgroundColor='rgba(255, 255, 255, 0.9)' 
+                                    place="bottom" 
+                                    effect="solid"
+                                    className='fontTooltip'>
+                            {popUpLikeButton()}
+                    </ReactTooltip>
+                </>) 
         }
 
         {

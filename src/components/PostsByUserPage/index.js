@@ -21,22 +21,15 @@ export default function PostsByUser(props){
     
     const { myPost, sideBar } = props
     const [postsList, setPostsList] = useState([])
-
     const [postsList2, setPostsList2] = useState([])
-
     const [animacao, setAnimacao] = useState(false)
-    const [likes, setLikes] = useState()
     const [user, setUser] = useContext(UserContext)
-    const [typeLikes, setTypeLikes] = useState('')
-    const [firstacess, setFirstacess] = useState(true)
-    const [idPost, setIdPost] = useState();
-    const [likesPostInfos, setLikesPostInfos] = useState([])
     const navigate = useNavigate()
     
     const { id } = useParams();
 
     // Colocando um user id fixo para testar, mas objetivo é pegar pelo useContext
-    const userIdTest = 3;
+    const userIdTest = 2;
 
     useEffect( () => {
         const config = {headers: { authorization: `Bearer ${user}`}}
@@ -58,28 +51,6 @@ export default function PostsByUser(props){
     , []) 
 
 
-console.log(postsList2)
-
-function insertLikes(postId, responselikes){
-    postsList.postsInfo?.map((post) => {
-            (post.id == postId)?(post.likes = responselikes):(<></>)
-    })
-    CreateMyPost();
-}
-
-//console.log(postsList)
-
-/* function clickToggleLike(postId){
-    return (
-    (postId == idPost)?(
-        (typeLikes == 'like')?(
-            <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(postId)}/>):(
-            <FaRegHeart onClick={() => togglelikePost(postId)}/>
-        )):(<FaRegHeart onClick={() => togglelikePost(postId)}/>)
-    )
-} */
-
-
 function CreateMyPost(){
         if(postsList2.postsInfo.length === 0){
             return( 
@@ -98,7 +69,8 @@ function CreateMyPost(){
                         <LikeButton 
                                     liked={post.likesList?.filter((e) => e.UserLiked == userIdTest).length !== 0}
                                     postId={post.id}
-                                    postLikes={post.likes}/>
+                                    postLikes={post.likes}
+                                    likeList={post.likesList?.filter((e) => e.UserLiked != userIdTest)}/>
                     </SubPostAside>
                     </PostAside>
                     <PostContentComponent   postsList={postsList}
@@ -168,7 +140,7 @@ function CreateMyPost(){
                         { sideBar ? <CreateSideBar/> : <></>}
                 </MainContent>
             </Container>
-            );
+            )
         }
     }
 }

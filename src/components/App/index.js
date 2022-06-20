@@ -29,7 +29,7 @@ function App() {
                                                         sideBar = {'vai ter side'}
                                                         titleTimeLine = {`TimeLine`} /> }  />
             <Route path='/user/:id' element={ <PostsByUser  myPost = {`existo`} 
-                                                            sideBar = {``}/> } />
+                                                            sideBar = {`existo`}/> } />
             <Route path='/hashtag/:hashtag' element={ <HashtagPage /> } />
           </Route>
         </Routes>

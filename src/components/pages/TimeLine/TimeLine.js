@@ -14,13 +14,17 @@ export default function TimeLine(props){
     const [userState, setUserState] = React.useContext(UserContext)
     let isListEmpyt, empyt
 
+    console.log("POSTLIST :", postsList)
+    console.log(userState)
+
     console.log(userState)
 
     React.useEffect( () => {
         const config = {headers: { authorization: `Bearer ${userState}`}}
         const URL = process.env.REACT_APP_API_URL+'/timeline'
         const promise = axios.get(URL, config)
-        promise.then( (response) => {   setPostsList(response.data)
+        promise.then( (response) => {   
+                                        setPostsList(response.data)
                                         setAnimacao(false)})
         promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
     ,[])
@@ -72,6 +76,7 @@ const LoadingHTML = styled.div`
 const TimelineHTML = styled.div`
     height: 100%;
     overflow: scroll;
+    /* background-color: blue; */
 `;
 
 const Title = styled.h1`
@@ -82,6 +87,7 @@ const Title = styled.h1`
     margin-bottom: 50px;
     margin-left: 3%;
     color: #fff;
+    /* background-color: aliceblue; */
     `;
 
 const MainContent = styled.main`
@@ -91,6 +97,7 @@ const MainContent = styled.main`
     width: 90%;
     height: 100%;
     margin-left: 3%;
+    /* background-color: aqua; */
 `;
 
 const CenterHTML = styled.section`
@@ -98,8 +105,6 @@ const CenterHTML = styled.section`
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    /* background-color: blue; */
 `;
 
 const SideBar = styled.aside`

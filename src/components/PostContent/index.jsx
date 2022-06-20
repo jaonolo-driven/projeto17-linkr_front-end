@@ -7,13 +7,15 @@ import { useRef, useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 export default function PostContentComponent(props){
-    const {postsList, post, index} = props
+    const {postINFO} = props
     const token = JSON.parse(localStorage.getItem('user'))
     const inputRef = useRef()
     const [editPost, setEditPost] = useState(false)
-    const [postValue, setPostValue] = useState(post.message)
+    const [postValue, setPostValue] = useState(postINFO.message)
     const [resetValue, setResetValue] = useState('')
     const [disable, setDisable] = useState(false)
 
@@ -39,7 +41,7 @@ export default function PostContentComponent(props){
         e.preventDefault()
         setDisable(true)
         const promise = axios.put(`${process.env.REACT_APP_API_URL}/editpost`,{
-            id: post.id,
+            id: postINFO.id,
             userId: id,
             message: postValue
         },
@@ -58,9 +60,12 @@ export default function PostContentComponent(props){
         })
     }
     return(
-        <PostContent>
+        <>
             <NameAndButtons>
-                <h3>{postsList.userName}</h3>
+                <Link   style={{ color: 'inherit', textDecoration: 'inherit'}}
+                        to={`/user/${postINFO.userId}`}>
+                    <h3>{postINFO.userName}</h3>
+                </Link> 
                 <EditAndDel>
                     <RiEdit2Line color="white" onClick={() => changeEditPost()}/>
                     <AiFillDelete margin={10}/>
@@ -75,18 +80,9 @@ export default function PostContentComponent(props){
                                              />
                                     </form>
                                     : <ReactHashtag>{postValue}</ReactHashtag>}
-            <UrlPost>
-                <UrlPostText>
-                    <h4>{postsList[index].url.title}</h4>
-                    <p>{postsList[index].url.description}</p>
-                    <a href={postsList[index].url.link}>{postsList[index].url.link}</a>
-                </UrlPostText>
-                <img src={postsList[index].url.image}/>
-            </UrlPost>
-        </PostContent>
+        </>
     )
 }
-
 
 const NameAndButtons = styled.div`
     display: flex;

@@ -12,7 +12,7 @@ import { Circles } from "react-loader-spinner";
 
 export default function PostContentComponent(props){
     const {postsList, post, index, renderList} = props
-    const token = JSON.parse(localStorage.getItem('user'))
+    const {token} = JSON.parse(localStorage.getItem('user'))
     const inputRef = useRef()
     const [editPost, setEditPost] = useState(false)
     const [postValue, setPostValue] = useState(post.message)
@@ -106,7 +106,10 @@ export default function PostContentComponent(props){
                             </>}
                         </ContentModal>
                     </ReactModal>
-                    <RiEdit2Line color="white" onClick={() => changeEditPost()}/>
+                    <RiEdit2Line color="white" onClick={() => {
+                        console.log(token)
+                        changeEditPost()
+                    }}/>
                     <AiFillDelete margin={10} onClick={() => setShowModal(true)}/>
                 </EditAndDel>
             </NameAndButtons> 

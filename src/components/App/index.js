@@ -29,11 +29,11 @@ function App() {
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
             <Route path='/timeline' element={ <TimeLine myPost = {'crear compomente'}
-                                                        sideBar = {`existe`} 
+                                                        sideBar = {true} 
                                                         titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
             <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
-                                                        sideBar = {'vai ter side'}
+                                                        sideBar = {true}
                                                         titleTimeLine = {`TimeLine`} /> }  />
             <Route path='/user/:id' element={ <PostsByUser  myPost = {`existo`} 
                                                             sideBar = {`existo`}/> } />

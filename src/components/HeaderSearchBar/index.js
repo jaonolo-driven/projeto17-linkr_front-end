@@ -65,6 +65,11 @@ const HeaderSearchBar = () => {
 
 const SBWithDropdown = styled.section`
     position: relative;
+    
+    @media screen and (max-width: 650px) {
+        width: 100%;
+        max-width: 600px;
+    }
 `
 
 const SearchBarIcon = () => {
@@ -83,6 +88,14 @@ const SearchBarContainer = styled.form`
     width: 563px;
     border-radius: 8px;
     display: flex;
+
+    @media screen and (max-width: 900px) {
+        width: 350px;
+    }
+
+    @media screen and (max-width: 650px) {
+        width: 100%;
+    }
 `
 
 const SearchBarInput = styled.input`

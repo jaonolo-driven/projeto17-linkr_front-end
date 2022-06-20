@@ -36,6 +36,14 @@ export const AsideContainer = styled.aside`
     background-color: var(--darker-grey);
     padding: 0 144px;
 
+    @media screen and (max-width: 1150px) {
+        font-size: 32px;
+        
+        h1 {
+            font-size: 85px;
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         align-items: center;
         flex-grow: 0;
@@ -43,24 +51,35 @@ export const AsideContainer = styled.aside`
         height: 175px;
         font-size: 23px;
 
+        padding: 0px;
+
         h1 {
             font-size: 76px;
+            line-height: 60px;
         }
 
         p {
-            max-width: 450px;
+            max-width: 240px;
+            text-align: center;
         }
     }
+
 `
 
 export const FormContainer = styled.div`
     height: 100%;
-    width: 535px;
+    max-width: 535px;
+    width: 100%;
     padding: 0 50px;
     display: flex;
     align-items: center;
 
+    padding-top: 40px;
+
     @media screen and (max-width: 1000px) {
         flex-direction: column;
+        flex-grow: 1;
+        height: auto;
+        padding: 22px;
     }
 `

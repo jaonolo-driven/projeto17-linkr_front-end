@@ -10,7 +10,7 @@ export const StyledForm = styled.form`
     input, button {
         height: 65px;
         border-radius: 6px;
-        font-family: var(--custom-font);
+        font-family: var(--subtitle-font);
         font-size: 27px;
         font-weight: 700;
         padding: 0 17px;
@@ -29,5 +29,16 @@ export const StyledForm = styled.form`
         margin-top: 5px;
         font-size: 20px;
         color: white
+    }
+
+    @media screen and (max-width: 1000px) {
+        input, button {
+            height: 55px;
+            font-size: 22px;
+        }
+
+        a {
+            font-size: 17px
+        }
     }
 `

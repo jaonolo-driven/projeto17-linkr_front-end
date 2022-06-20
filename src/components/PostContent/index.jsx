@@ -7,6 +7,8 @@ import { useRef, useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import deleteConfirmation from "react-modal";
+import ReactModal from "react-modal";
 
 export default function PostContentComponent(props){
     const {postsList, post, index} = props
@@ -16,6 +18,7 @@ export default function PostContentComponent(props){
     const [postValue, setPostValue] = useState(post.message)
     const [resetValue, setResetValue] = useState('')
     const [disable, setDisable] = useState(false)
+    const [showModal, setShowModal] = useState(false)
 
     const {id} = useParams()
 
@@ -62,8 +65,21 @@ export default function PostContentComponent(props){
             <NameAndButtons>
                 <h3>{postsList.userName}</h3>
                 <EditAndDel>
+                    <ReactModal isOpen={showModal} style={modalStyle}>
+                        <ContentModal>
+                            Are you sure you want to delete this post?
+                            <div>
+                            <CancelButton onClick={() => setShowModal(false)}>
+                                No, go back
+                            </CancelButton>
+                            <ConfirmButton>
+                                Yes, delete it
+                            </ConfirmButton>
+                            </div>
+                        </ContentModal>
+                    </ReactModal>
                     <RiEdit2Line color="white" onClick={() => changeEditPost()}/>
-                    <AiFillDelete margin={10}/>
+                    <AiFillDelete margin={10} onClick={() => setShowModal(true)}/>
                 </EditAndDel>
             </NameAndButtons> 
             {(editPost===true)   ?  <form onSubmit={editPostSubmit}>
@@ -86,8 +102,36 @@ export default function PostContentComponent(props){
         </PostContent>
     )
 }
-
-
+const ConfirmButton = styled.button`
+    width: 134px;
+    height: 37px;
+    background: #1877F2;
+    border-radius: 5px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFFFFF;
+    border: none;
+    margin: 47px 13px;
+    cursor: pointer;
+`
+const CancelButton = styled.button`
+    width: 134px;
+    height: 37px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #1877F2;
+    border: none;
+    margin: 47px 13px;
+    cursor: pointer;
+`
 const NameAndButtons = styled.div`
     display: flex;
     justify-content: space-between;
@@ -103,3 +147,38 @@ const EditAndDel = styled.div`
 const Input  = styled.input`
     height: 100%;
 `
+const ContentModal = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 41px;
+    text-align: center;
+`
+const modalStyle = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    },
+    content: {
+        width: 597,
+        height: 262,
+        color: '#ffffff',
+        backgroundColor: '#333333',
+        borderRadius: '50px',
+        position: 'absolute',
+        top: '35%',
+        left: '35%',
+        padding: '38px 120px',
+        overflow: 'hidden'
+    }
+}

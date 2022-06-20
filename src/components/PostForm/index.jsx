@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
+import { ProfilePic } from '../../styles/ProfilePic'
 
 export default function PostForm(){
     const user = JSON.parse(localStorage.getItem('user'))
@@ -47,7 +48,7 @@ export default function PostForm(){
 
     return(
         <Section>
-            <Photo src={avatar} />
+            <ProfilePic src={avatar} radius={50}/>
             <Form onSubmit={publish}>
                 <Title>What are you going to share today?</Title>
                 <Input  type='text'
@@ -63,8 +64,9 @@ export default function PostForm(){
                         onChange={e => setMessage(e.target.value)}
                         disabled={disable}
                         height={"50px"}/>
-
-                <Button type="submit" disabled={disable}>{disable ? 'Publishing...' : 'Publish'}</Button>
+                <ButtonHolder>
+                    <Button type="submit" disabled={disable}>{disable ? 'Publishing...' : 'Publish'}</Button>
+                </ButtonHolder>
             </Form>
         </Section>
     )
@@ -78,24 +80,21 @@ const Section = styled.section`
     width: 100%;
     height: 200px;
     border-radius: 10px;
-    padding: 10px;
+    padding: 18px;
     margin-bottom: 30px;
+    gap: 10px;
 
-    @media screen and (max-width: 650px) {
+    @media screen and (max-width: 600px) {
         border-radius: 0;
     }
 `
-const Photo = styled.img`
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin-right: 10px;
-`
+
 const Title = styled.h2`
-    font-family: 'Dosis';
-    font-size: 14px;
-    color: #8a8989;
+    font-size: 20px;
+    color: #707070;
     margin: 3px;
+    line-height: 40px;
+    font-weight: 300;
 `
 const Form = styled.form`
     display: flex;
@@ -115,14 +114,23 @@ const Input = styled.input`
     position: relative;
 `
 const Button = styled.button`
-   display: flex;
-   justify-content: center;
-   width: 70px; 
-   color: #FFFFFF;
-   background: #006eff;
-   border-radius: 5px;
-   border: none;
-   padding: 5px;
-   margin-top: 3px;
-   font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 112px; 
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 14px;
+    background: #006eff;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    margin-top: 3px;
+    height: 31px;
+`
+
+const ButtonHolder = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 `

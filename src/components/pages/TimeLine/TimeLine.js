@@ -68,13 +68,19 @@ export default function TimeLine(props){
     
     return( <TimelineHTML>
                 <Header/>
-                <MainContent> 
+                <MainContent>
                     <CenterHTML>
+                        <div>
                         <Title> {titleTimeLine} </Title>
-                        {myPost ? <PostForm/> : <></>}
-                        <IsListEmpyt/>
+                            <SidebarWrapper>
+                                <div>
+                                    {myPost ? <PostForm/> : <></>}
+                                    <IsListEmpyt/>
+                                </div>
+                                <CreateSideBar/>
+                            </SidebarWrapper>
+                        </div>
                     </CenterHTML>
-                    <CreateSideBar/>
                 </MainContent>
             </TimelineHTML>)}
 
@@ -97,12 +103,11 @@ const Title = styled.h1`
     text-align: left;
     margin-top: 78px;
     margin-bottom: 40px;
-    margin-left: 3%;
     color: #fff;
     font-family: var(--subtitle-font);
     font-weight: 700;
     font-size: 43px;
-
+    
     @media screen and (max-width: 650px) {
         margin: 19px 0;
         padding-left: 3%;
@@ -111,9 +116,6 @@ const Title = styled.h1`
 `;
 
 const MainContent = styled.main`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     width: 100%;
     height: calc(100% - 72px);
 
@@ -127,7 +129,6 @@ const CenterHTML = styled.section`
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    margin-right: 25px;
     /* background-color: blue; */
 
     @media screen and (max-width: 650px) {
@@ -135,13 +136,18 @@ const CenterHTML = styled.section`
     }
 `;
 
+const SidebarWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 28px
+`
+
 const SideBar = styled.aside`
     display: flex;
     position: sticky;
-    margin-top: 126px;
-    width: 25%;
+    width: 300px;
     height: fit-content;
-    margin-left: 1%;
     background: #171717;
     border-radius: 16px;
     flex-direction: column;

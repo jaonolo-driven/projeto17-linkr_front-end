@@ -51,8 +51,12 @@ export const PostHTML = styled.div`
     font-family: var(--default-font);
     color: #FFFFFF;
 
-    @media screen and (max-width: 650px) {
+    @media screen and (max-width: 600px) {
         border-radius: 0;
+    }
+
+    h3 {
+        margin-bottom: 13px
     }
 `;
 

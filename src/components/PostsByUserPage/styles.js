@@ -119,6 +119,12 @@ export const SubPostAside = styled.div`
         margin-bottom: 10%;
         cursor: pointer;
     }
+
+    .fontTooltip {
+        font-family:var(--default-font);
+        font-weight: 400;
+        font-size: 11px;
+    }
 `
 
 export const PostContent = styled.div`

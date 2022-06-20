@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import UserContext from "../../contexts/UserContext"
 import axios from "axios"
@@ -31,15 +31,32 @@ const Header = () => {
     }
 
     return <>
-        <Container>
-            <h1>linkr</h1>
+        <DesktopContainer>
+            <Link to="/">
+                <h1>linkr</h1>
+            </Link>
             <HeaderSearchBar/>
-            <div onClick={() => setDropDownState(!dropDownState)}  >
+            <DropdownButton onClick={() => setDropDownState(!dropDownState)}  >
                 <HeaderDropdownIcon dropDownState={dropDownState}/>
                 <ProfilePic alt='profile-picture' src={avatar} radius={53} />
-            </div>
+            </DropdownButton>
             <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
-        </Container>
+        </DesktopContainer>
+        <MobileHolder>
+            <MobileContainer>
+                <Link to="/">
+                    <h1>linkr</h1>
+                </Link>
+                <DropdownButton onClick={() => setDropDownState(!dropDownState)}  >
+                    <HeaderDropdownIcon dropDownState={dropDownState}/>
+                    <ProfilePic alt='profile-picture' src={avatar} radius={53} />
+                </DropdownButton>
+                <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
+            </MobileContainer>
+            <MobileSearchBarHolder>
+                <HeaderSearchBar/>
+            </MobileSearchBarHolder>
+        </MobileHolder>
     </>
 }
 
@@ -62,14 +79,45 @@ const Container = styled.div`
         font-family: var(--title-font);
     }
 
-    > div {
+    a {
+        text-decoration: none;
+        height: 100%;
         display: flex;
         align-items: center;
-        gap: 16px;
-        justify-content: flex-end;
-        width: 150px;
-        background-color: var(--darker-grey);
+        margin-right: 17px;
     }
+`
+
+const DesktopContainer = styled(Container)`
+    @media screen and (max-width: 650px) {
+        display: none
+    }
+`
+
+const MobileHolder = styled.header`
+    @media screen and (min-width: 650px) {
+        display: none
+    }
+`
+
+const MobileSearchBarHolder = styled.div`
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const MobileContainer = styled(Container)``
+
+const DropdownButton = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: flex-end;
+    width: 150px;
+    height: 100%;
+    cursor: pointer;
+    background-color: var(--darker-grey);
 `
 
 const DropdownLogout = styled.div`

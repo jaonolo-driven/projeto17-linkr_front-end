@@ -119,6 +119,23 @@ export const SubPostAside = styled.div`
         margin-bottom: 10%;
         cursor: pointer;
     }
+
+    .label-popup {
+        display: none;
+        position: absolute;
+    }
+
+    svg:hover~.label-popup {
+        display: block;
+        word-break: break-all;
+        width: 30%;
+        border: 1px solid #4D4D4D;
+        border-radius: 11px;
+        margin-top: 6%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 `
 
 export const PostContent = styled.div`

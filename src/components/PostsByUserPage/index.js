@@ -10,9 +10,10 @@ import { Title, MainContent, Center, CreatePost, PostHTML, SideBar, Photo, SubHe
         PostAside, SideBarLine, SubPostAside, PostContent, Container, UrlPost,
         UrlPostText, IconStyle, MainNoPosts} from "./styles";
 
-        import Header from '.././Header/index.js'
+import Header from '.././Header/index.js'
 import UserContext from "../../contexts/UserContext";
 import PostContentComponent from "../PostContent";
+import LikeButton from "./LikeButton";
 
 export default function PostsByUser(props){
 
@@ -20,6 +21,9 @@ export default function PostsByUser(props){
     
     const { myPost, sideBar } = props
     const [postsList, setPostsList] = useState([])
+
+    const [postsList2, setPostsList2] = useState([])
+
     const [animacao, setAnimacao] = useState(false)
     const [likes, setLikes] = useState()
     const [user, setUser] = useContext(UserContext)
@@ -30,40 +34,31 @@ export default function PostsByUser(props){
     const navigate = useNavigate()
     
     const { id } = useParams();
-<<<<<<< HEAD
 
     // Colocando um user id fixo para testar, mas objetivo é pegar pelo useContext
     const userIdTest = 3;
 
-=======
-    
->>>>>>> 537b4bef890c2e017ed872fa1ece7b22234ef14e
     useEffect( () => {
         const config = {headers: { authorization: `Bearer ${user}`}}
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
         setAnimacao(true)
         const promise = axios.get(URL, config)
-        promise.then( (response) => {   setPostsList(response.data)
+        promise.then( (response) => {   let newPost = response.data.postsInfo
+                                        newPost = newPost.map((elemento) => {
+                                            return {
+                                                ...elemento, 
+                                                likesList: response.data.postsLikesInfo.filter(e => e.idPostLiked == elemento.id)
+                                            }
+                                        })
+                                        setPostsList2({...response.data, postsInfo: newPost})
+                                        setPostsList(response.data)
                                         setAnimacao(false) } )
         promise.catch( (error) => {console.log('Error Get PostsByUser: ', error)
                                     navigate("/timeline")})   } 
     , []) 
-<<<<<<< HEAD
 
-function togglelikePost(postId){
-        const config = {headers: { authorization: `Bearer ${user}`}}
-        const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
-        const promise = axios.patch(URL, {}, config)
-        
-        promise.then( (response) => {  setLikes(response.data[0].likes)
-                                        insertLikes(postId, response.data[0].likes)
-                                        setTypeLikes(response.data[1].typeLike)
-                                        setIdPost(response.data[2].postIdInfo)
-                                        setLikesPostInfos(response.data[3])
-                                        setFirstacess(false)})
-        promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
-} 
-//console.log(likesPostInfos)
+
+console.log(postsList2)
 
 function insertLikes(postId, responselikes){
     postsList.postsInfo?.map((post) => {
@@ -71,26 +66,6 @@ function insertLikes(postId, responselikes){
     })
     CreateMyPost();
 }
-=======
-    
-    function togglelikePost(postId){
-            const config = {headers: { authorization: `Bearer ${user}`}}
-            const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
-            const promise = axios.patch(URL, {}, config)
-            promise.then( (response) => { setLikes(response.data[0].likes)
-                                            insertLikes(postId, response.data[0].likes)
-                                            setTypeLikes(response.data[1].typeLike)
-                                            setIdPost(response.data[2].postIdInfo)})
-            promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
-    } 
-    console.log(postsList)
-    function insertLikes(postId, responselikes){
-        postsList.postsInfo?.map((post) => {
-                (post.id == postId)?(post.likes = responselikes):(<></>)
-        })
-        CreateMyPost();
-    }
->>>>>>> 537b4bef890c2e017ed872fa1ece7b22234ef14e
 
 //console.log(postsList)
 
@@ -104,24 +79,9 @@ function insertLikes(postId, responselikes){
     )
 } */
 
-function whoLiked(postsList, userIdTest){
-    return (
-        (firstacess)?(
-            postsList.postsLikesInfo?.map((infoLike) =>{
-                (infoLike.userLiked === userIdTest)?
-                (<FaHeart fill={'#AC0000'} onClick={() => togglelikePost(infoLike.idPostLiked)}/>):
-                (<FaRegHeart onClick={() => togglelikePost(infoLike.idPostLiked)}/>)
-            })
-        ):(likesPostInfos?.map((likePostInfo) => {
-            (likePostInfo.userLiked === userIdTest)?
-            (<FaHeart fill={'#AC0000'} onClick={() => togglelikePost(likePostInfo.idPostLiked)}/>):
-            (<FaRegHeart onClick={() => togglelikePost(likePostInfo.idPostLiked)}/>)
-        }))
-    )
-}
 
 function CreateMyPost(){
-        if(postsList.postsInfo.length === 0){
+        if(postsList2.postsInfo.length === 0){
             return( 
             
                     <MainNoPosts>
@@ -130,27 +90,15 @@ function CreateMyPost(){
             )}
         return(
             <CreatePost> 
-                {postsList.postsInfo?.map( (post, index) => 
+                {postsList2.postsInfo?.map( (post, index) => 
                 <PostHTML > 
                     <PostAside >
                     <Photo src={postsList.profilePicture} />
                     <SubPostAside >
-                        {
-                            (firstacess)?(
-                                postsList.postsLikesInfo?.map((infoLike) =>{
-                                    (infoLike.idPostLiked == post.id)?
-                                    (infoLike.UserLiked == userIdTest)?(
-                                    (<FaHeart fill={'#AC0000'} onClick={() => togglelikePost(infoLike.idPostLiked)}/>)):
-                                    (<FaRegHeart onClick={() => togglelikePost(infoLike.idPostLiked)}/>):
-                                    (<FaRegHeart onClick={() => togglelikePost(infoLike.idPostLiked)}/>)
-                                })
-                            ):(likesPostInfos?.map((likePostInfo) => {
-                                (likePostInfo.UserLiked === userIdTest && likePostInfo.idPostLiked == post.id)?
-                                (<FaHeart fill={'#AC0000'} onClick={() => togglelikePost(likePostInfo.idPostLiked)}/>):
-                                (<></>)
-                            }))
-                        }
-                        <span> {post.likes} likes</span> 
+                        <LikeButton 
+                                    liked={post.likesList?.filter((e) => e.UserLiked == userIdTest).length !== 0}
+                                    postId={post.id}
+                                    postLikes={post.likes}/>
                     </SubPostAside>
                     </PostAside>
                     <PostContentComponent   postsList={postsList}

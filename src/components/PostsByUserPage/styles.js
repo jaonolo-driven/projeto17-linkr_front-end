@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.main`
     /*height: 100%;*/
-    overflow: scroll;
+    overflow: auto;
     background-color: var(--lighter-grey);
 `
 
@@ -118,6 +118,12 @@ export const SubPostAside = styled.div`
         color: #fff;
         margin-bottom: 10%;
         cursor: pointer;
+    }
+
+    .fontTooltip {
+        font-family:var(--default-font);
+        font-weight: 400;
+        font-size: 11px;
     }
 `
 

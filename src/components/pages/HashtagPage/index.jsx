@@ -3,12 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import UserContext from "../../../contexts/UserContext";
-import PostForm from "../../PostForm";
 import Header from "../../Header";
 import Post from "../../Post/Post";
 import { ThreeCircles } from "react-loader-spinner";
-import ReactHashtag from "react-hashtag";
-//import { useContext, useEffect, useState } from "react";
 
 export default function HashtagPage({ myPost }){
     const [postsList, setPostsList] = useState([]);
@@ -32,7 +29,7 @@ export default function HashtagPage({ myPost }){
     }, []);
 
     function IsListEmpyt(){
-        if(postsList === 0){
+        if(postsList.length === 0){
             return(<h1>There are no posts yet</h1>)
         }
         return(<Post postsList={postsList}/>)
@@ -71,7 +68,6 @@ export default function HashtagPage({ myPost }){
                 <MainContent> 
                     <CenterHTML>
                         <Title> {"# " + hashtag} </Title>
-                        {myPost ? <PostForm/> : <></>}
                         <IsListEmpyt/>
                     </CenterHTML>
                     <CreateSideBar/>

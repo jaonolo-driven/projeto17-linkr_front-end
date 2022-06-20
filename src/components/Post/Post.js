@@ -15,6 +15,7 @@ export default function Post(props){
 
     function Card(props){
         const {postINFO} = props
+        console.log(postINFO)
         return(
             <PostHTML>
                 <PostAside >

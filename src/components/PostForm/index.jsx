@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import styled from "styled-components"
 
 export default function PostForm(){
-    const token = JSON.parse(localStorage.getItem('user'))
+    const user = JSON.parse(localStorage.getItem('user'))
     const [link, setLink] = useState('')
     const [message, setMessage] = useState('')
     const [avatar, setAvatar] = useState('')
@@ -13,7 +13,7 @@ export default function PostForm(){
         const promise = axios.get(`${process.env.REACT_APP_API_URL}/user`,
         {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${user.token}`
             }
         })
         promise.then(response => {
@@ -30,7 +30,7 @@ export default function PostForm(){
         },
         {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${user.token}`
             }
         })
         promise.then(response => {

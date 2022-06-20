@@ -30,7 +30,7 @@ export default function PostsByUser(props){
     const userIdTest = 2;
 
     useEffect( () => {
-        const config = {headers: { authorization: `Bearer ${user}`}}
+        const config = {headers: { authorization: `Bearer ${user.token}`}}
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
         setAnimacao(true)
         const promise = axios.get(URL, config)

@@ -88,7 +88,7 @@ const LoadingHTML = styled.div`
 
 const TimelineHTML = styled.div`
     height: 100%;
-    overflow: scroll;
+    overflow: auto;
 `;
 
 const Title = styled.h1`

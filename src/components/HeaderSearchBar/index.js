@@ -10,11 +10,11 @@ import { useNavigate } from 'react-router-dom'
 
 const HeaderSearchBar = () => {
     const [searchResults, setSearchResults] = useState(null)
-    const [token, setToken] = useContext(UserContext)
+    const [user, setUser] = useContext(UserContext)
     const navigate = useNavigate()
 
     const onSubmit = async value => {
-        const config = {headers: { authorization: `Bearer ${token}`}}
+        const config = {headers: { authorization: `Bearer ${user.token}`}}
         const results = await axios.post(process.env.REACT_APP_API_URL + '/users', { searchString: value }, config)
         setSearchResults(results.data.rows)
     }
@@ -37,8 +37,9 @@ const HeaderSearchBar = () => {
             return <Loading/>
         
         if(resultsList.length === 0)
-            return 'Nenhum usuário encontrado :('
-
+            return <SearchBarUnclickableButton>
+                {'Nenhum usuário encontrado :('}
+            </SearchBarUnclickableButton>
         return resultsList.map(({profilePicture, userName, id}) => <SearchBarButtonResult onClick={() => navigate(`/user/${id}`)}>
                 <ProfilePic alt='profile-picture' src={profilePicture} radius={39} />
                 <span>{userName}</span>
@@ -159,6 +160,10 @@ const SearchBarButtonResult = styled(Button)`
         vertical-align: middle;
         line-height: normal;
     }
+`
+
+const SearchBarUnclickableButton = styled(SearchBarButtonResult)`
+    cursor: default;
 `
 
 export default HeaderSearchBar

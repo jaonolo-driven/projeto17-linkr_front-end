@@ -23,6 +23,7 @@ export default function PostsByUser(props){
     const [user, setUser] = useContext(UserContext)
     const [typeLikes, setTypeLikes] = useState('')
     const [idPost, setIdPost] = useState();
+    const [renderList, setRenderList] = useState()
     const navigate = useNavigate()
     
     const { id } = useParams();
@@ -36,7 +37,7 @@ export default function PostsByUser(props){
                                         setAnimacao(false) } )
         promise.catch( (error) => {console.log('Error Get PostsByUser: ', error)
                                     navigate("/timeline")})   } 
-    , []) 
+    , [renderList]) 
     
     function togglelikePost(postId){
             const config = {headers: { authorization: `Bearer ${user}`}}
@@ -94,7 +95,8 @@ export default function PostsByUser(props){
                     </PostAside>
                     <PostContentComponent   postsList={postsList}
                                             post={post}
-                                            index={index}/>
+                                            index={index}
+                                            renderList={setRenderList}/>
                 </PostHTML> )}
             </CreatePost>
         )

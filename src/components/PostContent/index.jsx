@@ -7,11 +7,10 @@ import { useRef, useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import deleteConfirmation from "react-modal";
 import ReactModal from "react-modal";
 
 export default function PostContentComponent(props){
-    const {postsList, post, index} = props
+    const {postsList, post, index, renderList} = props
     const token = JSON.parse(localStorage.getItem('user'))
     const inputRef = useRef()
     const [editPost, setEditPost] = useState(false)
@@ -38,6 +37,7 @@ export default function PostContentComponent(props){
         }
     }
 
+    //EDITAR POST
     function editPostSubmit(e){
         e.preventDefault()
         setDisable(true)
@@ -60,19 +60,39 @@ export default function PostContentComponent(props){
             inputRef.current.focus()
         })
     }
+
+    //DELETAR POST
+    function deletePost(){
+        console.log(post.id)
+        const promise = axios.delete(`${process.env.REACT_APP_API_URL}/deletepost/${post.id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        promise.then(response => {
+            renderList(Math.random())
+            setShowModal(false)
+        }).catch(e => {
+            alert(e.response.data.message)
+        })
+    }
     return(
         <PostContent>
             <NameAndButtons>
                 <h3>{postsList.userName}</h3>
                 <EditAndDel>
-                    <ReactModal isOpen={showModal} style={modalStyle}>
+                    <ReactModal ariaHideApp={false} isOpen={showModal} style={modalStyle}>
                         <ContentModal>
                             Are you sure you want to delete this post?
                             <div>
                             <CancelButton onClick={() => setShowModal(false)}>
                                 No, go back
                             </CancelButton>
-                            <ConfirmButton>
+                            <ConfirmButton onClick={() => {
+                                deletePost()
+                                setShowModal(false)
+                            }}>
                                 Yes, delete it
                             </ConfirmButton>
                             </div>

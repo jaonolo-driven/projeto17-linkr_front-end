@@ -33,19 +33,14 @@ export const Center = styled.section`
 `;
 
 export const CreatePost = styled.div`
-    width: 85%;
-    height: 50vh;
-    left: 50%;
-    top: 50%;
-    margin-bottom: 10%;
-    border-radius: 16px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    /* background-color: aliceblue; */
 `;
 
 export const PostHTML = styled.div`
-    width: 100%;
-    height: 50vh;
+    width: 600px;
+    height: 280px;
     left: 50%;
     top: 50%;
     background: #171717;
@@ -54,7 +49,6 @@ export const PostHTML = styled.div`
     display: flex;
     font-family: var(--default-font);
     color: #FFFFFF;
-    overflow: hidden;
 `;
 
 export const SideBar = styled.aside`
@@ -84,7 +78,6 @@ export const SideBarLine = styled.div`
     margin-bottom: 5%;
 `
 
-
 export const Photo = styled.img`
     width: 35px;
     height: 35px;
@@ -112,10 +105,9 @@ export const SubPostAside = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 30%;
-
     svg {
         font-size: 17px;
-        color: #fff;
+        color: #FFFFFF;
         margin-bottom: 10%;
         cursor: pointer;
     }
@@ -141,6 +133,7 @@ export const UrlPost = styled.div`
         width: 30%;
         height: 100%;
         border-radius: 11px;
+        object-fit: cover;
     }
 `
 
@@ -149,8 +142,8 @@ export const UrlPostText = styled.div`
     flex-direction: column;
     word-break: break-all;
     justify-content: space-around;
-    padding: 2%;
-    margin-top: -5%;
+    padding: 0 2% 2% 2%;
+    //margin-top: -5%;
     
     h4 {
         font-family:var(--default-font);
@@ -181,17 +174,4 @@ export const IconStyle = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-`;
-
-export const MainNoPosts = styled.main`
-    display: flex;
-    width: 100%;
-    height: 100%;
-    margin-right: 10%;
-    align-items: flex-start;
-    justify-content: center;
-    color: #fff;
-    font-family: var(--subtitle-font);
-    font-weight: 700;
-    font-size: 30px; 
 `;

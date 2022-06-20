@@ -5,12 +5,12 @@ import AppContainer from './styles.js';
 import LoginPage from '../pages/LoginPage/index.js';
 import SignupPage from '../pages/SignupPage/index.js';
 import PostsByUser from '../PostsByUserPage/index.js';
+import HashtagPage from '../pages/HashtagPage/index.jsx';
 
 import UserContext from '../../contexts/UserContext.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuthRoutesController from '../AuthRoutesController/index.js';
 import TimeLine from '../pages/TimeLine/TimeLine.js';
-
 
 function App() {
   const tokenStorageString = localStorage.getItem("user")
@@ -22,6 +22,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AuthRoutesController needsUser={false}/>}>
+            {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
             <Route path='/sign-up' element={<SignupPage/>}/>
             <Route path='/' element={<LoginPage/>}/>
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
@@ -31,7 +32,12 @@ function App() {
                                                         sideBar = {`existe`} 
                                                         titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
-            <Route path='/user/:id' element={ <PostsByUser myPost = {`existo`} sideBar = {`existe`}/> }/>
+            <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
+                                                        sideBar = {'vai ter side'}
+                                                        titleTimeLine = {`TimeLine`} /> }  />
+            <Route path='/user/:id' element={ <PostsByUser  myPost = {`existo`} 
+                                                            sideBar = {``}/> } />
+            <Route path='/hashtag/:hashtag' element={ <HashtagPage /> } />
           </Route>
         </Routes>
       </BrowserRouter>

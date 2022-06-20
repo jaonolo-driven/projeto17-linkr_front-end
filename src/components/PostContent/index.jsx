@@ -76,8 +76,9 @@ export default function PostContentComponent(props){
             setShowModal(false)
             renderList(Math.random())
         }).catch(e => {
-            alert(e.response.data.message)
             setModalLoad(false)
+            setShowModal(false)
+            alert(e.response.data.message)
         })
     }
     return(
@@ -106,11 +107,8 @@ export default function PostContentComponent(props){
                             </>}
                         </ContentModal>
                     </ReactModal>
-                    <RiEdit2Line color="white" onClick={() => {
-                        console.log(token)
-                        changeEditPost()
-                    }}/>
-                    <AiFillDelete margin={10} onClick={() => setShowModal(true)}/>
+                    <RiEdit2Line color="white" cursor={'pointer'} onClick={() => changeEditPost()}/>
+                    <AiFillDelete margin={10} cursor={'pointer'} onClick={() => setShowModal(true)}/>
                 </EditAndDel>
             </NameAndButtons> 
             {(editPost===true)   ?  <form onSubmit={editPostSubmit}>

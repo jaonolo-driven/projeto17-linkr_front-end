@@ -12,11 +12,9 @@ export default function LikeButton(props){
     const [countLikes, setCountLikes] = useState(props.postLikes)
     const [user, setUser] = useContext(UserContext)
     const {postId, likeList} = props;
-    console.log(likeList)
-
 
     function togglelikePost(postId){
-        const config = {headers: { authorization: `Bearer ${user}`}}
+        const config = {headers: { authorization: `Bearer ${user.token}`}}
         const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
         const promise = axios.patch(URL, {}, config)
         
@@ -62,30 +60,32 @@ export default function LikeButton(props){
                 <div data-tip data-for="showLikes1">
                     <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(postId)}/>
                 </div>
-                    <ReactTooltip id="showLikes1" 
-                                    place="bottom" 
-                                    delayHide={500}
-                                    textColor='#505050' 
-                                    backgroundColor='rgba(255, 255, 255, 0.9)'
-                                    effect="solid"
-                                    className='fontTooltip'>
+                        <ReactTooltip id="showLikes1" 
+                                        place="bottom" 
+                                        delayHide={500}
+                                        textColor='#505050' 
+                                        backgroundColor='rgba(255, 255, 255, 0.9)'
+                                        effect="solid"
+                                        className='fontTooltip'>
                             {popUpLikeButton()}
-                    </ReactTooltip>
-                    
+                        </ReactTooltip>
                 </>
             ):(<>
                 <div data-tip data-for="showLikes2">
                     <FaRegHeart onClick={() => togglelikePost(postId)}/>
                 </div>
-                    <ReactTooltip id="showLikes2"
-                                    delayHide={500}
-                                    textColor='#505050' 
-                                    backgroundColor='rgba(255, 255, 255, 0.9)' 
-                                    place="bottom" 
-                                    effect="solid"
-                                    className='fontTooltip'>
+                {
+                (likeList.length == 0)?(<></>):(                    
+                        <ReactTooltip id="showLikes2" 
+                                        place="bottom" 
+                                        delayHide={500}
+                                        textColor='#505050' 
+                                        backgroundColor='rgba(255, 255, 255, 0.9)'
+                                        effect="solid"
+                                        className='fontTooltip'>
                             {popUpLikeButton()}
-                    </ReactTooltip>
+                        </ReactTooltip>)
+                }
                 </>) 
         }
 

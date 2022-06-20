@@ -25,11 +25,8 @@ export default function PostsByUser(props){
     const navigate = useNavigate()
 
     const { id } = useParams();
-    console.log(id)
-    //TODO:pegar o user.id pelo context
     const userIdTest = parseInt(user.id);
-    console.log(user.id)
-
+    
     useEffect( () => {
         const config = {headers: { authorization: `Bearer ${user.token}`}}
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
@@ -41,7 +38,6 @@ export default function PostsByUser(props){
                                                 ...elemento, 
                                                 likesList: response.data.postsLikesInfo?.filter(e => e.idPostLiked == elemento.id)
                                             } 
-                                            console.log(response.data)
                                         })
                                         setPostsList2({...response.data, postsInfo: newPost})
                                         setPostsList(response.data)

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.main`
     /*height: 100%;*/
-    overflow: scroll;
+    overflow: auto;
     background-color: var(--lighter-grey);
 `
 

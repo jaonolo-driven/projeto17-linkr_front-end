@@ -10,7 +10,7 @@ const AppContainer = styled.main`
   --default-font: 'Lato', sans-serif;
   --line-grey: #484848;
 
-
+  font-family: var(--default-font);
   background-color: var(--lighter-grey);
   height: 100vh;
 `

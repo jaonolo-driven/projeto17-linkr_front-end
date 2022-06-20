@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import {useEffect, useState, useContext} from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import UserContext from "../../../contexts/UserContext";
@@ -7,21 +7,21 @@ import PostForm from "../../PostForm";
 import Header from "../../Header";
 import Post from "../../Post/Post";
 import { ThreeCircles } from "react-loader-spinner";
+import ReactHashtag from "react-hashtag";
+//import { useContext, useEffect, useState } from "react";
 
-export default function TimeLine(props){
-    const { myPost, sideBar, titleTimeLine } = props
-    const [postsList, setPostsList] = React.useState([])
-    const [trending, setTrending] = React.useState([]);
-    const [animacao, setAnimacao] = React.useState(true)
-    const [userState, setUserState] = React.useContext(UserContext)
+export default function HashtagPage({ myPost }){
+    const [postsList, setPostsList] = useState([]);
+    const [trending, setTrending] = useState([]);
+    const [animacao, setAnimacao] = useState(true);
+    const [userState, setUserState] = useContext(UserContext);
     const navigate = useNavigate();
-    let isListEmpyt, empyt
+    const location = useLocation();
+    const hashtag = location.pathname.split("/")[2];
 
-    console.log(userState)
-
-    React.useEffect( () => {
+    useEffect( () => {
         const config = {headers: { authorization: `Bearer ${userState}`}}
-        const URL = process.env.REACT_APP_API_URL+'/timeline'
+        const URL = process.env.REACT_APP_API_URL + location.pathname
         const promise = axios.get(URL, config)
         promise.then( (response) => {   setPostsList(response.data)
                                         setAnimacao(false)})
@@ -29,7 +29,7 @@ export default function TimeLine(props){
 
         const promisseTrending = axios.get(process.env.REACT_APP_API_URL + "/trending-hashtags");
         promisseTrending.then(response => setTrending(response.data));
-    } ,[])
+    }, []);
 
     function IsListEmpyt(){
         if(postsList === 0){
@@ -70,7 +70,7 @@ export default function TimeLine(props){
                 <Header/>
                 <MainContent> 
                     <CenterHTML>
-                        <Title> {titleTimeLine} </Title>
+                        <Title> {"# " + hashtag} </Title>
                         {myPost ? <PostForm/> : <></>}
                         <IsListEmpyt/>
                     </CenterHTML>
@@ -88,7 +88,7 @@ const LoadingHTML = styled.div`
 
 const TimelineHTML = styled.div`
     height: 100%;
-    overflow: auto;
+    overflow: scroll;
 `;
 
 const Title = styled.h1`

@@ -9,25 +9,28 @@ import { ThreeCircles } from "react-loader-spinner";
 
 export default function TimeLine(props){
     const { myPost, sideBar, titleTimeLine } = props
-    const [postsList, setPostsList] = React.useState([``])
-    const [animacao, setAnimacao] = React.useState(false)
-
+    const [postsList, setPostsList] = React.useState([])
+    const [animacao, setAnimacao] = React.useState(true)
     const [userState, setUserState] = React.useContext(UserContext)
+    let isListEmpyt, empyt
+
+    console.log(userState)
 
     React.useEffect( () => {
         const config = {headers: { authorization: `Bearer ${userState}`}}
         const URL = process.env.REACT_APP_API_URL+'/timeline'
-        setAnimacao(true)
         const promise = axios.get(URL, config)
         promise.then( (response) => {   setPostsList(response.data)
                                         setAnimacao(false)})
         promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))   } 
     ,[])
 
-
-    if(postsList.length === 1){
-        return(<h1> There are no posts yet</h1>)
-    }    
+    function IsListEmpyt(){
+        if(postsList === 0){
+            return(<h1>There are no posts yet</h1>)
+        }
+        return(<Post postsList={postsList}/>)
+    } 
     
     function CreateSideBar(){
         return(
@@ -37,27 +40,34 @@ export default function TimeLine(props){
 
     function Loading(){
         return(
-                <ThreeCircles   color="red"
-                                outerCircleColor= "#B6A7B5"
-                                middleCircleColor="#504350"
-                                innerCircleColor="#BCA79C"/>)}
+                <LoadingHTML>
+                    <ThreeCircles   color="red"
+                                    outerCircleColor= "#B6A7B5"
+                                    middleCircleColor="#504350"
+                                    innerCircleColor="#BCA79C"/>
+                </LoadingHTML>)}
     
-    return(
-        <TimelineHTML>
-            <Header/>
-            <Title> {titleTimeLine} </Title>
-            <MainContent> 
-            <CenterHTML>
-                {myPost ? <PostForm/> : <></>}
-                {console.log('postList TIMELINE : ',postsList)}
-                {animacao ? <Loading/> : <Post postsList={postsList}/> }
-            </CenterHTML>
-                { sideBar ? <CreateSideBar/> : <></>}
-            </MainContent>
-        </TimelineHTML>
-        );
+    if(animacao){return(<MainContent> <Loading/> </MainContent>)}
+    
+    return( <TimelineHTML>
+                <Header/>
+                <MainContent> 
+                    <CenterHTML>
+                        <Title> {titleTimeLine} </Title>
+                        {myPost ? <PostForm/> : <></>}
+                        <IsListEmpyt/>
+                    </CenterHTML>
+                    <CreateSideBar/>
+                </MainContent>
+            </TimelineHTML>)}
 
-    }
+const LoadingHTML = styled.div`
+    display: flex;
+    width: 100vw;
+    height: 100vw;
+    justify-content: center;
+    align-items: center;
+`
 
 const TimelineHTML = styled.div`
     height: 100%;
@@ -66,6 +76,8 @@ const TimelineHTML = styled.div`
 
 const Title = styled.h1`
     display: flex;
+    width: 100%;
+    text-align: left;
     margin-top: 50px;
     margin-bottom: 50px;
     margin-left: 3%;
@@ -77,6 +89,7 @@ const MainContent = styled.main`
     flex-wrap: wrap;
     justify-content: center;
     width: 90%;
+    height: 100%;
     margin-left: 3%;
 `;
 
@@ -85,6 +98,8 @@ const CenterHTML = styled.section`
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    /* background-color: blue; */
 `;
 
 const SideBar = styled.aside`

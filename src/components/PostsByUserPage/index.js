@@ -28,7 +28,6 @@ export default function PostsByUser(props){
     const [renderList, setRenderList] = useState()
     const [likes, setLikes] = useState()
     const navigate = useNavigate()
-    
     const { id } = useParams();
 
     //TODO:pegar o user.id pelo context

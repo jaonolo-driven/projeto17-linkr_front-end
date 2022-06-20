@@ -74,11 +74,16 @@ const Section = styled.section`
     display: flex;
     justify-content: left;
     background: #FFFFFF;
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
     height: 200px;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 30px;
+
+    @media screen and (max-width: 650px) {
+        border-radius: 0;
+    }
 `
 const Photo = styled.img`
     width: 35px;

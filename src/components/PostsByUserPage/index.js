@@ -22,12 +22,19 @@ export default function PostsByUser(props){
     const [postsList2, setPostsList2] = useState([])
     const [animacao, setAnimacao] = useState(false)
     const [user, setUser] = useContext(UserContext)
+
+    const [typeLikes, setTypeLikes] = useState('')
+    const [idPost, setIdPost] = useState();
+    const [renderList, setRenderList] = useState()
+    const [likes, setLikes] = useState()
     const navigate = useNavigate()
+
 
     const { id } = useParams();
     const userIdTest = parseInt(user.id);
     
     useEffect( () => {
+        console.log('TOKEN DO USUARIO:'+user.token)
         const config = {headers: { authorization: `Bearer ${user.token}`}}
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
         setAnimacao(true)
@@ -44,7 +51,25 @@ export default function PostsByUser(props){
                                         setAnimacao(false) } )
         promise.catch( (error) => {console.log('Error Get PostsByUser: ', error)
                                     navigate("/timeline")})   } 
-    , []) 
+    , [renderList]) 
+    
+    function togglelikePost(postId){
+            const config = {headers: { authorization: `Bearer ${user}`}}
+            const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
+            const promise = axios.patch(URL, {}, config)
+            promise.then( (response) => { setLikes(response.data[0].likes)
+                                            insertLikes(postId, response.data[0].likes)
+                                            setTypeLikes(response.data[1].typeLike)
+                                            setIdPost(response.data[2].postIdInfo)})
+            promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
+    } 
+    console.log(postsList)
+    function insertLikes(postId, responselikes){
+        postsList.postsInfo?.map((post) => {
+                (post.id == postId)?(post.likes = responselikes):(<></>)
+        })
+        CreateMyPost();
+    } 
 
     function goToHashtagPage(tag) {
         navigate("/hashtag/" + tag.split("#")[1]);
@@ -75,7 +100,8 @@ function CreateMyPost(){
                     </PostAside>
                     <PostContentComponent   postsList={postsList}
                                             post={post}
-                                            index={index}/>
+                                            index={index}
+                                            renderList={setRenderList}/>
                 </PostHTML> )}
             </CreatePost>
         )

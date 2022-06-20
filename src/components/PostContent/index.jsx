@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ReactModal from "react-modal";
+import { Circles } from "react-loader-spinner";
 
 export default function PostContentComponent(props){
     const {postsList, post, index, renderList} = props
@@ -18,6 +19,7 @@ export default function PostContentComponent(props){
     const [resetValue, setResetValue] = useState('')
     const [disable, setDisable] = useState(false)
     const [showModal, setShowModal] = useState(false)
+    const [modalLoad, setModalLoad] = useState(false)
 
     const {id} = useParams()
 
@@ -63,7 +65,6 @@ export default function PostContentComponent(props){
 
     //DELETAR POST
     function deletePost(){
-        console.log(post.id)
         const promise = axios.delete(`${process.env.REACT_APP_API_URL}/deletepost/${post.id}`,
         {
             headers: {
@@ -71,10 +72,12 @@ export default function PostContentComponent(props){
             }
         })
         promise.then(response => {
-            renderList(Math.random())
+            setModalLoad(false)
             setShowModal(false)
+            renderList(Math.random())
         }).catch(e => {
             alert(e.response.data.message)
+            setModalLoad(false)
         })
     }
     return(
@@ -84,18 +87,23 @@ export default function PostContentComponent(props){
                 <EditAndDel>
                     <ReactModal ariaHideApp={false} isOpen={showModal} style={modalStyle}>
                         <ContentModal>
-                            Are you sure you want to delete this post?
-                            <div>
-                            <CancelButton onClick={() => setShowModal(false)}>
-                                No, go back
-                            </CancelButton>
-                            <ConfirmButton onClick={() => {
-                                deletePost()
-                                setShowModal(false)
-                            }}>
-                                Yes, delete it
-                            </ConfirmButton>
-                            </div>
+                            {(modalLoad===true) ? <Circles color="#00BFFF" height={180} width={180}/>
+                            :<>
+                                Are you sure you want to delete this post?
+                                <div>
+                                <CancelButton onClick={() => setShowModal(false)}>
+                                    No, go back
+                                </CancelButton>
+                                <ConfirmButton onClick={() => {
+                                    setModalLoad(true)
+                                    setTimeout(()=>{
+                                        deletePost()
+                                    }, "500")
+                                }}>
+                                    Yes, delete it
+                                </ConfirmButton>
+                                </div>
+                            </>}
                         </ContentModal>
                     </ReactModal>
                     <RiEdit2Line color="white" onClick={() => changeEditPost()}/>

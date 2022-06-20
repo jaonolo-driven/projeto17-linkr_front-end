@@ -16,8 +16,6 @@ import PostContentComponent from "../PostContent";
 import LikeButton from "./LikeButton";
 
 export default function PostsByUser(props){
-
-    //TODO: Falar com o João para enviar o user.id tbm no post para poder usar com o infoLikes
     
     const { myPost, sideBar } = props
     const [postsList, setPostsList] = useState([])
@@ -28,7 +26,7 @@ export default function PostsByUser(props){
     
     const { id } = useParams();
 
-    // Colocando um user id fixo para testar, mas objetivo é pegar pelo useContext
+    //TODO:pegar o user.id pelo context
     const userIdTest = 2;
 
     useEffect( () => {

@@ -5,6 +5,7 @@ import AppContainer from './styles.js';
 import LoginPage from '../pages/LoginPage/index.js';
 import SignupPage from '../pages/SignupPage/index.js';
 import PostsByUser from '../PostsByUserPage/index.js';
+import HashtagPage from '../pages/HashtagPage/index.jsx';
 
 import UserContext from '../../contexts/UserContext.js';
 import { useEffect, useState } from 'react';
@@ -29,6 +30,7 @@ function App() {
                                                         titleTimeLine = {`TimeLine`} /> }  />
             <Route path='/user/:id' element={ <PostsByUser  myPost = {`existo`} 
                                                             sideBar = {``}/> } />
+            <Route path='/hashtag/:hashtag' element={ <HashtagPage /> } />
           </Route>
         </Routes>
       </BrowserRouter>

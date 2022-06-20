@@ -142,8 +142,8 @@ export const UrlPostText = styled.div`
     flex-direction: column;
     word-break: break-all;
     justify-content: space-around;
-    padding: 2%;
-    margin-top: -5%;
+    padding: 0 2% 2% 2%;
+    //margin-top: -5%;
     
     h4 {
         font-family:var(--default-font);

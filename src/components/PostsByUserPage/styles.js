@@ -125,6 +125,10 @@ export const SubPostAside = styled.div`
         font-weight: 400;
         font-size: 11px;
     }
+
+    .fontTooltipNone {
+        display: none;
+    }
 `
 
 export const PostContent = styled.div`

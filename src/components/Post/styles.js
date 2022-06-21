@@ -39,7 +39,8 @@ export const CreatePost = styled.div`
 `;
 
 export const PostHTML = styled.div`
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
     height: 280px;
     left: 50%;
     top: 50%;
@@ -49,6 +50,14 @@ export const PostHTML = styled.div`
     display: flex;
     font-family: var(--default-font);
     color: #FFFFFF;
+
+    @media screen and (max-width: 600px) {
+        border-radius: 0;
+    }
+
+    h3 {
+        margin-bottom: 13px
+    }
 `;
 
 export const SideBar = styled.aside`

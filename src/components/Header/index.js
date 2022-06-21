@@ -30,33 +30,38 @@ const Header = () => {
         navigate('/')
     }
 
-    return <>
-        <DesktopContainer>
+    const DesktopHeader = ({children}) => <DesktopContainer>
+        <Link to="/">
+            <h1>linkr</h1>
+        </Link>
+        {children}
+        <DropdownButton onClick={() => setDropDownState(!dropDownState)}  >
+            <HeaderDropdownIcon dropDownState={dropDownState}/>
+            <ProfilePic alt='profile-picture' src={avatar} radius={53} />
+        </DropdownButton>
+        <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
+    </DesktopContainer>
+
+    const MobileHeader = ({children}) => <MobileHolder>
+        <MobileContainer>
             <Link to="/">
                 <h1>linkr</h1>
             </Link>
-            <HeaderSearchBar/>
             <DropdownButton onClick={() => setDropDownState(!dropDownState)}  >
                 <HeaderDropdownIcon dropDownState={dropDownState}/>
-                <ProfilePic alt='profile-picture' src={avatar} radius={53} />
+                <ProfilePic alt='profile-picture' src={avatar} radius={44} />
             </DropdownButton>
             <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
-        </DesktopContainer>
-        <MobileHolder>
-            <MobileContainer>
-                <Link to="/">
-                    <h1>linkr</h1>
-                </Link>
-                <DropdownButton onClick={() => setDropDownState(!dropDownState)}  >
-                    <HeaderDropdownIcon dropDownState={dropDownState}/>
-                    <ProfilePic alt='profile-picture' src={avatar} radius={53} />
-                </DropdownButton>
-                <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
-            </MobileContainer>
-            <MobileSearchBarHolder>
-                <HeaderSearchBar/>
-            </MobileSearchBarHolder>
-        </MobileHolder>
+        </MobileContainer>
+        <MobileSearchBarHolder>
+            {children}
+        </MobileSearchBarHolder>
+    </MobileHolder>
+
+    return <>
+        {/* queria dividir o estado da searchbar sem subir ele pra esse componente, n consegui ;--; */}
+        <DesktopHeader><HeaderSearchBar/></DesktopHeader>
+        <MobileHeader><HeaderSearchBar/></MobileHeader>
     </>
 }
 
@@ -71,7 +76,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1;
+    z-index: 2;
 
     h1 {
         color: white;
@@ -84,7 +89,13 @@ const Container = styled.div`
         height: 100%;
         display: flex;
         align-items: center;
-        margin-right: 17px;
+        padding-right: 17px;
+    }
+
+    @media screen and (max-width: 650px) {
+        h1 {
+            font-size: 45px;
+        }
     }
 `
 
@@ -95,6 +106,10 @@ const DesktopContainer = styled(Container)`
 `
 
 const MobileHolder = styled.header`
+    position: sticky;
+    top: 0;
+    background-color: var(--lighter-grey);
+
     @media screen and (min-width: 650px) {
         display: none
     }
@@ -107,7 +122,9 @@ const MobileSearchBarHolder = styled.div`
     justify-content: center;
 `
 
-const MobileContainer = styled(Container)``
+const MobileContainer = styled(Container)`
+    position: relative;
+`
 
 const DropdownButton = styled.div`
     display: flex;
@@ -118,6 +135,10 @@ const DropdownButton = styled.div`
     height: 100%;
     cursor: pointer;
     background-color: var(--darker-grey);
+
+    @media screen and (max-width: 650px) {
+        gap: 12px;
+    }
 `
 
 const DropdownLogout = styled.div`

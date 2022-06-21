@@ -28,13 +28,10 @@ function App() {
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
-            <Route path='/timeline' element={ <TimeLine myPost = {'crear compomente'}
-                                                        sideBar = {true} 
-                                                        titleTimeLine = {`Saulo title`} /> }/>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
             <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
                                                         sideBar = {true}
-                                                        titleTimeLine = {`TimeLine`} /> }  />
+                                                        titleTimeLine = {`Timeline`} /> }  />
             <Route path='/user/:id' element={ <PostsByUser  myPost = {`existo`} 
                                                             sideBar = {`existo`}/> } />
             <Route path='/hashtag/:hashtag' element={ <HashtagPage /> } />

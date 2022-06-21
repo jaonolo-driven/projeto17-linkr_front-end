@@ -68,13 +68,19 @@ export default function TimeLine(props){
     
     return( <TimelineHTML>
                 <Header/>
-                <MainContent> 
+                <MainContent>
                     <CenterHTML>
+                        <div>
                         <Title> {titleTimeLine} </Title>
-                        {myPost ? <PostForm/> : <></>}
-                        <IsListEmpyt/>
+                            <SidebarWrapper>
+                                <div>
+                                    {myPost ? <PostForm/> : <></>}
+                                    <IsListEmpyt/>
+                                </div>
+                                <CreateSideBar/>
+                            </SidebarWrapper>
+                        </div>
                     </CenterHTML>
-                    <CreateSideBar/>
                 </MainContent>
             </TimelineHTML>)}
 
@@ -95,19 +101,27 @@ const Title = styled.h1`
     display: flex;
     width: 100%;
     text-align: left;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-left: 3%;
+    margin-top: 78px;
+    margin-bottom: 40px;
     color: #fff;
-    `;
+    font-family: var(--subtitle-font);
+    font-weight: 700;
+    font-size: 43px;
+    
+    @media screen and (max-width: 650px) {
+        margin: 19px 0;
+        padding-left: 3%;
+        line-height: 60px;
+    }
+`;
 
 const MainContent = styled.main`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 90%;
-    height: 100%;
-    margin-left: 3%;
+    width: 100%;
+    height: calc(100% - 72px);
+
+    @media screen and (max-width: 650px) {
+        height: calc(100% - 137px);
+    }
 `;
 
 const CenterHTML = styled.section`
@@ -115,17 +129,25 @@ const CenterHTML = styled.section`
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    margin-right: 25px;
     /* background-color: blue; */
+
+    @media screen and (max-width: 650px) {
+        margin: 0;   
+    }
 `;
+
+const SidebarWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 28px
+`
 
 const SideBar = styled.aside`
     display: flex;
     position: sticky;
-    margin-top: 126px;
-    width: 25%;
+    width: 300px;
     height: fit-content;
-    margin-left: 1%;
     background: #171717;
     border-radius: 16px;
     flex-direction: column;
@@ -138,6 +160,10 @@ const SideBar = styled.aside`
     
     p {
         margin-left: 5%;
+    }
+
+    @media screen and (max-width: 1000px) {
+        display: none;
     }
 `;
 

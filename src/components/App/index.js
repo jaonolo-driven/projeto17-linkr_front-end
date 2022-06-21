@@ -10,7 +10,7 @@ import HashtagPage from '../pages/HashtagPage/index.jsx';
 import UserContext from '../../contexts/UserContext.js';
 import { useEffect, useState } from 'react';
 import AuthRoutesController from '../AuthRoutesController/index.js';
-import TimeLine from '../pages/TimeLine/TimeLine.js';
+import TimelinePage from '../pages/TimelinePage/TimelinePage.jsx';
 
 function App() {
   const tokenStorageString = localStorage.getItem("user")
@@ -29,9 +29,7 @@ function App() {
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
-            <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
-                                                        sideBar = {true}
-                                                        titleTimeLine = {`Timeline`} /> }  />
+            <Route path='/timeline' element={ <TimelinePage /> }  />
             <Route path='/user/:id' element={ <PostsByUser  myPost = {`existo`} 
                                                             sideBar = {`existo`}/> } />
             <Route path='/hashtag/:hashtag' element={ <HashtagPage /> } />

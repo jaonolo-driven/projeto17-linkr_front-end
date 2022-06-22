@@ -4,24 +4,13 @@ import { Card } from '../../styles/Card'
 export const PostHTML = styled(Card)`
     background: #171717;
     color: #FFFFFF;
-    gap: 18px
-`;
-
-export const SubHeaderContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-left: 14.5%;
+    gap: 18px;
 `
-
 export const PostAside = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    //padding: 18px;
-    width: 20%;
 `
-
 export const SubPostAside = styled.div`
     display: flex;
     flex-direction: column;
@@ -50,41 +39,34 @@ export const PostContent = styled.div`
     display: flex;
     flex-direction: column;
     word-break: break-all;
+    flex-grow: 1;
     span {
         font-weight: 700;
     }
-    //padding: 20px 20px 20px 0;
 `
-
-export const UrlPost = styled.div`
-    width: 96%;
-    height: 60%;
+// talvez
+export const UrlPostContainer = styled.a`
     border: 1px solid #4D4D4D;
     border-radius: 11px;
     display: flex;
     margin-top: 2%;
-    img {
-        width: 30%;
-        height: 100%;
-        border-radius: 11px;
-        object-fit: cover;
-    }
+    text-decoration: none;
+    color: inherit;
 `
-
 export const UrlPostText = styled.div`
     display: flex;
     flex-direction: column;
     word-break: break-all;
     justify-content: space-around;
-    padding: 0 2% 2% 2%;
-    //margin-top: -5%;
+    padding: 21px;
+    width: 70%;
     
     h4 {
         font-family:var(--default-font);
         font-weight: 400;
         font-size: 16px;
         color: #CECECE;
-        margin-bottom: -3%;
+        margin-bottom: 5px;
     }
     
     p {
@@ -92,6 +74,7 @@ export const UrlPostText = styled.div`
         font-weight: 400;
         font-size: 11px;
         color: #9B9595;
+        margin-bottom: 13px;
     }
     a {
         text-decoration: none;
@@ -101,15 +84,16 @@ export const UrlPostText = styled.div`
         font-size: 11px;
     }
 `
-
+export const UrlPostImgFrame = styled.div`
+    flex-grow: 1;
+`
 export const IconStyle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-`;
-
+`
 export const NameAndButtons = styled.div`
     display: flex;
     justify-content: space-between;

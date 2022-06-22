@@ -1,13 +1,14 @@
 import ReactHashtag from "react-hashtag";
 import { Link } from "react-router-dom";
 import { ProfilePic } from "../../styles/ProfilePic";
-import { PostHTML, PostAside, SubPostAside, PostContent, UrlPost, UrlPostText, NameAndButtons, EditAndDel, Input} from "./styles";
+import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input} from "./styles";
 import LikeButton from "../pages/PostsByUserPage/LikeButton";
 import { RiEdit2Line } from "react-icons/ri";
 import { useState,  useRef, useContext, useEffect } from 'react'
 import UserContext from "../../contexts/UserContext";
 import axios from "axios";
 import DeleteModal from "./DeleteModal";
+import UrlPost from "./UrlPost";
 
 export default function Post(props){
     const {postINFO} = props
@@ -19,7 +20,6 @@ export default function Post(props){
     const [disable, setDisable] = useState(false)
 
     const {id, token} = user
-    const { url } = postINFO.urlMeta
 
     useEffect(()=>{
         if(editPost){
@@ -70,18 +70,11 @@ export default function Post(props){
                         <Link to={`/hashtag/${tag.split("#")[1]}`} >
                             {tag}
                         </Link>
-                     )}>
+                    )}>
                         {postValue}
                     </ReactHashtag>
                 }  
-                <UrlPost>
-                    <UrlPostText>
-                        <h4>{url.title}</h4>
-                        <p>{url.description}</p>
-                        <a href={url.link}>{url.link}</a>
-                    </UrlPostText>
-                    <img src={url.image}/>
-                </UrlPost>
+                <UrlPost url={postINFO.urlMeta.url} />
             </PostContent>
         </PostHTML> 
     )

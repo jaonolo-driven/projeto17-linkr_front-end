@@ -24,6 +24,7 @@ export default function Post(props){
     const [likes, setLikes] = useState([])
     const [commentsBoxOpen, setCommentsBoxOpen] = useState(false);
     const [countComments, setCountComments] = useState();
+    const [idPost, setIdPost] = useState();
 
     const {id, token} = user
 

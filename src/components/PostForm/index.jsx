@@ -75,7 +75,8 @@ export default function PostForm(){
 
 const Section = styled(Card)`
     background-color: white;
-    gap: 18px
+    gap: 18px;
+    margin-bottom: 30px;
 `
 
 const Title = styled.h2`

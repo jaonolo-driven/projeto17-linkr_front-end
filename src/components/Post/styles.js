@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Card } from '../../styles/Card'
 
-export const PostHTML = styled.div`
+export const MainPost = styled(Card)`
     background: #171717;
     color: #FFFFFF;
     gap: 18px;
@@ -10,6 +10,9 @@ export const PostHTML = styled.div`
         color: inherit;
         text-decoration: none;
     }
+`
+export const PostHTML = styled.div`
+    margin-bottom: 30px;
 `
 export const PostAside = styled.div`
     display: flex;
@@ -125,11 +128,4 @@ export const CommentsHTML = styled.div`
     background-color: #1E1E1E;
     border-radius: 0px 0px 16px 16px;
     display: flex;
-`
-
-export const MainPost = styled.div`
-    display: flex;
-    border-radius: 16px;
-    background-color: #171717;
-    height: 50vh;
 `

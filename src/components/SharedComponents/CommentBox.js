@@ -38,7 +38,7 @@ export default function CommentsBox(props){
     function commentPost(e){
         e.preventDefault()
         setDisable(true)
-        console.log('entrei')
+
         const promise = axios.post(`${process.env.REACT_APP_API_URL}/postcomments/${postId}`,{
             message: message
         },
@@ -88,7 +88,7 @@ export default function CommentsBox(props){
                             </>)})):(<></>) 
                 }
                 <ContainerInsertComment>
-                <Photo src={userProfilePicture}/>
+                <Photo src={user.profilePicture}/>
                 <FormComment onSubmit={commentPost}>
                                         <Input  type='text'
                                                 placeholder="write a comment..."

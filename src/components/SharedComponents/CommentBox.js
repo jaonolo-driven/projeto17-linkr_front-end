@@ -169,7 +169,7 @@ const CommentsText = styled.div`
         color: #F3F3F3;
         font-weight: 700;
         font-size: 14px;
-        line-height: 17px
+        line-height: 17px;
         font-family: var(--default-font);
     }
 
@@ -177,7 +177,7 @@ const CommentsText = styled.div`
         color: #ACACAC;
         font-weight: 700;
         font-size: 14px;
-        line-height: 17px
+        line-height: 17px;
         font-family: var(--default-font);
     }
 `

@@ -9,6 +9,8 @@ import UserContext from "../../contexts/UserContext";
 import axios from "axios";
 import DeleteModal from "./DeleteModal";
 import UrlPost from "./UrlPost";
+import CommentsButton from "./../SharedComponents/Comments.js"
+import CommentsBox from "../SharedComponents/CommentBox.js";
 
 export default function Post(props){
     const {postINFO} = props
@@ -20,6 +22,8 @@ export default function Post(props){
     const [resetValue, setResetValue] = useState('')
     const [disable, setDisable] = useState(false)
     const [likes, setLikes] = useState([])
+    const [commentsBoxOpen, setCommentsBoxOpen] = useState(false);
+    const [countComments, setCountComments] = useState();
 
     const {id, token} = user
 
@@ -40,6 +44,15 @@ export default function Post(props){
         }
     }, [editPost])
 
+    function clickId(id){
+        setIdPost(id);
+    }
+
+    function countComment(count){
+        setCountComments(count);
+    }
+
+
     return(
         <PostHTML>
             <PostAside >
@@ -50,7 +63,12 @@ export default function Post(props){
                                     postId={postINFO.id}
                                     postLikes={likes.length}
                                     likeList={likes?.filter((e) => e.userId != id)}
-                    />                                
+                    />    
+                    <CommentsButton     postId={postINFO.id}
+                                        commentsBoxOpen={commentsBoxOpen}
+                                        setCommentsBoxOpen={setCommentsBoxOpen}
+                                        idClick={(id) => clickId(id)}
+                                        countComments={countComments}/>                            
                 </SubPostAside>
             </PostAside>
             <PostContent >
@@ -85,6 +103,15 @@ export default function Post(props){
                 }  
                 <UrlPost url={postINFO.urlMeta.url} />
             </PostContent>
+            {
+                    (idPost == postINFO.id && commentsBoxOpen)?
+                            (<CommentsHTML>
+                                    <CommentsBox postId={postINFO.id}
+                                                userProfilePicture={postINFO.profilePicture}
+                                                display={"flex"}
+                                                countComments={(count) => countComment(count)}/>
+                            </CommentsHTML>):(<></>)
+            }
         </PostHTML> 
     )
 

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import ReactHashtag from "react-hashtag";
 import { RiEdit2Line } from "react-icons/ri";
 import { AiFillDelete } from "react-icons/ai";
-import { PostContent, UrlPost, UrlPostText } from "../PostsByUserPage/styles";
+import { PostContent, UrlPost, UrlPostText } from "../pages/PostsByUserPage/styles";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";

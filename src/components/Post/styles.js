@@ -42,6 +42,19 @@ export const CreatePost = styled.div`
 export const PostHTML = styled(Card)`
     background: #171717;
     color: #FFFFFF;
+<<<<<<< HEAD
+=======
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    @media screen and (max-width: 600px) {
+        border-radius: 0;
+    }
+
+>>>>>>> c11cc06f1e8073a2a143c738481c0d16108676da
     h3 {
         margin: 0
     }

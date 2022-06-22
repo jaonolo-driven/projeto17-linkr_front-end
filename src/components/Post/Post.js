@@ -1,4 +1,5 @@
 import ReactHashtag from "react-hashtag";
+<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
 import { ProfilePic } from "../../styles/ProfilePic";
 import { CreatePost, PostHTML, PostAside, SubPostAside, PostContent, UrlPost, UrlPostText} from "./styles";
@@ -168,3 +169,44 @@ const EditAndDel = styled.div`
 const Input  = styled.input`
     height: 100%;
 `
+=======
+import { FaRegHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { CreatePost, PostHTML, Photo, PostAside, SubPostAside, PostContent, UrlPost, UrlPostText} from "./styles";
+
+export default function Post({ postINFO }){
+
+        return(
+            <PostHTML>
+                <PostAside >
+                    <Photo src={postINFO.profilePicture} />
+                    <SubPostAside >
+                        <FaRegHeart/>
+                        <span> {postINFO.likes} likes</span> 
+                    </SubPostAside>
+                </PostAside>
+                <PostContent >
+                    <Link to={`/user/${postINFO.userId}`}>
+                        <h3>{postINFO.userName}</h3>
+                    </Link> 
+                    <p>
+                    <ReactHashtag renderHashtag={(tag) => (
+                        <Link to={`/hashtag/${tag.split("#")[1]}`} >
+                            {tag}
+                        </Link>
+                    )}>
+                        {postINFO.message}
+                    </ReactHashtag></p>    
+                    <UrlPost>
+                        <UrlPostText>
+                            <h4>{postINFO.urlMeta.url.title}</h4>
+                            <p>{postINFO.urlMeta.url.description}</p>
+                            <a href={postINFO.urlMeta.url.link}>{postINFO.urlMeta.url.link}</a>
+                        </UrlPostText>
+                        <img src={postINFO.urlMeta.url.image}/>
+                    </UrlPost>
+                </PostContent>
+            </PostHTML> 
+        )
+}
+>>>>>>> c11cc06f1e8073a2a143c738481c0d16108676da

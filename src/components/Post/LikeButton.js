@@ -3,8 +3,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import ReactTooltip from 'react-tooltip';
 
-import UserContext from "../../../contexts/UserContext";
-
+import UserContext from "../../contexts/UserContext";
 
 export default function LikeButton(props){
 
@@ -16,7 +15,6 @@ export default function LikeButton(props){
     const [popupText2, setPopupText2] = useState('')
     const {postId, likeList} = props;
     let poppUp;
-    console.log(likeList)
 
     function togglelikePost(postId){
         const config = {headers: { authorization: `Bearer ${user.token}`}}
@@ -30,6 +28,11 @@ export default function LikeButton(props){
         promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
     }
     
+    useEffect(() => {
+        setCountLikes(props.postLikes)
+        setLiked(props.liked)
+    }, [props])
+
     useEffect(() => {
             ReactTooltip.rebuild();
             if(liked){
@@ -73,7 +76,6 @@ export default function LikeButton(props){
                 <>
                 <div data-tip data-for={String(idPost)}>
                     <FaHeart fill={'#AC0000'} onClick={() => togglelikePost(postId)}/>
-                    {console.log('to na 1')}
                 </div>
                         <ReactTooltip id={String(idPost)}
                                         place="bottom" 
@@ -87,7 +89,6 @@ export default function LikeButton(props){
             ):(<>
                 <div data-tip data-for={String(idPost)}>
                     <FaRegHeart onClick={() => togglelikePost(postId)}/>
-                    {console.log('to na 2')}
                 </div>
                     {
                             (likeList.length == 0)?(<></>):(            

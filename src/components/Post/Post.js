@@ -2,7 +2,7 @@ import ReactHashtag from "react-hashtag";
 import { Link } from "react-router-dom";
 import { ProfilePic } from "../../styles/ProfilePic";
 import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input} from "./styles";
-import LikeButton from "../pages/PostsByUserPage/LikeButton";
+import LikeButton from "./LikeButton";
 import { RiEdit2Line } from "react-icons/ri";
 import { useState,  useRef, useContext, useEffect } from 'react'
 import UserContext from "../../contexts/UserContext";
@@ -12,16 +12,29 @@ import UrlPost from "./UrlPost";
 
 export default function Post(props){
     const {postINFO} = props
+
     const user = useContext(UserContext)[0]
     const inputRef = useRef()
     const [editPost, setEditPost] = useState(false)
     const [postValue, setPostValue] = useState(postINFO.message)
     const [resetValue, setResetValue] = useState('')
     const [disable, setDisable] = useState(false)
+    const [likes, setLikes] = useState([])
 
     const {id, token} = user
 
-    useEffect(()=>{
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/likes/${postINFO.id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            setLikes(response.data.map(({userId, userName}) => {return {userId, whoLiked: userName}}))
+        }).catch(e => console.log(e.data))
+    }, [])
+
+    useEffect(() => {
         if(editPost){
             inputRef.current.focus()
         }
@@ -33,14 +46,10 @@ export default function Post(props){
                 <ProfilePic src={postINFO.profilePicture} radius={50} />
                 <SubPostAside >
                     <LikeButton 
-                                    //liked={post.likesList?.filter((e) => e.UserLiked == userIdTest).length !== 0}
-                                    liked={true}
-                                    //postId={post.id}
-                                    postId={1}
-                                    //postLikes={post.likes}
-                                    postLikes={0}
-                                    //likeList={post.likesList?.filter((e) => e.UserLiked != userIdTest)}
-                                    likeList={[]}
+                                    liked={likes?.filter((e) => e.userId == id).length !== 0}
+                                    postId={postINFO.id}
+                                    postLikes={likes.length}
+                                    likeList={likes?.filter((e) => e.userId != id)}
                     />                                
                 </SubPostAside>
             </PostAside>
@@ -94,7 +103,7 @@ export default function Post(props){
         e.preventDefault()
         setDisable(true)
         const promise = axios.put(`${process.env.REACT_APP_API_URL}/editpost`,{
-            id: 1,
+            id: postINFO.id,
             userId: id,
             message: postValue
         },

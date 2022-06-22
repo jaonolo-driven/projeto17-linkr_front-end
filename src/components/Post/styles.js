@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 import { Card } from '../../styles/Card'
 
-export const PostHTML = styled(Card)`
+export const MainPost = styled(Card)`
     background: #171717;
     color: #FFFFFF;
     gap: 18px;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+`
+export const PostHTML = styled.div`
+    margin-bottom: 30px;
 `
 export const PostAside = styled.div`
     display: flex;
@@ -76,7 +84,7 @@ export const UrlPostText = styled.div`
         color: #9B9595;
         margin-bottom: 13px;
     }
-    a {
+    small {
         text-decoration: none;
         color: #CECECE;
         font-family:var(--default-font);
@@ -113,4 +121,11 @@ export const EditAndDel = styled.div`
 `
 export const Input  = styled.input`
     height: 100%;
+`
+export const CommentsHTML = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: #1E1E1E;
+    border-radius: 0px 0px 16px 16px;
+    display: flex;
 `

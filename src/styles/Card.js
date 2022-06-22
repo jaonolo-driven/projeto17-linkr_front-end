@@ -9,7 +9,6 @@ export const Card = styled.div`
     }
     border-radius: 16px;
 
-    margin-bottom: 30px;
     padding: 17px;
     // margin-bottom: 5%;
 `;

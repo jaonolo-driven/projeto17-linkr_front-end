@@ -1,7 +1,7 @@
 import ReactHashtag from "react-hashtag";
 import { Link } from "react-router-dom";
 import { ProfilePic } from "../../styles/ProfilePic";
-import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input} from "./styles";
+import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input, CommentsHTML, MainPost} from "./styles";
 import LikeButton from "./LikeButton";
 import { RiEdit2Line } from "react-icons/ri";
 import { useState,  useRef, useContext, useEffect } from 'react'
@@ -9,6 +9,8 @@ import UserContext from "../../contexts/UserContext";
 import axios from "axios";
 import DeleteModal from "./DeleteModal";
 import UrlPost from "./UrlPost";
+import CommentsButton from "./../SharedComponents/Comments.js"
+import CommentsBox from "../SharedComponents/CommentBox.js";
 
 export default function Post(props){
     const {postINFO} = props
@@ -20,6 +22,9 @@ export default function Post(props){
     const [resetValue, setResetValue] = useState('')
     const [disable, setDisable] = useState(false)
     const [likes, setLikes] = useState([])
+    const [commentsBoxOpen, setCommentsBoxOpen] = useState(false);
+    const [countComments, setCountComments] = useState();
+    const [idPost, setIdPost] = useState();
 
     const {id, token} = user
 
@@ -40,8 +45,18 @@ export default function Post(props){
         }
     }, [editPost])
 
+    function clickId(id){
+        setIdPost(id);
+    }
+
+    function countComment(count){
+        setCountComments(count);
+    }
+
+
     return(
         <PostHTML>
+            <MainPost>
             <PostAside >
                 <ProfilePic src={postINFO.profilePicture} radius={50} />
                 <SubPostAside >
@@ -50,7 +65,12 @@ export default function Post(props){
                                     postId={postINFO.id}
                                     postLikes={likes.length}
                                     likeList={likes?.filter((e) => e.userId != id)}
-                    />                                
+                    />    
+                    <CommentsButton     postId={postINFO.id}
+                                        commentsBoxOpen={commentsBoxOpen}
+                                        setCommentsBoxOpen={setCommentsBoxOpen}
+                                        idClick={(id) => clickId(id)}
+                                        countComments={countComments}/>                            
                 </SubPostAside>
             </PostAside>
             <PostContent >
@@ -85,6 +105,16 @@ export default function Post(props){
                 }  
                 <UrlPost url={postINFO.urlMeta.url} />
             </PostContent>
+            </MainPost>
+            {
+                    (idPost == postINFO.id && commentsBoxOpen)?
+                            (<CommentsHTML>
+                                    <CommentsBox postId={postINFO.id}
+                                                userProfilePicture={postINFO.profilePicture}
+                                                display={"flex"}
+                                                countComments={(count) => countComment(count)}/>
+                            </CommentsHTML>):(<></>)
+            }
         </PostHTML> 
     )
 

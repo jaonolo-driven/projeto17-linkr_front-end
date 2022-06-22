@@ -27,16 +27,8 @@ function App() {
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
-<<<<<<< HEAD
-            <Route path='/timeline' element={ <TimeLine myPost = {'criar compomente'}
-                                                        sideBar = {true}
-                                                        titleTimeLine = {`Timeline`} /> }  />
-            <Route path='/user/:id' element={ <PostsByUser  myPost = {`existo`} 
-                                                            sideBar = {``}/> } />
-=======
             <Route path='/timeline' element={ <TimelinePage /> }  />
             <Route path='/user/:id' element={ <PostsByUserPage /> } />
->>>>>>> bf22296bfeffc80b7c03d2c29120ae58965c3871
             <Route path='/hashtag/:hashtag' element={ <HashtagPage /> } />
           </Route>
         </Routes>

@@ -3,13 +3,13 @@ import { SquareImg } from "../../styles/SquareImg";
 
 const UrlPost = ({url}) => <UrlPostContainer href={url.link}>
     <UrlPostText>
-        <h4>{url.title}</h4>
-        <p>{url.description}</p>
-        <a href={url.link}>{url.link}</a>
+        {url.title ? <h4>{url.title}</h4> : <></>}
+        {url.description ? <p>{url.description}</p> : <></>}
+        {url.link ? <small href={url.link}>{url.link}</small> : <></>}
     </UrlPostText>
-    <UrlPostImgFrame>
+    {url.image ? <UrlPostImgFrame>
         <SquareImg src={url.image}/>
-    </UrlPostImgFrame>
+    </UrlPostImgFrame> : <></>}
 </UrlPostContainer>
 
 export default UrlPost

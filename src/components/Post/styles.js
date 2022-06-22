@@ -5,6 +5,11 @@ export const PostHTML = styled(Card)`
     background: #171717;
     color: #FFFFFF;
     gap: 18px;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 `
 export const PostAside = styled.div`
     display: flex;
@@ -76,7 +81,7 @@ export const UrlPostText = styled.div`
         color: #9B9595;
         margin-bottom: 13px;
     }
-    a {
+    small {
         text-decoration: none;
         color: #CECECE;
         font-family:var(--default-font);

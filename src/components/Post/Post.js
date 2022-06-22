@@ -1,7 +1,7 @@
 import ReactHashtag from "react-hashtag";
 import { Link } from "react-router-dom";
 import { ProfilePic } from "../../styles/ProfilePic";
-import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input, CommentsHTML} from "./styles";
+import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input, CommentsHTML, MainPost} from "./styles";
 import LikeButton from "./LikeButton";
 import { RiEdit2Line } from "react-icons/ri";
 import { useState,  useRef, useContext, useEffect } from 'react'
@@ -56,6 +56,7 @@ export default function Post(props){
 
     return(
         <PostHTML>
+            <MainPost>
             <PostAside >
                 <ProfilePic src={postINFO.profilePicture} radius={50} />
                 <SubPostAside >
@@ -104,6 +105,7 @@ export default function Post(props){
                 }  
                 <UrlPost url={postINFO.urlMeta.url} />
             </PostContent>
+            </MainPost>
             {
                     (idPost == postINFO.id && commentsBoxOpen)?
                             (<CommentsHTML>

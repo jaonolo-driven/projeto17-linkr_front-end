@@ -1,7 +1,7 @@
 import ReactHashtag from "react-hashtag";
 import { Link } from "react-router-dom";
 import { ProfilePic } from "../../styles/ProfilePic";
-import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input} from "./styles";
+import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input, CommentsHTML} from "./styles";
 import LikeButton from "./LikeButton";
 import { RiEdit2Line } from "react-icons/ri";
 import { useState,  useRef, useContext, useEffect } from 'react'

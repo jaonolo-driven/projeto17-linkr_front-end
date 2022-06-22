@@ -2,7 +2,6 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import ReactTooltip from 'react-tooltip';
 import { AiOutlineComment } from "react-icons/ai";
-import { PostContent } from "../PostsByUserPage/styles";
 import styled from 'styled-components';
 import {FiSend} from "react-icons/fi"
 

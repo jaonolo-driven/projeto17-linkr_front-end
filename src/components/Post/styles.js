@@ -114,3 +114,10 @@ export const EditAndDel = styled.div`
 export const Input  = styled.input`
     height: 100%;
 `
+export const CommentsHTML = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: #1E1E1E;
+    border-radius: 0px 0px 16px 16px;
+    display: flex;
+`

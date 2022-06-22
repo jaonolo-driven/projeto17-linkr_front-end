@@ -205,3 +205,11 @@ export const MainNoPosts = styled.main`
     font-weight: 700;
     font-size: 30px; 
 `;
+
+export const CommentsHTML = styled.div`
+    display: flex;
+`
+
+export const MainPost = styled.div`
+display: flex;
+`

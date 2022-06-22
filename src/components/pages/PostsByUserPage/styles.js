@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.main`
-    /*height: 100%;*/
     overflow: auto;
     background-color: var(--lighter-grey);
-`
-
+`;
 export const Title = styled.h1`
     display: flex;
     margin-top: 5%;
@@ -15,7 +13,7 @@ export const Title = styled.h1`
     font-family: var(--subtitle-font);
     font-weight: 700;
     font-size: 43px;
-    `;
+`;
 
 export const MainContent = styled.main`
     display: flex;

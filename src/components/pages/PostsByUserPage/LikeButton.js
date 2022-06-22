@@ -3,7 +3,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import ReactTooltip from 'react-tooltip';
 
-import UserContext from "../../contexts/UserContext";
+import UserContext from "../../../contexts/UserContext";
 
 
 export default function LikeButton(props){

@@ -51,6 +51,11 @@ export const PostHTML = styled.div`
     font-family: var(--default-font);
     color: #FFFFFF;
 
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
     @media screen and (max-width: 600px) {
         border-radius: 0;
     }

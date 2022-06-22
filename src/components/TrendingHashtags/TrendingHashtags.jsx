@@ -1,14 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-import UserContext from "../../contexts/UserContext";
-
 export default function TrendingHashtags() {
 
     const [trending, setTrending] = useState([]);
-    const [userState] = useContext(UserContext);
 
     useEffect(() => {
         const promisse = axios.get(process.env.REACT_APP_API_URL + "/trending-hashtags");
@@ -47,6 +44,11 @@ const SideBar = styled.aside`
     
     p {
         margin-left: 5%;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
     }
 
     @media screen and (max-width: 1000px) {

@@ -1,20 +1,10 @@
 import ReactHashtag from "react-hashtag";
 import { FaRegHeart } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CreatePost, PostHTML, Photo, PostAside, SubPostAside, PostContent, UrlPost, UrlPostText} from "./styles";
 
-export default function Post(props){
-    
-    const { postsList } = props
-    const navigate = useNavigate();
+export default function Post({ postINFO }){
 
-    function goToHashTag(tag) {
-        navigate("/hashtag/" + tag.split("#")[1]);
-        window.location.reload();
-    }
-
-    function Card(props){
-        const {postINFO} = props
         console.log(postINFO)
         return(
             <PostHTML>
@@ -31,9 +21,9 @@ export default function Post(props){
                     </Link> 
                     <p>
                     <ReactHashtag renderHashtag={(tag) => (
-                        <span onClick={()=>goToHashTag(tag)}>
+                        <Link to={`/hashtag/${tag.split("#")[1]}`} >
                             {tag}
-                        </span>
+                        </Link>
                     )}>
                         {postINFO.message}
                     </ReactHashtag></p>    
@@ -48,12 +38,4 @@ export default function Post(props){
                 </PostContent>
             </PostHTML> 
         )
-    }
-    if(postsList){
-        return(
-            <CreatePost>
-                {postsList?.map( post => <Card postINFO={post}/> )}
-            </CreatePost>
-            )
-        }
-    }
+}

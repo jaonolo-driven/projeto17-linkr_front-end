@@ -11,7 +11,7 @@ import { CountCommentsAndIcon } from "./CommentsStyles.js";
 
 export default function CommentsButton(props){
 
-    const {postId, setCommentsBoxOpen, commentsBoxOpen, idClick} = props;
+    const {postId, setCommentsBoxOpen, commentsBoxOpen, idClick, countComments} = props;
     const [showComment, setShowComment] = useState(false);
     const [user, setUser] = useContext(UserContext);
     let qteComments = 0;
@@ -52,7 +52,7 @@ export default function CommentsButton(props){
 
         <CountCommentsAndIcon>
             <AiOutlineComment onClick={() => showComments(postId)}/>
-            <span> 1 comments </span>
+            <span> {countComments} comments </span>
         </CountCommentsAndIcon>
         {
             (showComment)?

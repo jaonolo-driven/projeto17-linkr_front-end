@@ -29,7 +29,7 @@ export default function PostsByUser(props){
     const [idPost, setIdPost] = useState();
     const [renderList, setRenderList] = useState()
     const [commentsBoxOpen, setCommentsBoxOpen] = useState(false);
-    const [likes, setLikes] = useState()
+    const [countComments, setCountComments] = useState();
     const navigate = useNavigate()
 
 
@@ -65,6 +65,10 @@ export default function PostsByUser(props){
         setIdPost(id);
     }
 
+    function countComment(count){
+        setCountComments(count);
+    }
+
 function CreateMyPost(){
         if(postsList2.postsInfo.length === 0){
             return( 
@@ -89,7 +93,8 @@ function CreateMyPost(){
                         <CommentsButton postId={post.id}
                                         commentsBoxOpen={commentsBoxOpen}
                                         setCommentsBoxOpen={setCommentsBoxOpen}
-                                        idClick={(id) => clickId(id)}/>
+                                        idClick={(id) => clickId(id)}
+                                        countComments={countComments}/>
                     </SubPostAside>
                     </PostAside>
                     <PostContentComponent   postsList={postsList}
@@ -97,12 +102,17 @@ function CreateMyPost(){
                                             index={index}
                                             renderList={setRenderList}/>
                     </MainPost>
-                    <CommentsHTML>
+                    
                         {
                             (idPost == post.id && commentsBoxOpen)?
-                                (<CommentsBox postId={post.id}/>):(<></>)
+                                (<CommentsHTML>
+                                        <CommentsBox postId={post.id}
+                                                    userProfilePicture={postsList.profilePicture}
+                                                    display={"flex"}
+                                                    countComments={(count) => countComment(count)}/>
+                                </CommentsHTML>):(<></>)
                         }
-                        </CommentsHTML>
+                        
                 </PostHTML> )}
             </CreatePost>
         )

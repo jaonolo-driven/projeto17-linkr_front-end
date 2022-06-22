@@ -1,34 +1,26 @@
 import ReactHashtag from "react-hashtag";
-<<<<<<< HEAD
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ProfilePic } from "../../styles/ProfilePic";
-import { CreatePost, PostHTML, PostAside, SubPostAside, PostContent, UrlPost, UrlPostText} from "./styles";
-import LikeButton from "../PostsByUserPage/LikeButton";
+import { PostHTML, PostAside, SubPostAside, PostContent, UrlPost, UrlPostText, NameAndButtons, EditAndDel, Input} from "./styles";
+import LikeButton from "../pages/PostsByUserPage/LikeButton";
 import { RiEdit2Line } from "react-icons/ri";
-import { AiFillDelete } from "react-icons/ai";
-import styled from 'styled-components'
 import { useState,  useRef, useContext, useEffect } from 'react'
 import UserContext from "../../contexts/UserContext";
 import axios from "axios";
 import DeleteModal from "./DeleteModal";
 
 export default function Post(props){
-    /* vai desaparecer */
-    const { postsList } = props
-    const navigate = useNavigate();
-    function Card(props) {    
-    /**/
     const {postINFO} = props
-
     const user = useContext(UserContext)[0]
     const inputRef = useRef()
     const [editPost, setEditPost] = useState(false)
-    const [postValue, setPostValue] = useState('oi')
+    const [postValue, setPostValue] = useState(postINFO.message)
     const [resetValue, setResetValue] = useState('')
     const [disable, setDisable] = useState(false)
 
     const {id, token} = user
-    
+    const { url } = postINFO.urlMeta
+
     useEffect(()=>{
         if(editPost){
             inputRef.current.focus()
@@ -57,10 +49,12 @@ export default function Post(props){
                     <Link to={`/user/${postINFO.userId}`}>
                         <h3>{postINFO.userName}</h3>
                     </Link> 
+                    {(postINFO.userId === id) ?
                     <EditAndDel>
                         <RiEdit2Line color="white" cursor={'pointer'} onClick={() => changeEditPost()}/>
                         <DeleteModal/>
                     </EditAndDel>
+                    :<></>}
                 </NameAndButtons> 
                 {(editPost === true)?  
                     <form onSubmit={editPostSubmit}>
@@ -71,37 +65,32 @@ export default function Post(props){
                             disabled={disable}
                         />
                     </form>
-                    :<ReactHashtag renderHashtag={(tag) => (
-                        <span onClick={()=>goToHashTag(tag)}>
+                    :
+                    <ReactHashtag renderHashtag={(tag) => (
+                        <Link to={`/hashtag/${tag.split("#")[1]}`} >
                             {tag}
-                        </span>
-                    )}>
-                        {postINFO.message}
+                        </Link>
+                     )}>
+                        {postValue}
                     </ReactHashtag>
                 }  
                 <UrlPost>
                     <UrlPostText>
-                        <h4>{postINFO.url.title}</h4>
-                        <p>{postINFO.url.description}</p>
-                        <a href={postINFO.url.link}>{postINFO.urlMeta.url.link}</a>
+                        <h4>{url.title}</h4>
+                        <p>{url.description}</p>
+                        <a href={url.link}>{url.link}</a>
                     </UrlPostText>
-                    <img src={postINFO.url.image}/>
+                    <img src={url.image}/>
                 </UrlPost>
             </PostContent>
         </PostHTML> 
     )
 
-    function goToHashTag(tag) {
-        navigate("/hashtag/" + tag.split("#")[1]);
-        window.location.reload();
-    }
-
     function changeEditPost(){
-        console.log('oie')
         if(editPost===false){
             setResetValue(postValue)
             setEditPost(true)
-        }else{
+        } else {
             setEditPost(false)
             setPostValue(resetValue)
         }
@@ -130,83 +119,4 @@ export default function Post(props){
             inputRef.current.focus()
         })
     }
-    /**/
-    }
-    /**/
- 
-    /*
-        vai desaparecer
-        agora a lista de posts será renderizada no componente pai           
-    */
-        if(postsList){
-            const post = {
-                ...postsList[0],
-                url: postsList[0].urlMeta.url,
-            }
-
-            return(
-                <CreatePost>
-                    {/*postsList?.map( post => <Card postINFO={post}/> )*/}
-                    <Card postINFO={post}/>
-                </CreatePost>
-            )
-        }
-    /**/
 }
-
-const NameAndButtons = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-`
-const EditAndDel = styled.div`
-    display: flex;
-    justify-content: space-between;
-    color: #FFFFFF;
-    width: 50px;
-`
-const Input  = styled.input`
-    height: 100%;
-`
-=======
-import { FaRegHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { CreatePost, PostHTML, Photo, PostAside, SubPostAside, PostContent, UrlPost, UrlPostText} from "./styles";
-
-export default function Post({ postINFO }){
-
-        return(
-            <PostHTML>
-                <PostAside >
-                    <Photo src={postINFO.profilePicture} />
-                    <SubPostAside >
-                        <FaRegHeart/>
-                        <span> {postINFO.likes} likes</span> 
-                    </SubPostAside>
-                </PostAside>
-                <PostContent >
-                    <Link to={`/user/${postINFO.userId}`}>
-                        <h3>{postINFO.userName}</h3>
-                    </Link> 
-                    <p>
-                    <ReactHashtag renderHashtag={(tag) => (
-                        <Link to={`/hashtag/${tag.split("#")[1]}`} >
-                            {tag}
-                        </Link>
-                    )}>
-                        {postINFO.message}
-                    </ReactHashtag></p>    
-                    <UrlPost>
-                        <UrlPostText>
-                            <h4>{postINFO.urlMeta.url.title}</h4>
-                            <p>{postINFO.urlMeta.url.description}</p>
-                            <a href={postINFO.urlMeta.url.link}>{postINFO.urlMeta.url.link}</a>
-                        </UrlPostText>
-                        <img src={postINFO.urlMeta.url.image}/>
-                    </UrlPost>
-                </PostContent>
-            </PostHTML> 
-        )
-}
->>>>>>> c11cc06f1e8073a2a143c738481c0d16108676da

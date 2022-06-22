@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Card } from '../../styles/Card'
 
 export const Container = styled.main`
     /*height: 100%;*/
@@ -38,25 +39,11 @@ export const CreatePost = styled.div`
     /* background-color: aliceblue; */
 `;
 
-export const PostHTML = styled.div`
-    max-width: 600px;
-    width: 100%;
-    height: 280px;
-    left: 50%;
-    top: 50%;
+export const PostHTML = styled(Card)`
     background: #171717;
-    margin-bottom: 5%;
-    border-radius: 16px;
-    display: flex;
-    font-family: var(--default-font);
     color: #FFFFFF;
-
-    @media screen and (max-width: 600px) {
-        border-radius: 0;
-    }
-
     h3 {
-        margin-bottom: 13px
+        margin: 0
     }
 `;
 
@@ -105,7 +92,7 @@ export const PostAside = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3%;
+    padding: 18px;
     width: 20%;
 `
 
@@ -114,11 +101,22 @@ export const SubPostAside = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 30%;
+
     svg {
         font-size: 17px;
         color: #FFFFFF;
         margin-bottom: 10%;
         cursor: pointer;
+    }
+
+    .fontTooltip {
+        font-family:var(--default-font);
+        font-weight: 400;
+        font-size: 11px;
+    }
+
+    .fontTooltipNone {
+        display: none;
     }
 `
 
@@ -129,6 +127,7 @@ export const PostContent = styled.div`
     span {
         font-weight: 700;
     }
+    padding: 20px 20px 20px 0
 `
 
 export const UrlPost = styled.div`

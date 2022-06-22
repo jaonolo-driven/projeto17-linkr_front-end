@@ -11,6 +11,9 @@ import ReactModal from "react-modal";
 import { Circles } from "react-loader-spinner";
 
 export default function PostContentComponent(props){
+
+    console.log('rerendering')
+
     const {postsList, post, index, renderList} = props
     const {token} = JSON.parse(localStorage.getItem('user'))
     const inputRef = useRef()
@@ -20,6 +23,8 @@ export default function PostContentComponent(props){
     const [disable, setDisable] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [modalLoad, setModalLoad] = useState(false)
+
+    console.log(disable)
 
     const {id} = useParams()
 

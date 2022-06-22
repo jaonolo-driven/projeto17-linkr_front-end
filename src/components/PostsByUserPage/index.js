@@ -53,17 +53,6 @@ export default function PostsByUser(props){
                                     navigate("/timeline")})   } 
     , [renderList]) 
     
-    function togglelikePost(postId){
-            const config = {headers: { authorization: `Bearer ${user}`}}
-            const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
-            const promise = axios.patch(URL, {}, config)
-            promise.then( (response) => { setLikes(response.data[0].likes)
-                                            insertLikes(postId, response.data[0].likes)
-                                            setTypeLikes(response.data[1].typeLike)
-                                            setIdPost(response.data[2].postIdInfo)})
-            promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
-    } 
-    console.log(postsList)
     function insertLikes(postId, responselikes){
         postsList.postsInfo?.map((post) => {
                 (post.id == postId)?(post.likes = responselikes):(<></>)
@@ -71,12 +60,7 @@ export default function PostsByUser(props){
         CreateMyPost();
     } 
 
-    function goToHashtagPage(tag) {
-        navigate("/hashtag/" + tag.split("#")[1]);
-        window.location.reload();
-    } 
-
-function CreateMyPost(){
+    function CreateMyPost(){
         if(postsList2.postsInfo.length === 0){
             return( 
             
@@ -111,8 +95,8 @@ function CreateMyPost(){
             <SideBar>
                 <h3>trending</h3>
                 <SideBarLine/>
-                {postsList.allHashtagsInfo?.map( (hashtag) => 
-                {return <p onClick={() =>goToHashtagPage(hashtag.tag)}># {hashtag.tag.split("#")[1]}</p>})}
+                {/*postsList.allHashtagsInfo?.map( (hashtag) => 
+                {return <p onClick={() =>goToHashtagPage(hashtag.tag)}># {hashtag.tag.split("#")[1]}</p>})*/}
             </SideBar>
         )
     }

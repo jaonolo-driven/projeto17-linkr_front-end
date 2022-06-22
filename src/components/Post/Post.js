@@ -5,7 +5,6 @@ import { CreatePost, PostHTML, Photo, PostAside, SubPostAside, PostContent, UrlP
 
 export default function Post({ postINFO }){
 
-        console.log(postINFO)
         return(
             <PostHTML>
                 <PostAside >

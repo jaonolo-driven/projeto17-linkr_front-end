@@ -12,6 +12,7 @@ export default function HashtagPage(){
     const {hashtag} = useParams();
 
     useEffect( () => {
+        setLoading(true);
         const config = {headers: { authorization: `Bearer ${userState}`}}
         const URL = process.env.REACT_APP_API_URL + `/hashtag/${hashtag}`
         const promise = axios.get(URL, config)

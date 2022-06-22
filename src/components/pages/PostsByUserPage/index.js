@@ -8,11 +8,12 @@ import TimeLine from "../../TimeLine/TimeLine";
 export default function PostsByUserPage(){
     
     const [postsList, setPostsList] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [user] = useContext(UserContext);
     const { id } = useParams();
     
     useEffect( () => {
+        setLoading(true);
         const config = {headers: { authorization: `Bearer ${user.token}`}};
         const URL = process.env.REACT_APP_API_URL+'/user/'+id;
         const promise = axios.get(URL, config);

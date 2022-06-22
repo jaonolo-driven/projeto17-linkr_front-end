@@ -11,6 +11,7 @@ export default function TimelinePage() {
     const [userState] = useContext(UserContext);
 
     useEffect(() => {
+        setLoading(true);
         const config = {headers: { authorization: `Bearer ${userState}`}}
         const URL = process.env.REACT_APP_API_URL+'/timeline'
         const promise = axios.get(URL, config)

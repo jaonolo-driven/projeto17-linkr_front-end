@@ -3,7 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import ReactTooltip from 'react-tooltip';
 import { AiOutlineComment } from "react-icons/ai";
 import styled from 'styled-components';
-import {FiSend} from "react-icons/fi"
+import {FiSend} from "react-icons/fi";
+import { TailSpin } from  'react-loader-spinner';
 
 import UserContext from "../../contexts/UserContext";
 
@@ -94,7 +95,13 @@ export default function CommentsBox(props){
                                                 value={message}
                                                 onChange={e => setMessage(e.target.value)}
                                                 disabled={disable}/>
-                <Button type="submit" disabled={disable}>{disable? 'loading' : <FiSend/>}</Button>
+                <Button type="submit" disabled={disable}>{disable?
+                <TailSpin
+                    height="15"
+                    width="15"
+                    color='#fff'
+                    ariaLabel='loading'
+                />: <FiSend/>}</Button>
             </FormComment>
             </ContainerInsertComment>
         </CommentsMain>

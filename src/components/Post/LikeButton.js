@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 
 import UserContext from "../../contexts/UserContext";
 
-
 export default function LikeButton(props){
 
     const [liked, setLiked] = useState(props.liked);
@@ -29,6 +28,11 @@ export default function LikeButton(props){
         promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
     }
     
+    useEffect(() => {
+        setCountLikes(props.postLikes)
+        setLiked(props.liked)
+    }, [props])
+
     useEffect(() => {
             ReactTooltip.rebuild();
             if(liked){

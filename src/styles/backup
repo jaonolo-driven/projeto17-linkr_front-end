@@ -208,6 +208,7 @@ export const MainNoPosts = styled.main`
     font-family: var(--subtitle-font);
     font-weight: 700;
     font-size: 30px; 
+<<<<<<< HEAD:src/components/PostsByUserPage/styles.js
 `;
 
 export const CommentsHTML = styled.div`
@@ -224,3 +225,6 @@ export const MainPost = styled.div`
     background-color: #171717;
     height: 50vh;
 `
+=======
+`;
+>>>>>>> bf22296bfeffc80b7c03d2c29120ae58965c3871:src/styles/backup

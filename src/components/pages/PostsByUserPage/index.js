@@ -22,7 +22,7 @@ export default function PostsByUserPage(){
             setLoading(false);
         });
         promise.catch( (err) => console.log(err));
-    }, []);
+    }, [id]);
 
     function title() {
         if(postsList.length > 0) return postsList[0].userName + "'s posts";
@@ -32,5 +32,11 @@ export default function PostsByUserPage(){
         if(postsList.length > 0) return postsList[0].profilePicture;
     }
 
-    return (<TimeLine title={title()} profilePicture={profilePicture()} postsList={postsList} loading={loading}/>);
+    return (<TimeLine
+                title={title()}
+                profilePicture={profilePicture()}
+                postsList={postsList}
+                setPostsList={setPostsList}
+                loading={loading} 
+            />);
 }

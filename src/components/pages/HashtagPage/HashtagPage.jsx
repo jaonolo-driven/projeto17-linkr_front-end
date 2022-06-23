@@ -21,5 +21,10 @@ export default function HashtagPage(){
         promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))
     }, [hashtag]);
 
-    return (<TimeLine title={"# " + hashtag} postsList={postsList} loading={loading}/>);
+    return (<TimeLine
+                title={"# " + hashtag}
+                postsList={postsList}
+                setPostsList={setPostsList}
+                loading={loading}
+            />);
 }

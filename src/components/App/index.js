@@ -14,9 +14,10 @@ function App() {
   const tokenStorageString = localStorage.getItem("user")
   const tokenStorage = JSON.parse(tokenStorageString)
   const [token, setToken] = useState(tokenStorage)
+  const [refreshList, setRefreshList] = useState(0)
 
   return (
-    <UserContext.Provider value={[token, setToken]}><AppContainer>
+    <UserContext.Provider value={[token, setToken, refreshList, setRefreshList]}><AppContainer>
       <BrowserRouter>
         <Routes>
           <Route element={<AuthRoutesController needsUser={false}/>}>

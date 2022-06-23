@@ -67,6 +67,8 @@ export const SidebarWrapper = styled.div`
 
     li {
         list-style: none;
+        width: 10px;
+        height: 10px;
     }
 `;
 

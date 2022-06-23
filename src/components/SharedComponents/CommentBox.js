@@ -32,7 +32,7 @@ export default function CommentsBox(props){
         })
 
         promise.catch( (error) => console.log('Error Get comment post: ', error))
-    }, [postId, disable])
+    }, [postId, disable, commentsInfo.length ])
     
 
     function commentPost(e){

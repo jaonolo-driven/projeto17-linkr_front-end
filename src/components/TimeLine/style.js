@@ -92,8 +92,7 @@ export const UserPageTitle = styled.div`
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        margin-left: 18px;
-        margin-right: 10px;
+        margin-top: 10px;
+        margin-right: 18px;
     }
 `;
-

@@ -13,9 +13,11 @@ export default function TimeLine({ title, profilePicture, postsList, currentPage
         if(!profilePicture)
             return <Title> {title} </Title>;
         return (
-            <UserPageTitle>  
-                <img src={profilePicture} />
-                <h1> {title} </h1>  
+            <UserPageTitle>        
+                <h1> 
+                    <img src={profilePicture} />
+                    {title} 
+                </h1>  
                 {FollowButton()}       
             </UserPageTitle>
         );

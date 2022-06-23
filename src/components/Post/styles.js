@@ -1,124 +1,49 @@
 import styled from 'styled-components';
+import { Card } from '../../styles/Card'
 
-export const Container = styled.main`
-    /*height: 100%;*/
-    overflow: scroll;
-    background-color: var(--lighter-grey);
+export const MainPost = styled(Card)`
+    background: #171717;
+    color: #FFFFFF;
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 `
-
-export const Title = styled.h1`
-    display: flex;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: 3%;
-    color: #fff;
-    font-family: var(--subtitle-font);
-    font-weight: 700;
-    font-size: 43px;
-    `;
-
-export const MainContent = styled.main`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 90%;
-    margin-left: 3%;
-`;
-
-export const Center = styled.section`
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
-`;
-
-export const CreatePost = styled.div`
-    display: flex;
-    flex-direction: column;
-    /* background-color: aliceblue; */
-`;
-
 export const PostHTML = styled.div`
-    max-width: 600px;
-    width: 100%;
-    height: 280px;
-    left: 50%;
-    top: 50%;
-    background: #171717;
-    margin-bottom: 5%;
-    border-radius: 16px;
-    display: flex;
-    font-family: var(--default-font);
-    color: #FFFFFF;
-
-    @media screen and (max-width: 600px) {
-        border-radius: 0;
-    }
-
-    h3 {
-        margin-bottom: 13px
-    }
-`;
-
-export const SideBar = styled.aside`
-    display: flex;
-    position: sticky;
-    width: 25%;
-    height: 60vh;
-    margin-left: 1%;
-    background: #171717;
-    border-radius: 16px;
-    flex-direction: column;
-    font-family: var(--default-font);
-    color: #FFFFFF;
-    h3 {
-        margin-left: 5%;
-    }
-    
-    p {
-        margin-left: 5%;
-    }
-`;
-
-export const SideBarLine = styled.div`
-    width: 100%;
-    height: 1px;
-    background-color: var(--line-grey);
-    margin-bottom: 5%;
+    //margin-bottom: 30px;
 `
-
-export const Photo = styled.img`
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin-right: 10px;
-`
-
-export const SubHeaderContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-left: 14.5%;
-`
-
 export const PostAside = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3%;
-    width: 20%;
 `
-
 export const SubPostAside = styled.div`
     display: flex;
+    width: 80px;
     flex-direction: column;
     align-items: center;
     margin-top: 30%;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+
     svg {
         font-size: 17px;
         color: #FFFFFF;
         margin-bottom: 10%;
         cursor: pointer;
+    }
+
+    .fontTooltip {
+        font-family:var(--default-font);
+        font-weight: 400;
+        font-size: 11px;
+    }
+
+    .fontTooltipNone {
+        display: none;
     }
 `
 
@@ -126,40 +51,34 @@ export const PostContent = styled.div`
     display: flex;
     flex-direction: column;
     word-break: break-all;
+    flex-grow: 1;
     span {
         font-weight: 700;
     }
 `
-
-export const UrlPost = styled.div`
-    width: 96%;
-    height: 60%;
+// talvez
+export const UrlPostContainer = styled.a`
     border: 1px solid #4D4D4D;
     border-radius: 11px;
     display: flex;
     margin-top: 2%;
-    img {
-        width: 30%;
-        height: 100%;
-        border-radius: 11px;
-        object-fit: cover;
-    }
+    text-decoration: none;
+    color: inherit;
 `
-
 export const UrlPostText = styled.div`
     display: flex;
     flex-direction: column;
     word-break: break-all;
     justify-content: space-around;
-    padding: 0 2% 2% 2%;
-    //margin-top: -5%;
+    padding: 21px;
+    width: 70%;
     
     h4 {
         font-family:var(--default-font);
         font-weight: 400;
         font-size: 16px;
         color: #CECECE;
-        margin-bottom: -3%;
+        margin-bottom: 5px;
     }
     
     p {
@@ -167,8 +86,9 @@ export const UrlPostText = styled.div`
         font-weight: 400;
         font-size: 11px;
         color: #9B9595;
+        margin-bottom: 13px;
     }
-    a {
+    small {
         text-decoration: none;
         color: #CECECE;
         font-family:var(--default-font);
@@ -176,11 +96,40 @@ export const UrlPostText = styled.div`
         font-size: 11px;
     }
 `
-
+export const UrlPostImgFrame = styled.div`
+    flex-grow: 1;
+`
 export const IconStyle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-`;
+`
+export const NameAndButtons = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    a {
+        text-decoration: none;
+        color: inherit
+    }
+`
+export const EditAndDel = styled.div`
+    display: flex;
+    justify-content: space-between;
+    color: #FFFFFF;
+    width: 50px;
+`
+export const Input  = styled.input`
+    height: 100%;
+`
+export const CommentsHTML = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: #1E1E1E;
+    border-radius: 0px 0px 16px 16px;
+    display: flex;
+`

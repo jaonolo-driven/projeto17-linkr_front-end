@@ -8,12 +8,14 @@ import { ThreeCircles } from "react-loader-spinner";
 
 import { Title, MainContent, Center, CreatePost, PostHTML, SideBar, Photo, SubHeaderContainer,
         PostAside, SideBarLine, SubPostAside, PostContent, Container, UrlPost,
-        UrlPostText, IconStyle, MainNoPosts} from "./styles";
+        UrlPostText, IconStyle, MainNoPosts, CommentsHTML, MainPost} from "./styles";
 
 import Header from '.././Header/index.js'
 import UserContext from "../../contexts/UserContext";
 import PostContentComponent from "../PostContent";
 import LikeButton from "./LikeButton";
+import CommentsButton from "./../SharedComponents/Comments.js"
+import CommentsBox from "../SharedComponents/CommentBox.js";
 
 export default function PostsByUser(props){
     
@@ -26,7 +28,8 @@ export default function PostsByUser(props){
     const [typeLikes, setTypeLikes] = useState('')
     const [idPost, setIdPost] = useState();
     const [renderList, setRenderList] = useState()
-    const [likes, setLikes] = useState()
+    const [commentsBoxOpen, setCommentsBoxOpen] = useState(false);
+    const [countComments, setCountComments] = useState();
     const navigate = useNavigate()
 
 
@@ -53,28 +56,18 @@ export default function PostsByUser(props){
                                     navigate("/timeline")})   } 
     , [renderList]) 
     
-    function togglelikePost(postId){
-            const config = {headers: { authorization: `Bearer ${user}`}}
-            const URL = process.env.REACT_APP_API_URL+'/togglelike/'+postId;
-            const promise = axios.patch(URL, {}, config)
-            promise.then( (response) => { setLikes(response.data[0].likes)
-                                            insertLikes(postId, response.data[0].likes)
-                                            setTypeLikes(response.data[1].typeLike)
-                                            setIdPost(response.data[2].postIdInfo)})
-            promise.catch( (error) => console.log('Error Get PostsByUser: ', error)) 
-    } 
-    console.log(postsList)
-    function insertLikes(postId, responselikes){
-        postsList.postsInfo?.map((post) => {
-                (post.id == postId)?(post.likes = responselikes):(<></>)
-        })
-        CreateMyPost();
-    } 
-
     function goToHashtagPage(tag) {
         navigate("/hashtag/" + tag.split("#")[1]);
         window.location.reload();
     } 
+    
+    function clickId(id){
+        setIdPost(id);
+    }
+
+    function countComment(count){
+        setCountComments(count);
+    }
 
 function CreateMyPost(){
         if(postsList2.postsInfo.length === 0){
@@ -88,6 +81,7 @@ function CreateMyPost(){
             <CreatePost> 
                 {postsList2.postsInfo?.map( (post, index) => 
                 <PostHTML > 
+                    <MainPost>
                     <PostAside >
                     <Photo src={postsList.profilePicture} />
                     <SubPostAside >
@@ -96,12 +90,29 @@ function CreateMyPost(){
                                     postId={post.id}
                                     postLikes={post.likes}
                                     likeList={post.likesList?.filter((e) => e.UserLiked != userIdTest)}/>
+                        <CommentsButton postId={post.id}
+                                        commentsBoxOpen={commentsBoxOpen}
+                                        setCommentsBoxOpen={setCommentsBoxOpen}
+                                        idClick={(id) => clickId(id)}
+                                        countComments={countComments}/>
                     </SubPostAside>
                     </PostAside>
                     <PostContentComponent   postsList={postsList}
                                             post={post}
                                             index={index}
                                             renderList={setRenderList}/>
+                    </MainPost>
+                    
+                        {
+                            (idPost == post.id && commentsBoxOpen)?
+                                (<CommentsHTML>
+                                        <CommentsBox postId={post.id}
+                                                    userProfilePicture={postsList.profilePicture}
+                                                    display={"flex"}
+                                                    countComments={(count) => countComment(count)}/>
+                                </CommentsHTML>):(<></>)
+                        }
+                        
                 </PostHTML> )}
             </CreatePost>
         )

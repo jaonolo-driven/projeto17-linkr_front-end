@@ -34,27 +34,31 @@ export const Center = styled.section`
 
 export const CreatePost = styled.div`
     width: 85%;
-    height: 50vh;
+    //height: 50vh;
     left: 50%;
     top: 50%;
     margin-bottom: 10%;
     border-radius: 16px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //background: #FFFFFF;
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export const PostHTML = styled.div`
     width: 100%;
-    height: 50vh;
+    //height: 50vh;
     left: 50%;
     top: 50%;
-    background: #171717;
+    /*background: #171717;*/
+    background-color: #1E1E1E;
     margin-bottom: 5%;
     border-radius: 16px;
     display: flex;
     font-family: var(--default-font);
     color: #FFFFFF;
     overflow: hidden;
+
+    flex-direction: column;
+    align-items: center
 `;
 
 export const SideBar = styled.aside`
@@ -204,4 +208,23 @@ export const MainNoPosts = styled.main`
     font-family: var(--subtitle-font);
     font-weight: 700;
     font-size: 30px; 
+<<<<<<< HEAD:src/components/PostsByUserPage/styles.js
 `;
+
+export const CommentsHTML = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: #1E1E1E;
+    border-radius: 0px 0px 16px 16px;
+    display: flex;
+`
+
+export const MainPost = styled.div`
+    display: flex;
+    border-radius: 16px;
+    background-color: #171717;
+    height: 50vh;
+`
+=======
+`;
+>>>>>>> bf22296bfeffc80b7c03d2c29120ae58965c3871:src/styles/backup

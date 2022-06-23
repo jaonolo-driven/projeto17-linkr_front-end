@@ -1,7 +1,8 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { ProfilePic } from '../../styles/ProfilePic'
+import { Card } from "../../styles/Card"
 
 export default function PostForm(){
     const user = JSON.parse(localStorage.getItem('user'))
@@ -72,21 +73,10 @@ export default function PostForm(){
     )
 }
 
-const Section = styled.section`
-    display: flex;
-    justify-content: left;
-    background: #FFFFFF;
-    max-width: 600px;
-    width: 100%;
-    height: 200px;
-    border-radius: 10px;
-    padding: 18px;
+const Section = styled(Card)`
+    background-color: white;
+    gap: 18px;
     margin-bottom: 30px;
-    gap: 10px;
-
-    @media screen and (max-width: 600px) {
-        border-radius: 0;
-    }
 `
 
 const Title = styled.h2`

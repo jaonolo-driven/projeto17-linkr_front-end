@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { BiRepost } from "react-icons/bi";
 import styled from "styled-components";
+import RepostModal from "./RepostModal";
 
 export default function RepostButton(props){
-    const{numberReposts} = props
+    const{ id, numberReposts} = props
     const [nReposts, setNReposts] = useState(numberReposts)
     return(
         <Section>
-            <BiRepost size={25}/>
+            <RepostModal id={id}/>
             <div>{nReposts} re-posts</div>
         </Section>
     )

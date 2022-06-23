@@ -3,23 +3,23 @@ import styled from 'styled-components'
 
 import ReactModal from "react-modal";
 import { Circles } from "react-loader-spinner";
-import { AiFillDelete } from "react-icons/ai";
 import { BiRepost } from "react-icons/bi";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
-const DeleteModal = ({ id, type }) => {
+const RepostModal = ({ id }) => {
     const [showModal, setShowModal] = useState(false)
     const [modalLoad, setModalLoad] = useState(false)
-
     const { token } = useContext(UserContext)[0]
-
-    function deletePost(){
-        const promise = axios.delete(`${process.env.REACT_APP_API_URL}/deletepost/${id}`,
+    
+    function repost(){
+        const promise = axios.post(`${process.env.REACT_APP_API_URL}/repost`,{
+            postId: id
+        },
         {
             headers: {
-                Authorization: `Bearer ${token}`
-            }
+                authorization: `Bearer ${token}`
+            } 
         })
         promise.then(response => {
             setModalLoad(false)
@@ -33,8 +33,7 @@ const DeleteModal = ({ id, type }) => {
 
     function operationConfirm(){
         setModalLoad(true)
-        setTimeout(()=>{
-            deletePost()
+        setTimeout(()=>{repost()
         }, "500")
     }
 
@@ -43,21 +42,22 @@ const DeleteModal = ({ id, type }) => {
             <ContentModal>
                 {(modalLoad===true) ? <Circles color="#00BFFF" height={180} width={180}/>
                 :<>
-                    Are you sure you want to delete this post?
+                    Do you want to re-post this link?
                     <div>
                     <CancelButton onClick={() => setShowModal(false)}>
                         No, go back
                     </CancelButton>
-                    <ConfirmButton onClick={() => operationConfirm()}>
+                    <ConfirmButton onClick={() => repost()}>
                         <label>
-                            Yes, delete it
+                            Yes, i share!
                         </label>
                     </ConfirmButton>
                     </div>
                 </>}
             </ContentModal>
         </ReactModal>
-        <AiFillDelete margin={10} cursor={'pointer'} onClick={() => setShowModal(true)}/>       
+        <BiRepost size={25} cursor={'pointer'} onClick={() => setShowModal(true)}/>
+        
     </>
 }
 
@@ -141,4 +141,4 @@ const modalStyle = {
     }
 }
 
-export default DeleteModal
+export default RepostModal

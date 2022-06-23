@@ -84,7 +84,7 @@ export default function Post(props){
                                             idClick={(id) => clickId(id)}
                                             countComments={countComments}/>
 
-                         <RepostButton numberReposts={postINFO.numberReposts}/>                      
+                         <RepostButton id={postINFO.id} numberReposts={postINFO.numberReposts}/>                      
                     </SubPostAside>
                 </PostAside>
                 <PostContent >
@@ -95,7 +95,7 @@ export default function Post(props){
                         {(postINFO.userId === id) ?
                         <EditAndDel>
                             <RiEdit2Line color="white" cursor={'pointer'} onClick={() => changeEditPost()}/>
-                            <DeleteModal/>
+                            <DeleteModal id={postINFO.id}/>
                         </EditAndDel>
                         :<></>}
                     </NameAndButtons> 

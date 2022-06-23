@@ -11,8 +11,10 @@ export default function Feed({postsList, setCurrentPage, loading}) {
     useEffect(() => {
         const intersectionObserver = new IntersectionObserver(entries => {
             if (entries.some(entry => entry.isIntersecting)) {
+                console.log("estou visível");
                 if(postsListState.current.length != 0){
                     setCurrentPage(postsListState.current.at(-1).createdAt);
+                    console.log("estou atualizando o estado");
                 }       
             }
         });

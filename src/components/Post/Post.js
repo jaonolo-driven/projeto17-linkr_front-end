@@ -1,7 +1,7 @@
 import ReactHashtag from "react-hashtag";
 import { Link } from "react-router-dom";
 import { ProfilePic } from "../../styles/ProfilePic";
-import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input} from "./styles";
+import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input, CommentsHTML, MainPost} from "./styles";
 import LikeButton from "./LikeButton";
 import { RiEdit2Line } from "react-icons/ri";
 import { BiRepost } from "react-icons/bi";
@@ -10,8 +10,11 @@ import UserContext from "../../contexts/UserContext";
 import axios from "axios";
 import DeleteModal from "./DeleteModal";
 import UrlPost from "./UrlPost";
-import Repost from "./Repost";
 import styled from "styled-components";
+
+import CommentsButton from "./../SharedComponents/Comments.js"
+import CommentsBox from "../SharedComponents/CommentBox.js";
+import RepostButton from "./RepostButton.jsx";
 
 export default function Post(props){
     const {postINFO} = props
@@ -23,6 +26,9 @@ export default function Post(props){
     const [resetValue, setResetValue] = useState('')
     const [disable, setDisable] = useState(false)
     const [likes, setLikes] = useState([])
+    const [commentsBoxOpen, setCommentsBoxOpen] = useState(false);
+    const [countComments, setCountComments] = useState();
+    const [idPost, setIdPost] = useState();
 
     const {id, token} = user
 
@@ -43,6 +49,15 @@ export default function Post(props){
         }
     }, [editPost])
 
+    function clickId(id){
+        setIdPost(id);
+    }
+
+    function countComment(count){
+        setCountComments(count);
+    }
+
+
     return(
         <PostFather>
             {(postINFO.isRepost) ?     
@@ -52,7 +67,8 @@ export default function Post(props){
                     </RepostTitle>
                  : <></>
             }
-            <PostHTML> 
+            <PostHTML>
+                <MainPost>
                 <PostAside >
                     <ProfilePic src={postINFO.profilePicture} radius={50} />
                     <SubPostAside >
@@ -61,10 +77,14 @@ export default function Post(props){
                                         postId={postINFO.id}
                                         postLikes={likes.length}
                                         likeList={likes?.filter((e) => e.userId != id)}
-                        />                                
-                    </SubPostAside>
-                    <SubPostAside>
-                        <Repost numberReposts={postINFO.numberReposts}/>
+                        />    
+                        <CommentsButton     postId={postINFO.id}
+                                            commentsBoxOpen={commentsBoxOpen}
+                                            setCommentsBoxOpen={setCommentsBoxOpen}
+                                            idClick={(id) => clickId(id)}
+                                            countComments={countComments}/>
+
+                         <RepostButton numberReposts={postINFO.numberReposts}/>                      
                     </SubPostAside>
                 </PostAside>
                 <PostContent >
@@ -97,10 +117,20 @@ export default function Post(props){
                             {postValue}
                         </ReactHashtag>
                     }  
-                    <UrlPost url={postINFO.urlMetadata.url} />
+                    <UrlPost url={postINFO.urlMeta.url} />
                 </PostContent>
+                </MainPost>
+                {
+                        (idPost == postINFO.id && commentsBoxOpen)?
+                                (<CommentsHTML>
+                                        <CommentsBox postId={postINFO.id}
+                                                    userProfilePicture={postINFO.profilePicture}
+                                                    display={"flex"}
+                                                    countComments={(count) => countComment(count)}/>
+                                </CommentsHTML>):(<></>)
+                }
             </PostHTML>
-        </PostFather> 
+        </PostFather>
     )
 
     function changeEditPost(){

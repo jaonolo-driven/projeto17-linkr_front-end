@@ -19,8 +19,10 @@ const Header = () => {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
-        }).then(response => {
-            setAvatar(response.data.profilePicture)
+        }).then(({data}) => {
+            const {profilePicture} = data
+            setAvatar(profilePicture)
+            setUser({...user, profilePicture})
         }).catch(e => console.log(e.data))
     },[])
 

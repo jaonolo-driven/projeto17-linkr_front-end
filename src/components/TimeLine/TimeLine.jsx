@@ -30,7 +30,6 @@ export default function TimeLine({ title, profilePicture, postsList, currentPage
                                     {createPost ? <PostForm/> : <></>}
                                     <Feed
                                         postsList={postsList}
-                                        currentPage={currentPage}
                                         setCurrentPage={setCurrentPage}
                                         loading={loading}
                                     />

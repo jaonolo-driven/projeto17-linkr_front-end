@@ -8,14 +8,14 @@ export default function TimelinePage() {
 
     const [postsList, setPostsList] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState('2040-09-28T22:59:02.448804522Z');
     const [userState] = useContext(UserContext);
     const perPage = 10;
 
     useEffect(() => {
         setLoading(true);
         const config = {headers: { authorization: `Bearer ${userState}`}};
-        const URL = process.env.REACT_APP_API_URL+'/timeline';
+        const URL = process.env.REACT_APP_API_URL+'/timelinelist?timestamp=' + currentPage;
         const promise = axios.get(URL, config);
         promise.then(response => {
             setPostsList(previousPosts => [...previousPosts, ...response.data]);

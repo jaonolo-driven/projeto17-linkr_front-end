@@ -12,6 +12,7 @@ export const LoadingPage = styled.div`
         color: #6D6D6D;
         line-height: 26px;
         letter-spacing: 0.05em;
+        margin-bottom: 100px;
     }
 `
 
@@ -62,7 +63,11 @@ export const SidebarWrapper = styled.div`
     display: flex;
     width: 100%;
     justify-content: center;
-    gap: 28px
+    gap: 28px;
+
+    li {
+        list-style: none;
+    }
 `;
 
 export const UserPageTitle = styled.div`

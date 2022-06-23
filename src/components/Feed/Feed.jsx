@@ -1,15 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import Post from "../Post/Post";
 
-export default function Feed({postsList, currentPage, setCurrentPage, loading}) {
+export default function Feed({postsList, setCurrentPage, loading}) {
+
+    const postsListState = useRef();
+    postsListState.current = postsList;
 
     useEffect(() => {
         const intersectionObserver = new IntersectionObserver(entries => {
             if (entries.some(entry => entry.isIntersecting)) {
-                console.log('Sentinela appears!', currentPage + 1);
-                setCurrentPage((currentValue) => currentValue + 1);
+                if(postsListState.current.length != 0){
+                    setCurrentPage(postsListState.current.at(-1).createdAt);
+                }       
             }
         });
         intersectionObserver.observe(document.querySelector('#sentinela'));

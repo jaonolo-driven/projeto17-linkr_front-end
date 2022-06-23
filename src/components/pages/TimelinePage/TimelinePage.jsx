@@ -10,6 +10,7 @@ export default function TimelinePage() {
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState('2040-09-28T22:59:02.448804522Z');
     const [userState] = useContext(UserContext);
+
     const perPage = 10;
 
     useEffect(() => {

@@ -4,13 +4,17 @@ import { ProfilePic } from "../../styles/ProfilePic";
 import { PostHTML, PostAside, SubPostAside, PostContent, NameAndButtons, EditAndDel, Input, CommentsHTML, MainPost} from "./styles";
 import LikeButton from "./LikeButton";
 import { RiEdit2Line } from "react-icons/ri";
+import { BiRepost } from "react-icons/bi";
 import { useState,  useRef, useContext, useEffect } from 'react'
 import UserContext from "../../contexts/UserContext";
 import axios from "axios";
 import DeleteModal from "./DeleteModal";
 import UrlPost from "./UrlPost";
+import styled from "styled-components";
+
 import CommentsButton from "./../SharedComponents/Comments.js"
 import CommentsBox from "../SharedComponents/CommentBox.js";
+import RepostButton from "./RepostButton.jsx";
 
 export default function Post(props){
     const {postINFO} = props
@@ -55,67 +59,78 @@ export default function Post(props){
 
 
     return(
-        <PostHTML>
-            <MainPost>
-            <PostAside >
-                <ProfilePic src={postINFO.profilePicture} radius={50} />
-                <SubPostAside >
-                    <LikeButton 
-                                    liked={likes?.filter((e) => e.userId == id).length !== 0}
-                                    postId={postINFO.id}
-                                    postLikes={likes.length}
-                                    likeList={likes?.filter((e) => e.userId != id)}
-                    />    
-                    <CommentsButton     postId={postINFO.id}
-                                        commentsBoxOpen={commentsBoxOpen}
-                                        setCommentsBoxOpen={setCommentsBoxOpen}
-                                        idClick={(id) => clickId(id)}
-                                        countComments={countComments}/>                            
-                </SubPostAside>
-            </PostAside>
-            <PostContent >
-                <NameAndButtons>
-                    <Link to={`/user/${postINFO.userId}`}>
-                        <h3>{postINFO.userName}</h3>
-                    </Link> 
-                    {(postINFO.userId === id) ?
-                    <EditAndDel>
-                        <RiEdit2Line color="white" cursor={'pointer'} onClick={() => changeEditPost()}/>
-                        <DeleteModal/>
-                    </EditAndDel>
-                    :<></>}
-                </NameAndButtons> 
-                {(editPost === true)?  
-                    <form onSubmit={editPostSubmit}>
-                        <Input ref={inputRef}
-                            type='text'
-                            value={postValue}
-                            onChange={e => setPostValue(e.target.value)}
-                            disabled={disable}
-                        />
-                    </form>
-                    :
-                    <ReactHashtag renderHashtag={(tag) => (
-                        <Link to={`/hashtag/${tag.split("#")[1]}`} >
-                            {tag}
-                        </Link>
-                    )}>
-                        {postValue}
-                    </ReactHashtag>
-                }  
-                <UrlPost url={postINFO.urlMeta.url} />
-            </PostContent>
-            </MainPost>
-            {
-                    (idPost == postINFO.id && commentsBoxOpen)?
-                            (<CommentsHTML>
-                                    <CommentsBox postId={postINFO.id}
-                                                userProfilePicture={postINFO.profilePicture}
-                                                display={"flex"}
-                                                countComments={(count) => countComment(count)}/>
-                            </CommentsHTML>):(<></>)
+        <PostFather>
+            {(postINFO.isRepost) ?     
+                    <RepostTitle>
+                        <BiRepost size={22}/>
+                        <RepostText>Re-posted by  <strong>{(postINFO.whoRepostedId === id) ? 'you' : postINFO.whoReposted}</strong></RepostText>
+                    </RepostTitle>
+                 : <></>
             }
-        </PostHTML> 
+            <PostHTML>
+                <MainPost>
+                <PostAside >
+                    <ProfilePic src={postINFO.profilePicture} radius={50} />
+                    <SubPostAside >
+                        <LikeButton 
+                                        liked={likes?.filter((e) => e.userId == id).length !== 0}
+                                        postId={postINFO.id}
+                                        postLikes={likes.length}
+                                        likeList={likes?.filter((e) => e.userId != id)}
+                        />    
+                        <CommentsButton     postId={postINFO.id}
+                                            commentsBoxOpen={commentsBoxOpen}
+                                            setCommentsBoxOpen={setCommentsBoxOpen}
+                                            idClick={(id) => clickId(id)}
+                                            countComments={countComments}/>
+
+                         <RepostButton id={postINFO.id} numberReposts={postINFO.numberReposts}/>                      
+                    </SubPostAside>
+                </PostAside>
+                <PostContent >
+                    <NameAndButtons>
+                        <Link to={`/user/${postINFO.userId}`}>
+                            <h3>{postINFO.userName}</h3>
+                        </Link> 
+                        {(postINFO.userId === id) ?
+                        <EditAndDel>
+                            <RiEdit2Line color="white" cursor={'pointer'} onClick={() => changeEditPost()}/>
+                            <DeleteModal id={postINFO.id}/>
+                        </EditAndDel>
+                        :<></>}
+                    </NameAndButtons> 
+                    {(editPost === true)?  
+                        <form onSubmit={editPostSubmit}>
+                            <Input ref={inputRef}
+                                type='text'
+                                value={postValue}
+                                onChange={e => setPostValue(e.target.value)}
+                                disabled={disable}
+                            />
+                        </form>
+                        :
+                        <ReactHashtag renderHashtag={(tag) => (
+                            <Link to={`/hashtag/${tag.split("#")[1]}`} >
+                                {tag}
+                            </Link>
+                        )}>
+                            {postValue}
+                        </ReactHashtag>
+                    }  
+                    <UrlPost url={postINFO.urlMeta.url} />
+                </PostContent>
+                </MainPost>
+                {
+                        (idPost == postINFO.id && commentsBoxOpen)?
+                                (<CommentsHTML>
+                                        <CommentsBox postId={postINFO.id}
+                                                    userProfilePicture={postINFO.profilePicture}
+                                                    display={"flex"}
+                                                    countComments={(count) => countComment(count)}/>
+                                </CommentsHTML>):(<></>)
+                }
+            </PostHTML>
+        </PostFather>
     )
 
     function changeEditPost(){
@@ -152,3 +167,25 @@ export default function Post(props){
         })
     }
 }
+
+const PostFather = styled.section`
+    color: "#FFFFFF";
+    background: #1E1E1E;
+    margin: 18px 0 18px 0;
+    border-radius: 16px;
+    height: auto;
+`
+const RepostTitle = styled.h4`
+    display: flex;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 13px;
+    color: #FFFFFF;
+    padding: 10px;
+`
+const RepostText= styled.div`
+    margin-top: 4px;
+    margin-left: 4px;
+`

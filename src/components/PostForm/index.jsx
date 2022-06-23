@@ -1,8 +1,9 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { ProfilePic } from '../../styles/ProfilePic'
 import { Card } from "../../styles/Card"
+import UserContext from "../../contexts/UserContext"
 
 export default function PostForm(){
     const user = JSON.parse(localStorage.getItem('user'))

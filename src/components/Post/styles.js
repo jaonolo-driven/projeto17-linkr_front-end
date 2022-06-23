@@ -4,15 +4,13 @@ import { Card } from '../../styles/Card'
 export const MainPost = styled(Card)`
     background: #171717;
     color: #FFFFFF;
-    gap: 18px;
-
     a {
         color: inherit;
         text-decoration: none;
     }
 `
 export const PostHTML = styled.div`
-    margin-bottom: 30px;
+    //margin-bottom: 30px;
 `
 export const PostAside = styled.div`
     display: flex;
@@ -21,9 +19,15 @@ export const PostAside = styled.div`
 `
 export const SubPostAside = styled.div`
     display: flex;
+    width: 80px;
     flex-direction: column;
     align-items: center;
     margin-top: 30%;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
 
     svg {
         font-size: 17px;

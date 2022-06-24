@@ -93,5 +93,6 @@ export const UserPageTitle = styled.div`
         border-radius: 50%;
         margin-top: 10px;
         margin-right: 18px;
+        margin-left: 22px;
     }
 `;

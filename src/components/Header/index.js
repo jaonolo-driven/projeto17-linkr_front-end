@@ -19,6 +19,10 @@ const Header = () => {
         navigate('/')
     }
 
+    const myProfile = () => {
+        navigate(`/user/${user.id}`)
+    }
+
     const DesktopHeader = ({children}) => <DesktopContainer>
         <Link to="/">
             <h1>linkr</h1>
@@ -28,7 +32,10 @@ const Header = () => {
             <HeaderDropdownIcon dropDownState={dropDownState}/>
             <ProfilePic alt='profile-picture' src={avatar} radius={53} />
         </DropdownButton>
-        <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
+        <DropdownLogout state={dropDownState}>
+            <div onClick={myProfile}>my profile</div>
+            <div onClick={logout}>logout</div>
+        </DropdownLogout>
     </DesktopContainer>
 
     const MobileHeader = ({children}) => <MobileHolder>
@@ -40,7 +47,10 @@ const Header = () => {
                 <HeaderDropdownIcon dropDownState={dropDownState}/>
                 <ProfilePic alt='profile-picture' src={avatar} radius={44} />
             </DropdownButton>
-            <DropdownLogout state={dropDownState}><div onClick={logout}>logout</div></DropdownLogout>
+            <DropdownLogout state={dropDownState}>
+                <div onClick={myProfile}>my profile</div>
+                <div onClick={logout}>logout</div>
+            </DropdownLogout>
         </MobileContainer>
         <MobileSearchBarHolder>
             {children}
@@ -134,17 +144,20 @@ const DropdownButton = styled.div`
 const DropdownLogout = styled.div`
     position: absolute;
     background-color: var(--darker-grey);
+    //display: flex;
+    //flex-direction: column;
     right: 0;
     top: 72px;
     z-index: -1;
     transform: translateY(${props => props.state ? '0%' : '-100%'});
     transition: transform 250ms;
     width: 150px;
-    height: 47px;
+    //height: 94px;
     border-radius: 0 0 0 20px;
-
+    
     div {
-        height: 100%;
+        height: 47px;
+        //height: 50%;
         width: 100%;
         display: flex;
         justify-content: center;

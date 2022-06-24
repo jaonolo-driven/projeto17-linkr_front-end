@@ -44,6 +44,7 @@ const HeaderSearchBar = () => {
                 <ProfilePic alt='profile-picture' src={profilePicture} radius={39} />
                 <span>{userName}</span>
                 {follower ? <small>• following</small> : <></>}
+                {id === user.id ? <small>• you</small> : <></>}
             </SearchBarButtonResult>    
         )    
     }

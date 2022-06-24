@@ -20,6 +20,8 @@ export default function FollowButton() {
         setIsLoading(false)
     },[])
 
+    if (1*id === user.id) return <></>
+
     function followUser() {
         setIsLoading(true)
         axios.post(`${process.env.REACT_APP_API_URL}/follow/${user.id}/${id}`

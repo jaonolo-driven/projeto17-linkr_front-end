@@ -57,15 +57,14 @@ export default function Post(props){
         setCountComments(count);
     }
 
-
     return(
         <PostFather>
             {(postINFO.isRepost) ?     
                     <RepostTitle>
                         <BiRepost size={22}/>
-                        <RepostText>Re-posted by  <strong>{(postINFO.whoRepostedId === id) ? 'you' : postINFO.whoReposted}</strong></RepostText>
+                        <RepostText>Re-posted by  <strong>{(postINFO.userRepostedId === id) ? 'you' : postINFO.whoReposted}</strong></RepostText>
                     </RepostTitle>
-                 : <></>
+                : <></>
             }
             <PostHTML>
                 <MainPost>
@@ -82,9 +81,10 @@ export default function Post(props){
                                             commentsBoxOpen={commentsBoxOpen}
                                             setCommentsBoxOpen={setCommentsBoxOpen}
                                             idClick={(id) => clickId(id)}
-                                            countComments={countComments}/>
+                                            countComments={countComments}
+                                            numberComments={postINFO.countComments}/>
 
-                         <RepostButton id={postINFO.id} numberReposts={postINFO.numberReposts}/>                      
+                        <RepostButton id={postINFO.id} numberReposts={postINFO.numberReposts}/>                      
                     </SubPostAside>
                 </PostAside>
                 <PostContent >
@@ -126,7 +126,8 @@ export default function Post(props){
                                         <CommentsBox postId={postINFO.id}
                                                     userProfilePicture={postINFO.profilePicture}
                                                     display={"flex"}
-                                                    countComments={(count) => countComment(count)}/>
+                                                    setCountComments={setCountComments}
+                                                    countComments={countComments}/>
                                 </CommentsHTML>):(<></>)
                 }
             </PostHTML>

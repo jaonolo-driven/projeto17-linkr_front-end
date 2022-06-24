@@ -62,7 +62,7 @@ export default function TimelinePage() {
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 timeline={true}
-                newPostsState={newPostsExist}
+                newPostsExist={newPostsExist}
                 setNewPostsExist={setNewPostsExist}
                 setQteNewPosts={setQteNewPosts}
                 qtdNewPosts={qtdNewPosts}

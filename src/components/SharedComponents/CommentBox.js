@@ -17,7 +17,7 @@ export default function CommentsBox(props){
     const [disable, setDisable] = useState(false);
     const [user, setUser] = useContext(UserContext);
 
-    const {postId, userProfilePicture, countComments} = props;
+    const {postId, userProfilePicture, countComments, setCountComments} = props;
 
     useEffect(() => {
         const promise = axios.get(`${process.env.REACT_APP_API_URL}/getcomments/${postId}`,
@@ -28,17 +28,17 @@ export default function CommentsBox(props){
         })
         promise.then(response => {
             setCommentsInfo(response.data)
-            countComments(response.data.length)
+            setCountComments(response.data.length)
         })
 
         promise.catch( (error) => console.log('Error Get comment post: ', error))
-    }, [postId, disable, commentsInfo.length ])
+    }, [postId, disable, countComments ])
     
 
-    function commentPost(e){
+function commentPost(e){
         e.preventDefault()
         setDisable(true)
-
+        
         const promise = axios.post(`${process.env.REACT_APP_API_URL}/postcomments/${postId}`,{
             message: message
         },
@@ -50,6 +50,7 @@ export default function CommentsBox(props){
         promise.then(response => {
             setMessage('')
             setDisable(false)
+            setCountComments(countComments + 1);
             console.log(response.data)
         })
         promise.catch(e => {

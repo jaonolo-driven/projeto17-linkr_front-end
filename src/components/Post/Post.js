@@ -56,7 +56,7 @@ export default function Post(props){
     function countComment(count){
         setCountComments(count);
     }
-
+console.log(countComments)
     return(
         <PostFather>
             {(postINFO.isRepost) ?     
@@ -126,7 +126,8 @@ export default function Post(props){
                                         <CommentsBox postId={postINFO.id}
                                                     userProfilePicture={postINFO.profilePicture}
                                                     display={"flex"}
-                                                    countComments={(count) => countComment(count)}/>
+                                                    setCountComments={setCountComments}
+                                                    countComments={countComments}/>
                                 </CommentsHTML>):(<></>)
                 }
             </PostHTML>

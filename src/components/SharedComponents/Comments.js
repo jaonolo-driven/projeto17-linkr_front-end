@@ -23,7 +23,10 @@ export default function CommentsButton(props){
         <>
         <CountCommentsAndIcon>
             <AiOutlineComment onClick={() => showComments(postId)}/>
-            <span> {numberComments} comments </span>
+                {
+                    (countComments)?(<span> {countComments} comments </span>):(
+                        <span> {numberComments} comments </span>)                      
+                }
         </CountCommentsAndIcon>
     </>)
 

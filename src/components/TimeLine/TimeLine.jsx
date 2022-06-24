@@ -7,7 +7,7 @@ import FollowButton from "../FollowButton/FollowButton";
 import Feed from "../Feed/Feed";
 import {LoadingPage, TimelineHTML, Title, MainContent, CenterHTML, SidebarWrapper, UserPageTitle} from "./style.js";
 
-export default function TimeLine({ title, profilePicture, postsList, currentPage, setCurrentPage, createPost, loading }){
+export default function TimeLine({ title, profilePicture, postsList, currentPage, setCurrentPage, createPost, loading, timeline }){
 
     function renderTitle() {
         if(!profilePicture)
@@ -33,6 +33,7 @@ export default function TimeLine({ title, profilePicture, postsList, currentPage
                                 <div>
                                     {createPost ? <PostForm/> : <></>}
                                     <Feed
+                                        timeline={timeline}
                                         postsList={postsList}
                                         setCurrentPage={setCurrentPage}
                                         loading={loading}

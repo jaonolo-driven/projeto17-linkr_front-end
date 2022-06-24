@@ -26,5 +26,6 @@ export default function HashtagPage(){
                 postsList={postsList}
                 setPostsList={setPostsList}
                 loading={loading}
+                timeline={false}
             />);
 }

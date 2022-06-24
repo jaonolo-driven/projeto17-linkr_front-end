@@ -54,6 +54,7 @@ const FeedList = styled.ul`
     display: flex;
     flex-direction: column;
     padding: 0;
+    margin-top: 0;
 `;
 
 const White = styled.h1`

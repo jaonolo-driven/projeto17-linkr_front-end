@@ -62,7 +62,10 @@ export default function Post(props){
             {(postINFO.isRepost) ?     
                     <RepostTitle>
                         <BiRepost size={22}/>
-                        <RepostText>Re-posted by  <strong>{(postINFO.userRepostedId === id) ? 'you' : postINFO.whoReposted}</strong></RepostText>
+                        <RepostText>Re-posted by  <strong>{(postINFO.userRepostedId === id) ? 
+                            <Link to={`/user/${user.id}`}>you</Link> : 
+                            <Link to={`/user/${postINFO.userRepostedId}`}>{postINFO.whoReposted}</Link>
+                        }</strong></RepostText>
                     </RepostTitle>
                 : <></>
             }
@@ -108,14 +111,17 @@ export default function Post(props){
                                 disabled={disable}
                             />
                         </form>
-                        :
-                        <ReactHashtag renderHashtag={(tag) => (
-                            <Link to={`/hashtag/${tag.split("#")[1]}`} >
-                                {tag}
-                            </Link>
-                        )}>
-                            {postValue}
-                        </ReactHashtag>
+                        :<p>
+                            <ReactHashtag renderHashtag={(tag) => (
+                                <Link to={`/hashtag/${tag.split("#")[1]}`} >
+                                    <span>
+                                        {tag}
+                                    </span>
+                                </Link>
+                            )}>
+                                {postValue}
+                            </ReactHashtag>
+                        </p>
                     }  
                     <UrlPost url={postINFO.urlMeta.url} />
                 </PostContent>
@@ -172,7 +178,7 @@ export default function Post(props){
 const PostFather = styled.section`
     color: "#FFFFFF";
     background: #1E1E1E;
-    margin: 18px 0 18px 0;
+    margin: 0 0 18px 0;
     border-radius: 16px;
     height: auto;
 `
@@ -185,6 +191,11 @@ const RepostTitle = styled.h4`
     line-height: 13px;
     color: #FFFFFF;
     padding: 10px;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 `
 const RepostText= styled.div`
     margin-top: 4px;

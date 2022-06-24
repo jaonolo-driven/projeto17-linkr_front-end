@@ -25,7 +25,7 @@ export const Title = styled.h1`
     display: flex;
     width: 100%;
     text-align: left;
-    margin-top: 78px;
+    margin-top: 60px;
     margin-bottom: 40px;
     color: #fff;
     font-family: var(--subtitle-font);
@@ -76,12 +76,11 @@ export const UserPageTitle = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 60px;
+    margin-bottom: 40px;
 
     h1 {
         display: flex;
-        margin-top: 5%;
-        margin-bottom: 5%;
-        margin-left: 3%;
         color: #fff;
         font-family: var(--subtitle-font);
         font-weight: 700;

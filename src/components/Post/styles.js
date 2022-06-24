@@ -58,11 +58,13 @@ export const PostContent = styled.div`
     word-break: break-all;
     flex-grow: 1;
     color: #B7B7B7;
+    font-size: 16px;
     span {
         font-weight: 700;
         color: white;
     }
     h3 {
+        font-size: 19px;
         color: white;
         font-weight: 400;
     }

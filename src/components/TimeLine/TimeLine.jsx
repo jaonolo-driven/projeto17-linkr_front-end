@@ -3,18 +3,22 @@ import { TailSpin } from "react-loader-spinner";
 
 import PostForm from "../PostForm";
 import Header from "../Header";
+import FollowButton from "../FollowButton/FollowButton";
 import Feed from "../Feed/Feed";
 import {LoadingPage, TimelineHTML, Title, MainContent, CenterHTML, SidebarWrapper, UserPageTitle} from "./style.js";
 
-export default function TimeLine({ title, profilePicture, postsList, currentPage, setCurrentPage, createPost, loading }){
+export default function TimeLine({ title, profilePicture, postsList, currentPage, setCurrentPage, createPost, loading, timeline }){
 
     function renderTitle() {
         if(!profilePicture)
             return <Title> {title} </Title>;
         return (
-            <UserPageTitle>
-                <img src={profilePicture} />
-                <h1> {title} </h1>
+            <UserPageTitle>        
+                <h1> 
+                    <img src={profilePicture} />
+                    {title} 
+                </h1>  
+                {FollowButton()}       
             </UserPageTitle>
         );
     }
@@ -29,6 +33,7 @@ export default function TimeLine({ title, profilePicture, postsList, currentPage
                                 <div>
                                     {createPost ? <PostForm/> : <></>}
                                     <Feed
+                                        timeline={timeline}
                                         postsList={postsList}
                                         setCurrentPage={setCurrentPage}
                                         loading={loading}

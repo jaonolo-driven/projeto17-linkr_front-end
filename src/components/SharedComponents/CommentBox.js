@@ -1,14 +1,10 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import ReactTooltip from 'react-tooltip';
-import { AiOutlineComment } from "react-icons/ai";
 import styled from 'styled-components';
 import {FiSend} from "react-icons/fi";
 import { TailSpin } from  'react-loader-spinner';
 
 import UserContext from "../../contexts/UserContext";
-
-import { CountCommentsAndIcon } from "./CommentsStyles.js";
 
 export default function CommentsBox(props){
 
@@ -17,7 +13,7 @@ export default function CommentsBox(props){
     const [disable, setDisable] = useState(false);
     const [user, setUser] = useContext(UserContext);
 
-    const {postId, userProfilePicture, countComments} = props;
+    const {postId, userProfilePicture, countComments, setCountComments} = props;
 
     useEffect(() => {
         const promise = axios.get(`${process.env.REACT_APP_API_URL}/getcomments/${postId}`,
@@ -28,17 +24,17 @@ export default function CommentsBox(props){
         })
         promise.then(response => {
             setCommentsInfo(response.data)
-            countComments(response.data.length)
+            setCountComments(response.data.length)
         })
 
         promise.catch( (error) => console.log('Error Get comment post: ', error))
-    }, [postId, disable])
+    }, [postId, disable, countComments ])
     
 
-    function commentPost(e){
+function commentPost(e){
         e.preventDefault()
         setDisable(true)
-
+        
         const promise = axios.post(`${process.env.REACT_APP_API_URL}/postcomments/${postId}`,{
             message: message
         },
@@ -50,6 +46,7 @@ export default function CommentsBox(props){
         promise.then(response => {
             setMessage('')
             setDisable(false)
+            setCountComments(countComments + 1);
             console.log(response.data)
         })
         promise.catch(e => {
@@ -64,31 +61,34 @@ export default function CommentsBox(props){
                 (commentsInfo.length !== 0)?(
                     commentsInfo?.map((commentInfo) => {
                         return (<>
-                        
-                        <ContainerComments>
-                            <Photo src={commentInfo.profilePicture}/>
-                            {
-                                (commentInfo.postOwner == undefined && commentInfo.following == undefined)?(
-                                    <CommentsText>
-                                        <p> {commentInfo.userName}</p>  
+                            <ContainerComments>
+                                <PhotoFrame>
+                                    <Photo src={commentInfo.profilePicture}/>
+                                </PhotoFrame>
+                                {
+                                    (commentInfo.postOwner == undefined && commentInfo.following == undefined)?(
+                                        <CommentsText>
+                                            <p> {commentInfo.userName}</p>  
+                                            <span>{commentInfo.whatComment}</span>
+                                        </CommentsText>
+                                    ):((commentInfo.postOwner == true)?(
+                                        <CommentsText>
+                                        <p> {commentInfo.userName} <span> • post’s author </span></p>  
                                         <span>{commentInfo.whatComment}</span>
                                     </CommentsText>
-                                ):((commentInfo.postOwner == true)?(
-                                    <CommentsText>
-                                    <p> {commentInfo.userName} <span> • post’s author </span></p>  
-                                    <span>{commentInfo.whatComment}</span>
-                                </CommentsText>
-                                ):( <CommentsText>
-                                    <p> {commentInfo.userName} <span> • following </span></p>  
-                                    <span>{commentInfo.whatComment}</span>
-                                </CommentsText>))
-                            }
+                                    ):( <CommentsText>
+                                        <p> {commentInfo.userName} <span> • following </span></p>  
+                                        <span>{commentInfo.whatComment}</span>
+                                    </CommentsText>))
+                                }
                             </ContainerComments>
                             <CommentsLine/>
-                            </>)})):(<></>) 
+                        </>)})):(<></>) 
                 }
                 <ContainerInsertComment>
-                <Photo src={user.profilePicture}/>
+                <PhotoFrame>
+                    <Photo src={user.profilePicture}/>
+                </PhotoFrame>
                 <FormComment onSubmit={commentPost}>
                                         <Input  type='text'
                                                 placeholder="write a comment..."
@@ -119,17 +119,21 @@ const Input = styled.input`
     font-family: var(--default-font);
     width: 85%;
     position: relative;
+    flex-grow: 1;
+    height: 35px
 `
 
 const Button = styled.button`
-    //display: flex;
-    //justify-content: center;
-    //align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     //width: 112px; 
     color: #F3F3F3;
     font-weight: 700;
     font-size: 14px;
     background: #252525;
+    height: 35px;
+    width: 35px;
     //border-radius: 5px;
     border: none;
     //padding: 5px;
@@ -137,31 +141,31 @@ const Button = styled.button`
     //height: 31px;
 `
 
-const ButtonHolder = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-`
-
 const CommentsMain = styled.main`
     width: 100%;
+    padding: 13px 24px 24px 24px;
 `
 const Photo = styled.img`
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 18px;
+`
+const PhotoFrame = styled.div`
+    //width: 95px;
+    display: flex;
+    justify-content: center;
 `
 const ContainerComments = styled.div`
     width: 100%;
     display: flex;
-    margin-top: 1%;
-    margin-left: 2%;
+    margin-bottom: 16px;
 `
 
 const CommentsText = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 2px;
 
     p span {
         margin-bottom: 3%;
@@ -192,13 +196,11 @@ const CommentsLine = styled.div`
     width: 100%;
     height: 1px;
     background-color: var(--line-grey);
-    margin: 1%;
+    margin-bottom: 16px;
 `
 
 const FormComment = styled.form`
     display: flex;
-
-    margin-left: 3%;
     padding: 3px;
     background: #252525;
     border-radius: 8px;
@@ -206,12 +208,10 @@ const FormComment = styled.form`
     font-size: 14px;
     color: #575757;
     font-family: var(--default-font);
-    width: 85%;
+    flex-grow: 1;
 `
 
 const ContainerInsertComment = styled.div`
     display: flex;
     align-items: center;
-    margin-left: 2%;
-    margin-bottom: 2%;
 `

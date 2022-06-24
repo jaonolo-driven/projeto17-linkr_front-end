@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { ProfilePic } from '../../styles/ProfilePic'
 import { Card } from "../../styles/Card"
-import UserContext from "../../contexts/UserContext"
 
 export default function PostForm(){
     const user = JSON.parse(localStorage.getItem('user'))
@@ -50,7 +49,9 @@ export default function PostForm(){
 
     return(
         <Section>
-            <ProfilePic src={avatar} radius={50}/>
+            <PostAside>
+                <ProfilePic src={avatar} radius={50}/>
+            </PostAside>
             <Form onSubmit={publish}>
                 <Title>What are you going to share today?</Title>
                 <Input  type='text'
@@ -74,9 +75,16 @@ export default function PostForm(){
     )
 }
 
+const PostAside = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px;
+    white-space: nowrap;
+`
+
 const Section = styled(Card)`
     background-color: white;
-    gap: 18px;
     margin-bottom: 30px;
 `
 
@@ -93,6 +101,7 @@ const Form = styled.form`
     flex-direction: column;
     position: relative;
     width: 100%;
+    padding: 0 22px 16px 0;
 `
 const Input = styled.input`
     margin: 3px;

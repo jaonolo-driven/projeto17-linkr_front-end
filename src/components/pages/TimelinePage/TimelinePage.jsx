@@ -15,12 +15,13 @@ export default function TimelinePage() {
 
     useEffect(() => {
         setLoading(true);
-        const config = {headers: { authorization: `Bearer ${userState}`}};
+        const config = {headers: { authorization: `Bearer ${userState.token}`}};
         const URL = process.env.REACT_APP_API_URL+'/timelinelist?timestamp=' + currentPage;
         const promise = axios.get(URL, config);
         promise.then(response => {
             setPostsList(previousPosts => [...previousPosts, ...response.data]);
             setLoading(false);
+            console.log(response.data);
         });
         promise.catch(error => console.log(error));
     }, [currentPage]);
@@ -32,5 +33,6 @@ export default function TimelinePage() {
                 loading={loading}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                timeline={true}
             />);
 }

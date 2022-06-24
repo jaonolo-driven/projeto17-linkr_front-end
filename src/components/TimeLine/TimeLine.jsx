@@ -8,7 +8,8 @@ import Feed from "../Feed/Feed";
 import {LoadingPage, TimelineHTML, Title, MainContent, CenterHTML, SidebarWrapper, UserPageTitle} from "./style.js";
 import { useState } from "react";
 
-export default function TimeLine({ title, profilePicture, postsList, currentPage, setCurrentPage, createPost, loading, timeline, newPostsState, setPostsList, setQteNewPosts,  qtdNewPosts, newPosts, setNewPostsExist }){
+export default function TimeLine({ title, profilePicture, postsList, currentPage, setCurrentPage, createPost, loading, timeline, newPostsExist, setPostsList, setQteNewPosts,  qtdNewPosts, newPosts, setNewPostsExist }){
+
     const [update, setUpdate] = useState(false)
     
     function renderTitle() {
@@ -39,7 +40,7 @@ export default function TimeLine({ title, profilePicture, postsList, currentPage
                                         postsList={postsList}
                                         setCurrentPage={setCurrentPage}
                                         loading={loading}
-                                        newPostsState={newPostsState}
+                                        newPostsExist={newPostsExist}
                                         setPostsList={setPostsList}
                                         setQteNewPosts={setQteNewPosts}
                                         qtdNewPosts={qtdNewPosts}

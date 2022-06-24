@@ -54,37 +54,35 @@ export default function FollowButton() {
     )
 };
 
-const Follow = styled.div`
+const Button = styled.div`
     width: 120px;
     height: 40px;
     border-radius: 5px;
     line-height: 40px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
+    cursor: pointer;
+
+    @media screen and (max-width: 600px) {
+        margin-top: 12px;
+        width: 90px;
+        height: 30px;
+    }
+`
+
+const Follow = styled(Button)`
     color: white;
     background-color: #1877F2;
-    cursor: pointer;
 `;
 
-const Unfollow = styled.div`
-    width: 120px;
-    height: 40px;
-    border-radius: 5px;
-    line-height: 40px;
-    text-align: center;
-    font-weight: bold;
+const Unfollow = styled(Button)`
     color: #1877F2;
     background-color: white;
-    cursor: pointer;
 `;
 
-const Loading = styled.div`
-    width: 120px;
-    height: 40px;
-    border-radius: 5px;
-    line-height: 40px;
-    text-align: center;
-    font-weight: bold;
+const Loading = styled(Button)`
     color: white;
     background-color: darkgrey;
 `;

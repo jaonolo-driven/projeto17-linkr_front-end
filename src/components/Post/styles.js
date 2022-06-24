@@ -80,6 +80,7 @@ export const UrlPostContainer = styled.a`
     margin-top: 2%;
     text-decoration: none;
     color: inherit;
+    overflow: hidden;
 `
 export const UrlPostText = styled.div`
     display: flex;

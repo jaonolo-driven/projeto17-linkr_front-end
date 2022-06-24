@@ -14,6 +14,11 @@ export const LoadingPage = styled.div`
         letter-spacing: 0.05em;
         margin-bottom: 100px;
     }
+
+    width: 600px;
+    @media screen and (max-width: 600px) {
+        width: 100%;
+    }
 `
 
 export const TimelineHTML = styled.div`
@@ -96,9 +101,23 @@ export const UserPageTitle = styled.div`
         margin-right: 18px;
     }
 
-    @media screen and (max-width: 650px) {
+    @media screen and (max-width: 600px) {
         margin: 19px 0;
         padding: 0 3%;
         line-height: 60px;
+
+        flex-direction: column;
+
+        h1 {
+            font-size: 36px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        img {
+            margin: 0 0 12px 0;
+            width: 80px;
+            height: 80px;
+        }
     }
 `;

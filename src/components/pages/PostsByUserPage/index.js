@@ -5,7 +5,7 @@ import axios from "axios";
 import UserContext from "../../../contexts/UserContext";
 import TimeLine from "../../TimeLine/TimeLine";
 
-export default function PostsByUserPage(){
+export default function PostsByUserPage({ updateState }){
     const { id } = useParams();
     
     const [postsList, setPostsList] = useState({});
@@ -36,6 +36,7 @@ export default function PostsByUserPage(){
     }
 
     return (<TimeLine
+                updateState={updateState}
                 key={id}
                 title={title()}
                 profilePicture={profilePicture()}

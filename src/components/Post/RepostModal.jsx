@@ -7,10 +7,12 @@ import { BiRepost } from "react-icons/bi";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
-const RepostModal = ({ id }) => {
+const RepostModal = ({ id, updateState }) => {
     const [showModal, setShowModal] = useState(false)
     const [modalLoad, setModalLoad] = useState(false)
     const { token } = useContext(UserContext)[0]
+
+    const [update, setUpdate] = updateState
     
     function repost(){
         const promise = axios.post(`${process.env.REACT_APP_API_URL}/repost`,{
@@ -22,6 +24,7 @@ const RepostModal = ({ id }) => {
             } 
         })
         promise.then(response => {
+            setUpdate(!update)
             setModalLoad(false)
             setShowModal(false)
         }).catch(e => {

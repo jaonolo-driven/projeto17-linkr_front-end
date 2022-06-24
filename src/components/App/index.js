@@ -15,15 +15,16 @@ function App() {
   const tokenStorage = JSON.parse(tokenStorageString)
   const [token, setToken] = useState(tokenStorage)
   const [refreshList, setRefreshList] = useState(0)
+  const [update, setUpdate] = useState(false)
 
   const PostByUserHolder = () => {
     const {id} = useParams()
-    return <PostsByUserPage id={id} key={id}/> 
+    return <PostsByUserPage id={id} key={id} updateState={[update, setUpdate]}/> 
   }
 
   const HashtagHolder = () => {
     const {hashtag} = useParams()
-    return <HashtagPage key={hashtag} />
+    return <HashtagPage key={hashtag} updateState={[update, setUpdate]}/>
   }
 
   return (
@@ -37,7 +38,7 @@ function App() {
           </Route>
           <Route element={<AuthRoutesController needsUser={true}/>}>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
-            <Route path='/timeline' element={ <TimelinePage /> }  />
+            <Route path='/timeline' element={ <TimelinePage updateState={[update, setUpdate]}/> }  />
             <Route path='/user/:id' element={ <PostByUserHolder /> } />
             <Route path='/hashtag/:hashtag' element={ <HashtagHolder /> } />
           </Route>

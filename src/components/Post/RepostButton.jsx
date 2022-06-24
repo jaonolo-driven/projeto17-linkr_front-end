@@ -3,11 +3,11 @@ import styled from "styled-components";
 import RepostModal from "./RepostModal";
 
 export default function RepostButton(props){
-    const{ id, numberReposts} = props
+    const{ id, numberReposts, updateState} = props
     const [nReposts, setNReposts] = useState(numberReposts)
     return(
         <Section>
-            <RepostModal id={id}/>
+            <RepostModal id={id} updateState={updateState}/>
             <div>{nReposts} re-posts</div>
         </Section>
     )

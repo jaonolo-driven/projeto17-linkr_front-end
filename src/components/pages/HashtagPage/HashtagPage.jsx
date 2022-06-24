@@ -5,13 +5,13 @@ import axios from "axios";
 import UserContext from "../../../contexts/UserContext";
 import TimeLine from "../../TimeLine/TimeLine";
 
-export default function HashtagPage(){
+export default function HashtagPage({ updateState }){
     const [postsList, setPostsList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [userState] = useContext(UserContext);
     const {hashtag} = useParams();
     const [currentPage, setCurrentPage] = useState('2040-09-28T22:59:02.448804522Z');
-
+    
     useEffect(() => {
         setLoading(true);
         const config = {headers: { authorization: `Bearer ${userState.token}`}};
@@ -22,9 +22,10 @@ export default function HashtagPage(){
             setLoading(false);
         });
         promise.catch(error => console.log(error));
-    }, [currentPage, hashtag]);
-
+    }, [currentPage]);
+    
     return (<TimeLine
+                updateState={updateState}
                 title={"# " + hashtag}
                 postsList={postsList}
                 setPostsList={setPostsList}

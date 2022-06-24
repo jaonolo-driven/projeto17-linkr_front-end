@@ -6,11 +6,10 @@ import Header from "../Header";
 import FollowButton from "../FollowButton/FollowButton";
 import Feed from "../Feed/Feed";
 import {LoadingPage, TimelineHTML, Title, MainContent, CenterHTML, SidebarWrapper, UserPageTitle} from "./style.js";
-import { useState } from "react";
 
-export default function TimeLine({ title, profilePicture, postsList, currentPage, setCurrentPage, createPost, loading, timeline, newPostsExist, setPostsList, setQteNewPosts,  qtdNewPosts, newPosts, setNewPostsExist }){
+export default function TimeLine({ title, profilePicture, postsList, currentPage, setCurrentPage, createPost, loading, timeline, newPostsExist, setPostsList, setQteNewPosts,  qtdNewPosts, newPosts, setNewPostsExist, updateState }){
 
-    const [update, setUpdate] = useState(false)
+    const [update, setUpdate] = updateState
     
     function renderTitle() {
         const followButton = FollowButton()

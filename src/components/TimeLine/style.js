@@ -75,7 +75,7 @@ export const SidebarWrapper = styled.div`
 export const UserPageTitle = styled.div`
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
 
     h1 {
         display: flex;
@@ -92,7 +92,7 @@ export const UserPageTitle = styled.div`
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        margin-left: 18px;
-        margin-right: 10px;
+        margin-top: 10px;
+        margin-right: 18px;
     }
 `;

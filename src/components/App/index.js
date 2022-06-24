@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 import AppContainer from './styles.js';
@@ -16,6 +16,16 @@ function App() {
   const [token, setToken] = useState(tokenStorage)
   const [refreshList, setRefreshList] = useState(0)
 
+  const PostByUserHolder = () => {
+    const {id} = useParams()
+    return <PostsByUserPage id={id} key={id}/> 
+  }
+
+  const HashtagHolder = () => {
+    const {hashtag} = useParams()
+    return <HashtagPage key={hashtag} />
+  }
+
   return (
     <UserContext.Provider value={[token, setToken, refreshList, setRefreshList]}><AppContainer>
       <BrowserRouter>
@@ -28,8 +38,8 @@ function App() {
           <Route element={<AuthRoutesController needsUser={true}/>}>
             {/* Coloquem aqui as rotas que precisam de usuário logado pra serem acessadas */}
             <Route path='/timeline' element={ <TimelinePage /> }  />
-            <Route path='/user/:id' element={ <PostsByUserPage /> } />
-            <Route path='/hashtag/:hashtag' element={ <HashtagPage /> } />
+            <Route path='/user/:id' element={ <PostByUserHolder /> } />
+            <Route path='/hashtag/:hashtag' element={ <HashtagHolder /> } />
           </Route>
         </Routes>
       </BrowserRouter>

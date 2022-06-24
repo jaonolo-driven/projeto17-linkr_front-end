@@ -12,16 +12,6 @@ export default function HashtagPage(){
     const {hashtag} = useParams();
     const [currentPage, setCurrentPage] = useState('2040-09-28T22:59:02.448804522Z');
 
-/*     useEffect( () => {
-        setLoading(true);
-        const config = {headers: { authorization: `Bearer ${userState}`}}
-        const URL = process.env.REACT_APP_API_URL + `/hashtag/${hashtag}`
-        const promise = axios.get(URL, config)
-        promise.then( (response) => {   setPostsList(response.data)
-                                        setLoading(false)})
-        promise.catch( (err) => console.log('Error Get PostsList TIMELINE: ', err))
-    }, [hashtag]); */
-
     useEffect(() => {
         setLoading(true);
         const config = {headers: { authorization: `Bearer ${userState.token}`}};
@@ -32,19 +22,7 @@ export default function HashtagPage(){
             setLoading(false);
         });
         promise.catch(error => console.log(error));
-    }, [currentPage]);
-
-    useEffect(() => {
-        setLoading(true);
-        const config = {headers: { authorization: `Bearer ${userState.token}`}};
-        const URL = process.env.REACT_APP_API_URL+`/hashtag/${hashtag}?timestamp=2040-09-28T22:59:02.448804522Z`;
-        const promise = axios.get(URL, config);
-        promise.then(response => {
-            setPostsList(response.data);
-            setLoading(false);
-        });
-        promise.catch(error => console.log(error));
-    }, [hashtag]);
+    }, [currentPage, hashtag]);
 
     return (<TimeLine
                 title={"# " + hashtag}

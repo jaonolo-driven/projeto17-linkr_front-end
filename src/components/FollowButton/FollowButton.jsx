@@ -3,16 +3,12 @@ import { useParams, Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import UserContext from "../../contexts/UserContext"
 import axios from "axios"
-import HeaderDropdownIcon from "../HeaderDropdownIcon"
-import HeaderSearchBar from "../HeaderSearchBar"
-import { ProfilePic } from "../../styles/ProfilePic"
 
 export default function FollowButton() {
 
     const [user, setUser] = useContext(UserContext)
     const [follows, setFollows] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
-    const [reload, setReload] = useState(false)
     const { id } = useParams();  
     const body = { userId: user.id, followId: id,}
 
@@ -20,7 +16,6 @@ export default function FollowButton() {
         axios.get(`${process.env.REACT_APP_API_URL}/checkiffollows/${user.id}/${id}`
         ).then(({data}) => {
             setFollows(data)
-            console.log(follows)
         }).catch(e => console.log(e.data))
         setIsLoading(false)
     },[])

@@ -5,7 +5,7 @@ import axios from "axios"
 
 import Post from "../Post/Post";
 
-export default function Feed({postsList, setCurrentPage, loading, timeline}) {
+export default function Feed({postsList, setCurrentPage, loading, timeline, newPostsState, setPostsList, setQteNewPosts, qtdNewPosts, newPosts, setNewPostsExist}) {
 
     const [user, setUser] = useContext(UserContext)
     const postsListState = useRef();
@@ -41,13 +41,23 @@ export default function Feed({postsList, setCurrentPage, loading, timeline}) {
         return(<White>No posts found from your friends</White>);
     }
 
-    return (
+    async function showNewPosts(){
+    
+        await setQteNewPosts(0);
+        setPostsList([...newPosts, ...postsList]);
+    }
+
+    return (<>
+            {
+                (newPostsState)?(
+                <button onClick={showNewPosts}> {qtdNewPosts} new posts, load more! </button>):(<></>)
+            }
             <FeedList>
                 {postsList?.map(post => {
                     return <Post postINFO={post} key={`${post.isRepost ? `${post.whoRepostedId}:` : ''}${post.id}`}/>;
                 } )}
             </FeedList>
-    );
+    </>);
 }
 
 const FeedList = styled.ul`

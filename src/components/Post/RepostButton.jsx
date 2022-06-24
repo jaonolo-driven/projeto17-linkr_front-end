@@ -18,5 +18,5 @@ const Section = styled.section`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 40px;
+    margin-top: 18px;
 `

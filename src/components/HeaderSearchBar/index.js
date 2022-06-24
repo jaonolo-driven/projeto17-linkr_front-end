@@ -40,9 +40,10 @@ const HeaderSearchBar = () => {
             return <SearchBarUnclickableButton>
                 {'Nenhum usuário encontrado :('}
             </SearchBarUnclickableButton>
-        return resultsList.map(({profilePicture, userName, id}) => <SearchBarButtonResult onClick={() => navigate(`/user/${id}`)}>
+        return resultsList.map(({profilePicture, userName, id, follower}) => <SearchBarButtonResult onClick={() => navigate(`/user/${id}`)}>
                 <ProfilePic alt='profile-picture' src={profilePicture} radius={39} />
                 <span>{userName}</span>
+                {follower ? <small>• following</small> : <></>}
             </SearchBarButtonResult>    
         )    
     }
@@ -50,7 +51,7 @@ const HeaderSearchBar = () => {
     return <SBWithDropdown>
         <SearchBarContainer onSubmit={submitHandler}>
             <SearchBarInput
-                placeholder='teste'
+                placeholder='Search for people'
                 onChange={changeHandler}
             />
             <SearchBarButton type='submit'>
@@ -174,6 +175,10 @@ const SearchBarButtonResult = styled(Button)`
         display: inline-block;
         vertical-align: middle;
         line-height: normal;
+    }
+    small {
+        font-size: 19px;
+        color: #C5C5C5;
     }
 `
 

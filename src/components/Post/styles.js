@@ -16,14 +16,19 @@ export const PostAside = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 18px;
+    white-space: nowrap;
+    width: 95px;
+
+    @media screen and (max-width: 600px) {
+        padding: 14px;
+    }
 `
 export const SubPostAside = styled.div`
     display: flex;
-    width: 80px;
     flex-direction: column;
     align-items: center;
     margin-top: 30%;
-    font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
     font-size: 11px;
@@ -52,9 +57,18 @@ export const PostContent = styled.div`
     flex-direction: column;
     word-break: break-all;
     flex-grow: 1;
+    color: #B7B7B7;
     span {
         font-weight: 700;
+        color: white;
     }
+    h3 {
+        color: white;
+        font-weight: 400;
+    }
+    padding-right: 21px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 `
 // talvez
 export const UrlPostContainer = styled.a`
@@ -94,6 +108,21 @@ export const UrlPostText = styled.div`
         font-family:var(--default-font);
         font-weight: 400;
         font-size: 11px;
+    }
+
+    @media screen and (max-width: 600px) {
+        padding: 7px 11px;
+
+        h4 {
+            font-size: 11px;
+        }
+        
+        p {
+            font-size: 9px;
+        }
+        small {
+            font-size: 9px;
+        }
     }
 `
 export const UrlPostImgFrame = styled.div`

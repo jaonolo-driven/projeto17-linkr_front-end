@@ -32,8 +32,8 @@ export default function Feed({postsList, setCurrentPage, loading}) {
 
     return (
             <FeedList>
-                {postsList?.map( post => {
-                    return <Post postINFO={post} key={post.id}/>;
+                {postsList?.map(post => {
+                    return <Post postINFO={post} key={`${post.isRepost ? `${post.whoRepostedId}:` : ''}${post.id}`}/>;
                 } )}
             </FeedList>
     );

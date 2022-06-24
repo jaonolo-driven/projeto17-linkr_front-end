@@ -16,11 +16,11 @@ export default function TrendingHashtags() {
         <SideBar>
             <h3>trending</h3>
             <SideBarLine/>
-            {trending.map( (hashtag) => {
+            {trending.map((hashtag) => {
                 const tag = hashtag.tag.split("#")[1];
                 return(
                     <p key={hashtag.tag}>
-                        <Link to={`/hashtag/${tag}`}>{hashtag.tag}</Link>
+                        <Link to={`/hashtag/${tag}`}># {tag}</Link>
                     </p>);
             })}
         </SideBar>
@@ -37,13 +37,18 @@ const SideBar = styled.aside`
     flex-direction: column;
     font-family: var(--default-font);
     color: #FFFFFF;
+    padding-top: 10px;
     padding-bottom: 30px;
     h3 {
         margin-left: 5%;
+        font-size: 27px;
+        font-family: var(--subtitle-font);
     }
     
     p {
         margin-left: 5%;
+        font-weight: 700;
+        font-size: 19px;
     }
 
     a {
@@ -60,5 +65,6 @@ const SideBarLine = styled.div`
     width: 100%;
     height: 1px;
     background-color: var(--line-grey);
-    margin-bottom: 5%;
+    margin-bottom: 22px;
+    margin-top: 12px
 `;

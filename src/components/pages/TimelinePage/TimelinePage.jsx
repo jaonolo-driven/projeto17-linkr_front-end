@@ -31,7 +31,7 @@ export default function TimelinePage({ updateState }) {
             //console.log(response.data);
         });
         promise.catch(error => console.log(error));
-    }, [currentPage]);
+    }, [currentPage, qtdNewPosts]);
 
     
 

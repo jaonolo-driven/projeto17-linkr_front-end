@@ -10,21 +10,8 @@ import { ProfilePic } from "../../styles/ProfilePic"
 const Header = () => { 
     const [dropDownState, setDropDownState] = useState(false)
     const [user, setUser] = useContext(UserContext)
-    const [avatar, setAvatar] = useState('')
+    const avatar = user.profilePicture
     const navigate = useNavigate()  
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/user`,
-        {
-            headers: {
-                Authorization: `Bearer ${user.token}`
-            }
-        }).then(({data}) => {
-            const {profilePicture} = data
-            setAvatar(profilePicture)
-            setUser({...user, profilePicture})
-        }).catch(e => console.log(e.data))
-    },[])
 
     const logout = () => {
         localStorage.removeItem('user')
@@ -111,6 +98,7 @@ const MobileHolder = styled.header`
     position: sticky;
     top: 0;
     background-color: var(--lighter-grey);
+    z-index: 2;
 
     @media screen and (min-width: 650px) {
         display: none

@@ -21,6 +21,7 @@ const LoginPage = () => {
             const response = await axios.post(process.env.REACT_APP_API_URL + '/login', state[0])
             localStorage.setItem('user', JSON.stringify(response.data))
             setUser(response.data)
+            console.log(response.data)
             navigate('/timeline')
         } catch (error) {
             const {response} = error

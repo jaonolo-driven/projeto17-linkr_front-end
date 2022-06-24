@@ -4,7 +4,7 @@ export const CountCommentsAndIcon = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50%;
+    margin-top: 18px;
 
     span {
         font-family: var(--default-font);

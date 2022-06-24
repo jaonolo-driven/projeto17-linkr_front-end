@@ -88,7 +88,7 @@ export default function Post(props){
                                             countComments={countComments}
                                             numberComments={postINFO.countComments}/>
 
-                        <RepostButton id={postINFO.id} numberReposts={postINFO.numberReposts}/>                      
+                        <RepostButton id={postINFO.id} numberReposts={postINFO.numberReposts} updateState={updateState}/>                      
                     </SubPostAside>
                 </PostAside>
                 <PostContent >

@@ -6,7 +6,7 @@ import TimeLine from "../../TimeLine/TimeLine";
 
 import useInterval from "react-useinterval";
 
-export default function TimelinePage() {
+export default function TimelinePage({ updateState }) {
 
     const [postsList, setPostsList] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -15,9 +15,9 @@ export default function TimelinePage() {
     const [newPosts, setNewPosts] = useState([]);
     const [qtdNewPosts, setQteNewPosts] = useState(0);
     const [newPostsExist, setNewPostsExist] = useState(false);
-
+    
     useInterval(getNewPosts, 15000)
-
+    
     const perPage = 10;
 
     useEffect(() => {
@@ -42,18 +42,14 @@ export default function TimelinePage() {
         promise.then(response => {
             console.log('teste', response.data)
             if(response.data.length > 0){
-                setNewPostsExist(true);
                 setNewPosts(response.data);
                 setQteNewPosts(response.data.length);
-            } else {
-                setNewPostsExist(false)
-                setQteNewPosts(0);
-                setNewPosts([]);
             }
         });
     }
-
+    
     return (<TimeLine
+                updateState={updateState}
                 title="timeline"
                 postsList={postsList}
                 setPostsList={setPostsList}

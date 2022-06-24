@@ -50,7 +50,7 @@ export default function Feed({postsList, setCurrentPage, loading, timeline, newP
 
     return (<>
             {
-                (newPostsExist)?(
+                (qtdNewPosts > 0)?(
                 <Button onClick={showNewPosts}> {qtdNewPosts} new posts, load more! <FiRefreshCw/></Button>):(<></>)
             }
             <FeedList>

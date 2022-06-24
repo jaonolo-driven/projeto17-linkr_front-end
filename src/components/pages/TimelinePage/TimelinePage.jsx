@@ -42,13 +42,8 @@ export default function TimelinePage({ updateState }) {
         promise.then(response => {
             console.log('teste', response.data)
             if(response.data.length > 0){
-                setNewPostsExist(true);
                 setNewPosts(response.data);
                 setQteNewPosts(response.data.length);
-            } else {
-                setNewPostsExist(false)
-                setQteNewPosts(0);
-                setNewPosts([]);
             }
         });
     }

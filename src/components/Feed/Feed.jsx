@@ -42,10 +42,11 @@ export default function Feed({postsList, setCurrentPage, loading, timeline, newP
     }
 
     async function showNewPosts(){
-    
         await setQteNewPosts(0);
-        setPostsList([...newPosts, ...postsList]);
-        setNewPostsExist(false)
+        updateState[1](!updateState[0])
+        /*
+        setPostsList([...newPosts, ...postsList]);*/
+        //setNewPostsExist(false)
     }
 
     return (<>

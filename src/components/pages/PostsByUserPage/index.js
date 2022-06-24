@@ -85,5 +85,6 @@ export default function PostsByUserPage(){
                 loading={loading}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage} 
+                timeline={false}
             />);
 }

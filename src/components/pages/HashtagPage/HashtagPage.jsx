@@ -53,5 +53,6 @@ export default function HashtagPage(){
                 loading={loading}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                timeline={false}
             />);
 }

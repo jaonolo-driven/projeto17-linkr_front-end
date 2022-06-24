@@ -33,5 +33,6 @@ export default function TimelinePage() {
                 loading={loading}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                timeline={true}
             />);
 }

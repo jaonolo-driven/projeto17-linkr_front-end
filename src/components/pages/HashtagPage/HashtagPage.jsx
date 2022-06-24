@@ -32,7 +32,19 @@ export default function HashtagPage(){
             setLoading(false);
         });
         promise.catch(error => console.log(error));
-    }, [currentPage, hashtag]);
+    }, [currentPage]);
+
+    useEffect(() => {
+        setLoading(true);
+        const config = {headers: { authorization: `Bearer ${userState.token}`}};
+        const URL = process.env.REACT_APP_API_URL+`/hashtag/${hashtag}?timestamp=2040-09-28T22:59:02.448804522Z`;
+        const promise = axios.get(URL, config);
+        promise.then(response => {
+            setPostsList(response.data);
+            setLoading(false);
+        });
+        promise.catch(error => console.log(error));
+    }, [hashtag]);
 
     return (<TimeLine
                 title={"# " + hashtag}

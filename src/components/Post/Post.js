@@ -56,7 +56,7 @@ export default function Post(props){
     function countComment(count){
         setCountComments(count);
     }
-console.log(countComments)
+
     return(
         <PostFather>
             {(postINFO.isRepost) ?     

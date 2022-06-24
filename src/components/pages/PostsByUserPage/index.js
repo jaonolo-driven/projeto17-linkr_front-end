@@ -31,26 +31,53 @@ export default function PostsByUserPage(){
     }, [id]); */
 
     useEffect(() => {
+        console.log('rodei')
         setLoading(true);
         const config = {headers: { authorization: `Bearer ${userState.token}`}};
         const URL = process.env.REACT_APP_API_URL+`/user/${id}?timestamp=` + currentPage;
         const promise = axios.get(URL, config);
         promise.then(response => {
+            console.log(response.data)
             setPostsList(previousPosts => [...previousPosts, ...response.data]);
             setLoading(false);
         });
         promise.catch(error => console.log(error));
-    }, [currentPage, id]);
+    }, [currentPage]);
+
+    useEffect(() => {
+        console.log('rodei')
+        setLoading(true);
+        const config = {headers: { authorization: `Bearer ${userState.token}`}};
+        const URL = process.env.REACT_APP_API_URL+`/user/${id}?timestamp=2040-09-28T22:59:02.448804522Z`;
+        const promise = axios.get(URL, config);
+        promise.then(response => {
+            console.log(response.data)
+            setPostsList(response.data);
+            setLoading(false);
+        });
+        promise.catch(error => console.log(error));
+    }, [id]);
 
     function title() {
-        if(postsList.length > 0) return postsList[0].userName + "'s posts";
+        if(postsList.length > 0) return (
+            (postsList[0].isRepost)?(
+                postsList[0].whoReposted
+            ):(
+                postsList[0].userName)
+            ) + "'s posts"
     }
 
     function profilePicture() {
-        if(postsList.length > 0) return postsList[0].profilePicture;
+        if(postsList.length > 0) return (
+            (postsList[0].isRepost)?(
+                postsList[0].userPictureResposted):(
+                postsList[0].profilePicture
+            )
+        )
     }
 
     return (<TimeLine
+                key={id}
                 title={title()}
                 profilePicture={profilePicture()}
                 postsList={postsList}

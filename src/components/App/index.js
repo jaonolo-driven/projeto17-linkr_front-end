@@ -21,7 +21,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AuthRoutesController needsUser={false}/>}>
-            {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}
             <Route path='/sign-up' element={<SignupPage/>}/>
             <Route path='/' element={<LoginPage/>}/>
             {/* Coloquem aqui as rotas que NÃO precisam de usuário logado pra serem acessadas */}

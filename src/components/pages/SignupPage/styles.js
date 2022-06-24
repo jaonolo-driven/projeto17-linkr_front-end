@@ -30,7 +30,7 @@ export const AsideContainer = styled.aside`
     }
 
     background-color: var(--darker-grey);
-    padding: 0 144px
+    padding: 0 144px;
 `
 
 export const FormContainer = styled.div`

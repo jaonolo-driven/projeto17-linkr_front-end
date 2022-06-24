@@ -14,9 +14,8 @@ export default function CommentsButton(props){
     const [user, setUser] = useContext(UserContext);
 
     function showComments(postId){
-        setCommentsBoxOpen(true)
+        setCommentsBoxOpen(!commentsBoxOpen)
         idClick(postId)
-    //TODO: CHAMAR O GET DE MOSTRAR OS COMENTÁRIOS
     }
 
     return (

@@ -32,7 +32,7 @@ const HeaderSearchBar = ({setDropDownState}) => {
 
     const onFocusOut = () => {
         console.log("saiu de foco");
-        setTimeout(() => setDropDownState((prev) => !prev), 5)
+        //setTimeout(() => setDropDownState((prev) => !prev), 5)
     }
 
     const changeHandler = debounce(onChange)

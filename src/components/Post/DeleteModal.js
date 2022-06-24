@@ -8,9 +8,10 @@ import { BiRepost } from "react-icons/bi";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
-const DeleteModal = ({ id, type }) => {
+const DeleteModal = ({ id, type, updateState }) => {
     const [showModal, setShowModal] = useState(false)
     const [modalLoad, setModalLoad] = useState(false)
+    const [update, setUpdate] = updateState
 
     const { token } = useContext(UserContext)[0]
 
@@ -24,6 +25,7 @@ const DeleteModal = ({ id, type }) => {
         promise.then(response => {
             setModalLoad(false)
             setShowModal(false)
+            setUpdate(!update)
         }).catch(e => {
             setModalLoad(false)
             setShowModal(false)

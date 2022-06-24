@@ -6,19 +6,21 @@ import Header from "../Header";
 import FollowButton from "../FollowButton/FollowButton";
 import Feed from "../Feed/Feed";
 import {LoadingPage, TimelineHTML, Title, MainContent, CenterHTML, SidebarWrapper, UserPageTitle} from "./style.js";
+import { useState } from "react";
 
 export default function TimeLine({ title, profilePicture, postsList, currentPage, setCurrentPage, createPost, loading, timeline, newPostsState, setPostsList, setQteNewPosts,  qtdNewPosts, newPosts, setNewPostsExist }){
-
+    const [update, setUpdate] = useState(false)
+    
     function renderTitle() {
-        if(!profilePicture)
-            return <Title> {title} </Title>;
-        return (
+        const followButton = FollowButton()
+
+        return ((!profilePicture) ? <Title> {title} </Title> :
             <UserPageTitle>        
                 <h1> 
                     <img src={profilePicture} />
                     {title} 
                 </h1>  
-                {FollowButton()}       
+                {followButton}       
             </UserPageTitle>
         );
     }
@@ -31,7 +33,7 @@ export default function TimeLine({ title, profilePicture, postsList, currentPage
                         {renderTitle()}
                             <SidebarWrapper>
                                 <div>
-                                    {createPost ? <PostForm/> : <></>}
+                                    {createPost ? <PostForm updateState={[update, setUpdate]} /> : <></>}
                                     <Feed
                                         timeline={timeline}
                                         postsList={postsList}
@@ -43,6 +45,7 @@ export default function TimeLine({ title, profilePicture, postsList, currentPage
                                         qtdNewPosts={qtdNewPosts}
                                         newPosts={newPosts}
                                         setNewPostsExist={setNewPostsExist}
+                                        updateState={[update, setUpdate]}
                                     />
                                     {loading ?
                                         (<LoadingPage>
@@ -56,7 +59,7 @@ export default function TimeLine({ title, profilePicture, postsList, currentPage
                                         </LoadingPage>) : <></>}
                                     <li id="sentinela"></li>
                                 </div>
-                                <TrendingHashtags />
+                                <TrendingHashtags update={update}/>
                             </SidebarWrapper>
                         </div>
                     </CenterHTML>

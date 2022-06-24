@@ -5,7 +5,7 @@ import axios from "axios"
 
 import Post from "../Post/Post";
 
-export default function Feed({postsList, setCurrentPage, loading, timeline, newPostsState, setPostsList, setQteNewPosts, qtdNewPosts, newPosts, setNewPostsExist}) {
+export default function Feed({postsList, setCurrentPage, loading, timeline, newPostsState, setPostsList, setQteNewPosts, qtdNewPosts, newPosts, setNewPostsExist, updateState}) {
 
     const [user, setUser] = useContext(UserContext)
     const postsListState = useRef();
@@ -54,7 +54,7 @@ export default function Feed({postsList, setCurrentPage, loading, timeline, newP
             }
             <FeedList>
                 {postsList?.map(post => {
-                    return <Post postINFO={post} key={`${post.isRepost ? `${post.whoRepostedId}:` : ''}${post.id}`}/>;
+                    return <Post postINFO={post} key={`${post.isRepost ? `${post.whoRepostedId}:` : ''}${post.id}`} updateState={updateState}/>;
                 } )}
             </FeedList>
     </>);

@@ -16,6 +16,7 @@ const SignupPage = () => {
         
         try {
             await axios.post(process.env.REACT_APP_API_URL + '/signup', state[0])
+            alert('Usuário cadastrado com sucesso')
             navigate('/')
         } catch (error) {
             const {response} = error

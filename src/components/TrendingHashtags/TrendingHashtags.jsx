@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-export default function TrendingHashtags() {
+export default function TrendingHashtags({update}) {
 
     const [trending, setTrending] = useState([]);
 
     useEffect(() => {
         const promisse = axios.get(process.env.REACT_APP_API_URL + "/trending-hashtags");
         promisse.then(response => setTrending(response.data));
-    }, []);
+    }, [update]);
 
     return(
         <SideBar>

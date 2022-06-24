@@ -63,6 +63,7 @@ const Follow = styled.div`
     font-weight: bold;
     color: white;
     background-color: #1877F2;
+    cursor: pointer;
 `;
 
 const Unfollow = styled.div`
@@ -74,6 +75,7 @@ const Unfollow = styled.div`
     font-weight: bold;
     color: #1877F2;
     background-color: white;
+    cursor: pointer;
 `;
 
 const Loading = styled.div`

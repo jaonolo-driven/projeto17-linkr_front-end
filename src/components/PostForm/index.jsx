@@ -4,12 +4,13 @@ import styled from "styled-components"
 import { ProfilePic } from '../../styles/ProfilePic'
 import { Card } from "../../styles/Card"
 
-export default function PostForm(){
+export default function PostForm({updateState}){
     const user = JSON.parse(localStorage.getItem('user'))
     const [link, setLink] = useState('')
     const [message, setMessage] = useState('')
     const [avatar, setAvatar] = useState('')
     const [disable, setDisable] = useState(false)
+    const [update, setUpdate] = updateState
 
     useEffect(() => {
         const promise = axios.get(`${process.env.REACT_APP_API_URL}/user`,
@@ -39,6 +40,7 @@ export default function PostForm(){
             setLink('')
             setMessage('')
             setDisable(false)
+            setUpdate(!update)
             console.log(response.data)
         })
         promise.catch(e => {
@@ -91,8 +93,7 @@ const Section = styled(Card)`
 const Title = styled.h2`
     font-size: 20px;
     color: #707070;
-    margin: 3px;
-    line-height: 40px;
+    margin: 22px 3px 12px 3px;
     font-weight: 300;
 `
 const Form = styled.form`
@@ -127,6 +128,7 @@ const Button = styled.button`
     padding: 5px;
     margin-top: 3px;
     height: 31px;
+    cursor: pointer;
 `
 
 const ButtonHolder = styled.div`

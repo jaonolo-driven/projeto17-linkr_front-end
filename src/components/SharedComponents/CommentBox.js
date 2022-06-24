@@ -139,6 +139,7 @@ const Button = styled.button`
     //padding: 5px;
     //margin-top: 3px;
     //height: 31px;
+    cursor: pointer;
 `
 
 const CommentsMain = styled.main`

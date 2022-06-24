@@ -78,6 +78,7 @@ export const UserPageTitle = styled.div`
     justify-content: space-between;
     margin-top: 60px;
     margin-bottom: 40px;
+    padding: 0 22px;
 
     h1 {
         display: flex;
@@ -93,6 +94,11 @@ export const UserPageTitle = styled.div`
         border-radius: 50%;
         margin-top: 10px;
         margin-right: 18px;
-        margin-left: 22px;
+    }
+
+    @media screen and (max-width: 650px) {
+        margin: 19px 0;
+        padding: 0 3%;
+        line-height: 60px;
     }
 `;

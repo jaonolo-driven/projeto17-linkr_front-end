@@ -22,7 +22,8 @@ export const StyledForm = styled.form`
 
     button {
         background-color: #1877F2;
-        color: white
+        color: white;
+        cursor: pointer;
     }
 
     a {

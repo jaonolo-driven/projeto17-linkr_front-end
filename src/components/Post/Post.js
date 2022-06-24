@@ -17,7 +17,7 @@ import CommentsBox from "../SharedComponents/CommentBox.js";
 import RepostButton from "./RepostButton.jsx";
 
 export default function Post(props){
-    const {postINFO} = props
+    const {postINFO, updateState} = props
 
     const user = useContext(UserContext)[0]
     const inputRef = useRef()
@@ -29,6 +29,7 @@ export default function Post(props){
     const [commentsBoxOpen, setCommentsBoxOpen] = useState(false);
     const [countComments, setCountComments] = useState();
     const [idPost, setIdPost] = useState();
+    const [update, setUpdate] = updateState;
 
     const {id, token} = user
 
@@ -98,7 +99,7 @@ export default function Post(props){
                         {(postINFO.userId === id) ?
                         <EditAndDel>
                             <RiEdit2Line color="white" cursor={'pointer'} onClick={() => changeEditPost()}/>
-                            <DeleteModal id={postINFO.id}/>
+                            <DeleteModal updateState={updateState} id={postINFO.id}/>
                         </EditAndDel>
                         :<></>}
                     </NameAndButtons> 
@@ -167,6 +168,7 @@ export default function Post(props){
         promise.then(response => {
             setEditPost(false)
             setDisable(false)
+            setUpdate(!update)
         }).catch(e => {
             alert(e.response.data.message)
             setDisable(false)

@@ -32,7 +32,7 @@ const HeaderSearchBar = ({setDropDownState}) => {
 
     const onFocusOut = () => {
         console.log("saiu de foco");
-        setDropDownState((prev) => !prev);
+        setTimeout(() => setDropDownState((prev) => !prev), 5)
     }
 
     const changeHandler = debounce(onChange)
@@ -59,7 +59,7 @@ const HeaderSearchBar = ({setDropDownState}) => {
             <SearchBarInput
                 placeholder='Search for people'
                 onChange={changeHandler}
-                onBlur={onFocusOut}
+                //onBlur={onFocusOut}
             />
             <SearchBarButton type='submit'>
                 <SearchBarIcon/>

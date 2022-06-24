@@ -9,6 +9,7 @@ import { ProfilePic } from "../../styles/ProfilePic"
 
 const Header = () => { 
     const [dropDownState, setDropDownState] = useState(false)
+    const [logOutDropDownState, setLogOutDropDownState] = useState(false);
     const [user, setUser] = useContext(UserContext)
     const avatar = user.profilePicture
     const navigate = useNavigate()  
@@ -28,11 +29,11 @@ const Header = () => {
             <h1>linkr</h1>
         </Link>
         {children}
-        <DropdownButton onClick={() => setDropDownState(!dropDownState)}  >
-            <HeaderDropdownIcon dropDownState={dropDownState}/>
+        <DropdownButton onClick={() => setLogOutDropDownState(!logOutDropDownState)}  >
+            <HeaderDropdownIcon dropDownState={logOutDropDownState}/>
             <ProfilePic alt='profile-picture' src={avatar} radius={53} />
         </DropdownButton>
-        <DropdownLogout state={dropDownState}>
+        <DropdownLogout state={logOutDropDownState}>
             <div onClick={myProfile}>my profile</div>
             <div onClick={logout}>logout</div>
         </DropdownLogout>
@@ -43,11 +44,11 @@ const Header = () => {
             <Link to="/">
                 <h1>linkr</h1>
             </Link>
-            <DropdownButton onClick={() => setDropDownState(!dropDownState)}  >
-                <HeaderDropdownIcon dropDownState={dropDownState}/>
+            <DropdownButton onClick={() => setLogOutDropDownState(!logOutDropDownState)}  >
+                <HeaderDropdownIcon dropDownState={logOutDropDownState}/>
                 <ProfilePic alt='profile-picture' src={avatar} radius={44} />
             </DropdownButton>
-            <DropdownLogout state={dropDownState}>
+            <DropdownLogout state={logOutDropDownState}>
                 <div onClick={myProfile}>my profile</div>
                 <div onClick={logout}>logout</div>
             </DropdownLogout>
@@ -59,8 +60,8 @@ const Header = () => {
 
     return <>
         {/* queria dividir o estado da searchbar sem subir ele pra esse componente, n consegui ;--; */}
-        <DesktopHeader><HeaderSearchBar/></DesktopHeader>
-        <MobileHeader><HeaderSearchBar/></MobileHeader>
+        <DesktopHeader><HeaderSearchBar setDropDownState={setDropDownState}/></DesktopHeader>
+        <MobileHeader><HeaderSearchBar setDropDownState={setDropDownState}/></MobileHeader>
     </>
 }
 

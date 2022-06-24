@@ -10,6 +10,6 @@ export const Card = styled.div`
     border-radius: 16px;
 
     //margin-bottom: 30px;
-    padding: 17px;
+    //padding: 17px 21px 20px 12px;
     // margin-bottom: 5%;
 `;

@@ -59,7 +59,7 @@ const HeaderSearchBar = ({setDropDownState}) => {
             <SearchBarInput
                 placeholder='Search for people'
                 onChange={changeHandler}
-                //onBlur={onFocusOut}
+                onBlur={onFocusOut}
             />
             <SearchBarButton type='submit'>
                 <SearchBarIcon/>

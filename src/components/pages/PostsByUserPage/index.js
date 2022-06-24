@@ -38,5 +38,6 @@ export default function PostsByUserPage(){
                 postsList={postsList}
                 setPostsList={setPostsList}
                 loading={loading} 
+                timeline={false}
             />);
 }

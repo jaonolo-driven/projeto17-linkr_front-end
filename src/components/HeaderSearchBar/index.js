@@ -8,7 +8,7 @@ import UserContext from '../../contexts/UserContext'
 import { ProfilePic } from '../../styles/ProfilePic'
 import { useNavigate } from 'react-router-dom'
 
-const HeaderSearchBar = () => {
+const HeaderSearchBar = ({setDropDownState}) => {
     const [searchResults, setSearchResults] = useState(null)
     const [user, setUser] = useContext(UserContext)
     const navigate = useNavigate()
@@ -28,6 +28,11 @@ const HeaderSearchBar = () => {
         if(target.value.length < 3) return setSearchResults(null)
         //if(searchResults !== 'loading') setSearchResults('loading')
         onSubmit(target.value)
+    }
+
+    const onFocusOut = () => {
+        console.log("saiu de foco");
+        setDropDownState((prev) => !prev);
     }
 
     const changeHandler = debounce(onChange)
@@ -54,6 +59,7 @@ const HeaderSearchBar = () => {
             <SearchBarInput
                 placeholder='Search for people'
                 onChange={changeHandler}
+                onBlur={onFocusOut}
             />
             <SearchBarButton type='submit'>
                 <SearchBarIcon/>
